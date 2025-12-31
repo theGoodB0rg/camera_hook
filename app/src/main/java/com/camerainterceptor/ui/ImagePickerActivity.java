@@ -31,9 +31,11 @@ public class ImagePickerActivity extends Activity {
     public static final String PREF_IMAGE_PATH = "injected_image_path";
     public static final String PREF_ENABLED = "interceptor_enabled";
     
-    // World-readable path in external storage
+    // World-readable paths - try multiple locations
     private static final String EXTERNAL_IMAGE_DIR = "/sdcard/.camerainterceptor";
     private static final String EXTERNAL_IMAGE_NAME = "injected_image.jpg";
+    // /data/local/tmp is world-readable on rooted/emulators
+    private static final String TMP_IMAGE_PATH = "/data/local/tmp/camerainterceptor_image.jpg";
 
     private ImageView imagePreview;
 
@@ -140,6 +142,23 @@ public class ImagePickerActivity extends Activity {
             externalDir.setExecutable(true, false);
             
             Logger.i(TAG, "Saved image to external storage: " + destFile.getAbsolutePath());
+            
+            // Also copy to /data/local/tmp which is world-readable on rooted devices
+            try {
+                File tmpFile = new File(TMP_IMAGE_PATH);
+                try (InputStream tmpIn = new FileInputStream(destFile);
+                        OutputStream tmpOut = new FileOutputStream(tmpFile)) {
+                    byte[] buf = new byte[4096];
+                    int len;
+                    while ((len = tmpIn.read(buf)) != -1) {
+                        tmpOut.write(buf, 0, len);
+                    }
+                }
+                tmpFile.setReadable(true, false);
+                Logger.i(TAG, "Saved image to tmp: " + TMP_IMAGE_PATH);
+            } catch (Exception tmpErr) {
+                Logger.w(TAG, "Could not copy to /data/local/tmp: " + tmpErr.getMessage());
+            }
 
             // Copy to internal storage as well
             try (InputStream in2 = new FileInputStream(destFile);

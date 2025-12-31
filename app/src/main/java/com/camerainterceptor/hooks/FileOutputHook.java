@@ -147,7 +147,9 @@ public class FileOutputHook {
                     new XC_MethodHook() {
                         @Override
                         protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
+                            // Skip if we're in our own image loading code
                             if (Boolean.TRUE.equals(isIntercepting.get())) return;
+                            if (HookDispatcher.isCurrentlyLoadingImage()) return;
                             
                             String targetPackage = dispatcher.getLoadPackageParam().packageName;
                             if (!dispatcher.isPackageAllowed(targetPackage)) {
@@ -155,7 +157,6 @@ public class FileOutputHook {
                             }
                             
                             if (!dispatcher.isInjectionEnabled()) {
-                                Logger.d(TAG, "Bitmap.compress: Injection disabled");
                                 return;
                             }
 
@@ -177,17 +178,19 @@ public class FileOutputHook {
                                     (targetFile != null ? " -> " + targetFile.getName() : ""));
 
                             byte[] injectedData = dispatcher.getPreSelectedImageBytes();
-                            if (injectedData != null) {
+                            if (injectedData != null && injectedData.length > 0) {
                                 try {
                                     isIntercepting.set(true);
                                     outputStream.write(injectedData);
                                     param.setResult(true);
-                                    Logger.i(TAG, "Successfully injected image via Bitmap.compress (" + injectedData.length + " bytes)");
+                                    Logger.i(TAG, "SUCCESS! Injected image via Bitmap.compress (" + injectedData.length + " bytes)");
                                 } catch (Throwable t) {
                                     Logger.e(TAG, "Failed to write injected data: " + t.getMessage());
                                 } finally {
                                     isIntercepting.set(false);
                                 }
+                            } else {
+                                Logger.w(TAG, "No injected data available from getPreSelectedImageBytes");
                             }
                         }
                     });

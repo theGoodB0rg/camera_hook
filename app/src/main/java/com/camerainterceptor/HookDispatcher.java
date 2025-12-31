@@ -86,42 +86,47 @@ public class HookDispatcher {
             return false;
         }
 
-        // First check: External storage (most reliable, world-readable)
-        File externalFile = new File(EXTERNAL_IMAGE_PATH);
-        if (externalFile.exists() && externalFile.canRead()) {
-            Logger.d(TAG, "Found injected image at external path: " + EXTERNAL_IMAGE_PATH);
-            return true;
-        }
-
-        // Try to get image path from prefs
-        String path = null;
-        if (prefs != null) {
-            prefs.reload();
-            path = prefs.getString(PREF_IMAGE_PATH, null);
-        }
-        
-        // Check if pref path exists
-        if (path != null && new File(path).exists() && new File(path).canRead()) {
-            Logger.d(TAG, "Found injected image from prefs: " + path);
-            return true;
-        }
-        
-        // Fallback: check other standard locations
-        File[] fallbackPaths = new File[] {
-            new File("/storage/emulated/0/.camerainterceptor/injected_image.jpg"),
-            new File("/data/user/0/" + PACKAGE_NAME + "/files/injected_image.jpg"),
-            new File("/data/data/" + PACKAGE_NAME + "/files/injected_image.jpg"),
-            new File("/data/user_de/0/" + PACKAGE_NAME + "/files/injected_image.jpg"),
+        // Check all possible paths for the injected image
+        // /data/local/tmp is first because it's most reliably world-readable
+        String[] possiblePaths = new String[] {
+            "/data/local/tmp/camerainterceptor_image.jpg",
+            "/sdcard/.camerainterceptor/injected_image.jpg",
+            "/storage/emulated/0/.camerainterceptor/injected_image.jpg",
+            "/storage/sdcard0/.camerainterceptor/injected_image.jpg",
+            "/mnt/sdcard/.camerainterceptor/injected_image.jpg",
+            "/data/media/0/.camerainterceptor/injected_image.jpg",
+            "/data/user/0/" + PACKAGE_NAME + "/files/injected_image.jpg",
+            "/data/data/" + PACKAGE_NAME + "/files/injected_image.jpg",
+            "/data/user_de/0/" + PACKAGE_NAME + "/files/injected_image.jpg",
         };
         
-        for (File fallback : fallbackPaths) {
-            if (fallback.exists() && fallback.canRead()) {
-                Logger.i(TAG, "Found injected image at fallback path: " + fallback.getAbsolutePath());
+        for (String p : possiblePaths) {
+            File f = new File(p);
+            boolean exists = f.exists();
+            boolean canRead = exists && f.canRead();
+            if (exists) {
+                Logger.d(TAG, "Path check: " + p + " exists=" + exists + " canRead=" + canRead);
+            }
+            if (canRead) {
+                Logger.i(TAG, "Found readable injected image at: " + p);
                 return true;
             }
         }
+
+        // Try to get image path from prefs
+        if (prefs != null) {
+            prefs.reload();
+            String path = prefs.getString(PREF_IMAGE_PATH, null);
+            if (path != null) {
+                File f = new File(path);
+                if (f.exists() && f.canRead()) {
+                    Logger.i(TAG, "Found injected image from prefs: " + path);
+                    return true;
+                }
+            }
+        }
         
-        Logger.d(TAG, "No injected image path configured or file missing (checked prefs and fallbacks)");
+        Logger.d(TAG, "No injected image path configured or file missing (checked all paths)");
         return false;
     }
 
@@ -153,13 +158,6 @@ public class HookDispatcher {
      */
     public void getPreSelectedImage(HookCallback callback) {
         try {
-            if (prefs == null) {
-                if (callback != null)
-                    callback.onError(new IllegalStateException("Prefs not initialized"));
-                return;
-            }
-
-            prefs.reload();
             if (!isPackageAllowedInPrefs(lpparam.packageName)) {
                 Logger.i(TAG, "Package not in allowed list: " + lpparam.packageName);
                 if (callback != null) {
@@ -167,48 +165,54 @@ public class HookDispatcher {
                 }
                 return;
             }
-            String path = prefs.getString(PREF_IMAGE_PATH, null);
+            
+            // Use the same path resolution as getPreSelectedImageBytes
+            String path = findInjectableImagePath();
 
             if (path == null) {
+                Logger.w(TAG, "getPreSelectedImage: No image path found");
                 if (callback != null)
                     callback.onImageSelectionCancelled();
                 return;
             }
 
-            File imgFile = new File(path);
-            if (!imgFile.exists() || !imgFile.canRead()) {
-                Logger.e(TAG, "Image file not found or not readable: " + path);
-                if (callback != null)
-                    callback.onError(new IllegalStateException("File unreadable"));
-                return;
-            }
-
             Logger.i(TAG, "Loading pre-selected image from: " + path);
 
-            // processSelectedImage expects a Uri usually, but we have a raw file path.
-            // We should load bytes directly.
+            // Set flag to prevent recursion when reading
+            isLoadingImage.set(true);
+            
+            try {
+                // Read raw bytes from file
+                File file = new File(path);
+                byte[] imageData = new byte[(int) file.length()];
+                
+                java.io.FileInputStream fis = new java.io.FileInputStream(file);
+                int bytesRead = 0;
+                int totalRead = 0;
+                while (totalRead < imageData.length && (bytesRead = fis.read(imageData, totalRead, imageData.length - totalRead)) != -1) {
+                    totalRead += bytesRead;
+                }
+                fis.close();
 
-            Bitmap bitmap = BitmapFactory.decodeFile(path);
-            if (bitmap == null) {
-                if (callback != null)
-                    callback.onError(new IllegalStateException("Failed to decode bitmap"));
-                return;
+                // Get dimensions by decoding just the bounds
+                BitmapFactory.Options opts = new BitmapFactory.Options();
+                opts.inJustDecodeBounds = true;
+                BitmapFactory.decodeFile(path, opts);
+
+                // Create metadata
+                ImageUtils.ImageMetadata metadata = ImageUtils.createFakeMetadata();
+                metadata.width = opts.outWidth;
+                metadata.height = opts.outHeight;
+
+                Logger.i(TAG, "Successfully loaded image: " + imageData.length + " bytes, " + 
+                        opts.outWidth + "x" + opts.outHeight);
+
+                if (callback != null) {
+                    callback.onImageSelected(imageData, metadata);
+                }
+            } finally {
+                isLoadingImage.set(false);
             }
-
-            ByteArrayOutputStream stream = new ByteArrayOutputStream();
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
-            byte[] imageData = stream.toByteArray();
-
-            // Create metadata
-            ImageUtils.ImageMetadata metadata = ImageUtils.createFakeMetadata();
-            metadata.width = bitmap.getWidth();
-            metadata.height = bitmap.getHeight();
-
-            if (callback != null) {
-                callback.onImageSelected(imageData, metadata);
-            }
-
-            bitmap.recycle();
 
         } catch (Throwable t) {
             Logger.e(TAG, "Error loading pre-selected image: " + t.getMessage());
@@ -218,74 +222,108 @@ public class HookDispatcher {
             }
         }
     }
+    
+    /**
+     * Find the path to an injectable image, checking all possible locations
+     */
+    private String findInjectableImagePath() {
+        // Check all possible paths
+        String[] possiblePaths = new String[] {
+            "/data/local/tmp/camerainterceptor_image.jpg",
+            "/sdcard/.camerainterceptor/injected_image.jpg",
+            "/storage/emulated/0/.camerainterceptor/injected_image.jpg",
+            "/storage/sdcard0/.camerainterceptor/injected_image.jpg",
+            "/mnt/sdcard/.camerainterceptor/injected_image.jpg",
+            "/data/media/0/.camerainterceptor/injected_image.jpg",
+            "/data/user/0/" + PACKAGE_NAME + "/files/injected_image.jpg",
+            "/data/data/" + PACKAGE_NAME + "/files/injected_image.jpg",
+            "/data/user_de/0/" + PACKAGE_NAME + "/files/injected_image.jpg",
+        };
+        
+        for (String p : possiblePaths) {
+            File f = new File(p);
+            if (f.exists() && f.canRead()) {
+                Logger.d(TAG, "findInjectableImagePath: found at " + p);
+                return p;
+            }
+        }
+        
+        // Try prefs as last resort
+        if (prefs != null) {
+            prefs.reload();
+            String path = prefs.getString(PREF_IMAGE_PATH, null);
+            if (path != null) {
+                File f = new File(path);
+                if (f.exists() && f.canRead()) {
+                    Logger.d(TAG, "findInjectableImagePath: found from prefs at " + path);
+                    return path;
+                }
+            }
+        }
+        
+        return null;
+    }
+
+    // Flag to prevent recursion when our own code triggers hooked methods
+    private static final ThreadLocal<Boolean> isLoadingImage = new ThreadLocal<Boolean>() {
+        @Override
+        protected Boolean initialValue() {
+            return false;
+        }
+    };
+    
+    public static boolean isCurrentlyLoadingImage() {
+        return Boolean.TRUE.equals(isLoadingImage.get());
+    }
 
     /**
      * Load pre-selected image synchronously (for Camera2 hooks)
+     * Reads raw bytes from file to avoid triggering Bitmap.compress hooks
      */
     public byte[] getPreSelectedImageBytes() {
         if (!isPackageAllowedInPrefs(lpparam.packageName)) {
             return null;
         }
+        
+        // Prevent recursion
+        if (Boolean.TRUE.equals(isLoadingImage.get())) {
+            return null;
+        }
 
         try {
-            String path = null;
+            isLoadingImage.set(true);
             
-            // First priority: External storage (world-readable)
-            File externalFile = new File(EXTERNAL_IMAGE_PATH);
-            if (externalFile.exists() && externalFile.canRead()) {
-                path = EXTERNAL_IMAGE_PATH;
-                Logger.i(TAG, "Loading image from external storage: " + path);
-            }
-            
-            // Second: Try prefs
-            if (path == null && prefs != null) {
-                prefs.reload();
-                String prefPath = prefs.getString(PREF_IMAGE_PATH, null);
-                if (prefPath != null && new File(prefPath).exists() && new File(prefPath).canRead()) {
-                    path = prefPath;
-                    Logger.d(TAG, "Loading image from prefs path: " + path);
-                }
-            }
-            
-            // Third: Fallback locations
-            if (path == null) {
-                File[] fallbackPaths = new File[] {
-                    new File("/storage/emulated/0/.camerainterceptor/injected_image.jpg"),
-                    new File("/data/user/0/" + PACKAGE_NAME + "/files/injected_image.jpg"),
-                    new File("/data/data/" + PACKAGE_NAME + "/files/injected_image.jpg"),
-                    new File("/data/user_de/0/" + PACKAGE_NAME + "/files/injected_image.jpg"),
-                };
-                
-                for (File fallback : fallbackPaths) {
-                    if (fallback.exists() && fallback.canRead()) {
-                        path = fallback.getAbsolutePath();
-                        Logger.i(TAG, "Using fallback image path: " + path);
-                        break;
-                    }
-                }
-            }
+            String path = findInjectableImagePath();
             
             if (path == null) {
-                Logger.w(TAG, "No readable image file found at any location");
+                Logger.w(TAG, "getPreSelectedImageBytes: No readable image file found");
                 return null;
             }
 
-            Bitmap bitmap = BitmapFactory.decodeFile(path);
-            if (bitmap == null) {
-                Logger.e(TAG, "Failed to decode bitmap from: " + path);
+            // Read raw file bytes - the file is already JPEG
+            File file = new File(path);
+            byte[] data = new byte[(int) file.length()];
+            
+            java.io.FileInputStream fis = new java.io.FileInputStream(file);
+            int bytesRead = 0;
+            int totalRead = 0;
+            while (totalRead < data.length && (bytesRead = fis.read(data, totalRead, data.length - totalRead)) != -1) {
+                totalRead += bytesRead;
+            }
+            fis.close();
+            
+            if (totalRead != data.length) {
+                Logger.e(TAG, "Failed to read complete file: read " + totalRead + " of " + data.length);
                 return null;
             }
-
-            ByteArrayOutputStream stream = new ByteArrayOutputStream();
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 95, stream);
-            byte[] data = stream.toByteArray();
-            bitmap.recycle();
             
             Logger.i(TAG, "Loaded injected image: " + data.length + " bytes from " + path);
             return data;
         } catch (Exception e) {
             Logger.e(TAG, "Error reading image sync: " + e.getMessage());
             return null;
+        } finally {
+            isLoadingImage.set(false);
         }
     }
 
