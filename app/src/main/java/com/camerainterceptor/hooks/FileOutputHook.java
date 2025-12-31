@@ -16,6 +16,8 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileDescriptor;
 import java.io.FileOutputStream;
+import java.io.FilterOutputStream;
+import java.io.IOException;
 import java.io.OutputStream;
 
 import de.robv.android.xposed.XC_MethodHook;
@@ -37,6 +39,9 @@ public class FileOutputHook {
             return false;
         }
     };
+    
+    // Track URIs that are image saves (from ContentResolver.insert)
+    private static final ThreadLocal<Uri> pendingImageUri = new ThreadLocal<>();
 
     public FileOutputHook(HookDispatcher dispatcher) {
         this.dispatcher = dispatcher;
@@ -50,11 +55,17 @@ public class FileOutputHook {
             // Hook FileOutputStream write methods for JPEG files
             hookFileOutputStream();
             
-            // Hook ContentResolver insert for MediaStore saves
+            // Hook ContentResolver for MediaStore saves (Google Camera, etc.)
             hookContentResolver();
+            
+            // Hook ContentResolver.openOutputStream for MediaStore writes
+            hookContentResolverOpenOutputStream();
             
             // Hook Bitmap.compress which many apps use
             hookBitmapCompress();
+            
+            // Hook generic OutputStream.write for wrapped streams
+            hookOutputStreamWrite();
 
             Logger.i(TAG, "File output hooks initialized successfully");
         } catch (Throwable t) {
@@ -117,25 +128,134 @@ public class FileOutputHook {
 
     private void hookContentResolver() {
         try {
-            // Hook ContentResolver.insert for MediaStore saves
+            // Hook ContentResolver.insert for MediaStore saves - track when an image entry is created
             XposedHelpers.findAndHookMethod(ContentResolver.class, "insert",
                     Uri.class, ContentValues.class,
                     new XC_MethodHook() {
                         @Override
-                        protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
-                            Uri uri = (Uri) param.args[0];
-                            if (uri != null && uri.toString().contains("images")) {
-                                ContentValues values = (ContentValues) param.args[1];
-                                if (values != null) {
-                                    String displayName = values.getAsString(MediaStore.Images.Media.DISPLAY_NAME);
-                                    Logger.d(TAG, "ContentResolver.insert for image: " + displayName);
+                        protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+                            Uri tableUri = (Uri) param.args[0];
+                            Uri resultUri = (Uri) param.getResult();
+                            
+                            if (tableUri != null && resultUri != null) {
+                                String uriStr = tableUri.toString().toLowerCase();
+                                if (uriStr.contains("images") || uriStr.contains("media")) {
+                                    ContentValues values = (ContentValues) param.args[1];
+                                    String displayName = values != null ? 
+                                            values.getAsString(MediaStore.Images.Media.DISPLAY_NAME) : "unknown";
+                                    String mimeType = values != null ?
+                                            values.getAsString(MediaStore.Images.Media.MIME_TYPE) : "unknown";
+                                    
+                                    Logger.i(TAG, "ContentResolver.insert created image entry: " + displayName + 
+                                            " (mime: " + mimeType + ") -> " + resultUri);
+                                    
+                                    // Mark this URI as pending image save
+                                    if (dispatcher.isInjectionEnabled()) {
+                                        pendingImageUri.set(resultUri);
+                                        Logger.i(TAG, "Marked URI for interception: " + resultUri);
+                                    }
                                 }
                             }
                         }
                     });
 
         } catch (Throwable t) {
-            Logger.e(TAG, "Failed to hook ContentResolver: " + t.getMessage());
+            Logger.e(TAG, "Failed to hook ContentResolver.insert: " + t.getMessage());
+        }
+    }
+    
+    private void hookContentResolverOpenOutputStream() {
+        try {
+            // Hook openOutputStream(Uri) - this is what Google Camera uses
+            XposedHelpers.findAndHookMethod(ContentResolver.class, "openOutputStream",
+                    Uri.class,
+                    new XC_MethodHook() {
+                        @Override
+                        protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+                            Uri uri = (Uri) param.args[0];
+                            OutputStream originalStream = (OutputStream) param.getResult();
+                            
+                            if (uri != null && originalStream != null && dispatcher.isInjectionEnabled()) {
+                                String uriStr = uri.toString().toLowerCase();
+                                if (uriStr.contains("images") || uriStr.contains("media") || 
+                                    uriStr.contains("dcim") || uriStr.contains("camera")) {
+                                    Logger.i(TAG, "ContentResolver.openOutputStream for image URI: " + uri);
+                                    
+                                    // Wrap the output stream to intercept writes
+                                    OutputStream wrappedStream = new InterceptingOutputStream(originalStream, dispatcher, uri.toString());
+                                    param.setResult(wrappedStream);
+                                    Logger.i(TAG, "Wrapped OutputStream for image interception");
+                                }
+                            }
+                        }
+                    });
+            
+            // Also hook the version with mode parameter
+            XposedHelpers.findAndHookMethod(ContentResolver.class, "openOutputStream",
+                    Uri.class, String.class,
+                    new XC_MethodHook() {
+                        @Override
+                        protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+                            Uri uri = (Uri) param.args[0];
+                            OutputStream originalStream = (OutputStream) param.getResult();
+                            
+                            if (uri != null && originalStream != null && dispatcher.isInjectionEnabled()) {
+                                String uriStr = uri.toString().toLowerCase();
+                                if (uriStr.contains("images") || uriStr.contains("media") ||
+                                    uriStr.contains("dcim") || uriStr.contains("camera")) {
+                                    Logger.i(TAG, "ContentResolver.openOutputStream (with mode) for image URI: " + uri);
+                                    
+                                    // Wrap the output stream to intercept writes
+                                    OutputStream wrappedStream = new InterceptingOutputStream(originalStream, dispatcher, uri.toString());
+                                    param.setResult(wrappedStream);
+                                    Logger.i(TAG, "Wrapped OutputStream for image interception");
+                                }
+                            }
+                        }
+                    });
+
+        } catch (Throwable t) {
+            Logger.e(TAG, "Failed to hook ContentResolver.openOutputStream: " + t.getMessage());
+        }
+    }
+    
+    private void hookOutputStreamWrite() {
+        try {
+            // Hook OutputStream.write(byte[], int, int) to catch bulk writes
+            XposedBridge.hookAllMethods(OutputStream.class, "write", new XC_MethodHook() {
+                @Override
+                protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
+                    if (Boolean.TRUE.equals(isIntercepting.get())) return;
+                    if (HookDispatcher.isCurrentlyLoadingImage()) return;
+                    
+                    // Only process if we have a pending image URI
+                    Uri pending = pendingImageUri.get();
+                    if (pending == null) return;
+                    
+                    // Check if this is a byte array write with JPEG signature
+                    if (param.args.length >= 1 && param.args[0] instanceof byte[]) {
+                        byte[] data = (byte[]) param.args[0];
+                        if (data != null && data.length > 100 && isJpegData(data)) {
+                            Logger.i(TAG, "Detected JPEG write to pending URI: " + pending);
+                            
+                            if (dispatcher.isInjectionEnabled()) {
+                                byte[] injectedData = dispatcher.getPreSelectedImageBytes();
+                                if (injectedData != null && injectedData.length > 0) {
+                                    param.args[0] = injectedData;
+                                    if (param.args.length >= 3) {
+                                        param.args[1] = 0; // offset
+                                        param.args[2] = injectedData.length; // length
+                                    }
+                                    Logger.i(TAG, "SUCCESS! Replaced JPEG data via OutputStream.write (" + injectedData.length + " bytes)");
+                                    pendingImageUri.remove(); // Clear after injection
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        } catch (Throwable t) {
+            Logger.e(TAG, "Failed to hook OutputStream.write: " + t.getMessage());
         }
     }
 
@@ -238,5 +358,92 @@ public class FileOutputHook {
         return (data[0] & 0xFF) == 0xFF && 
                (data[1] & 0xFF) == 0xD8 && 
                (data[2] & 0xFF) == 0xFF;
+    }
+    
+    /**
+     * Custom OutputStream wrapper that intercepts image data written to MediaStore
+     */
+    private static class InterceptingOutputStream extends FilterOutputStream {
+        private final HookDispatcher dispatcher;
+        private final String uriString;
+        private final ByteArrayOutputStream buffer;
+        private boolean injected = false;
+        private boolean firstWrite = true;
+        
+        public InterceptingOutputStream(OutputStream out, HookDispatcher dispatcher, String uriString) {
+            super(out);
+            this.dispatcher = dispatcher;
+            this.uriString = uriString;
+            this.buffer = new ByteArrayOutputStream();
+            Logger.d(TAG, "InterceptingOutputStream created for: " + uriString);
+        }
+        
+        @Override
+        public void write(int b) throws IOException {
+            if (!injected) {
+                buffer.write(b);
+                // Check if we have enough data to detect JPEG
+                if (buffer.size() >= 3 && firstWrite) {
+                    firstWrite = false;
+                    byte[] data = buffer.toByteArray();
+                    if (isJpegHeader(data)) {
+                        Logger.i(TAG, "Detected JPEG stream write to: " + uriString);
+                    }
+                }
+            }
+            super.write(b);
+        }
+        
+        @Override
+        public void write(byte[] b) throws IOException {
+            write(b, 0, b.length);
+        }
+        
+        @Override
+        public void write(byte[] b, int off, int len) throws IOException {
+            if (HookDispatcher.isCurrentlyLoadingImage()) {
+                super.write(b, off, len);
+                return;
+            }
+            
+            if (!injected && b != null && len > 100) {
+                // Check if this is JPEG data
+                if (off == 0 && len >= 3 && isJpegHeader(b)) {
+                    Logger.i(TAG, "Intercepting JPEG write (" + len + " bytes) to: " + uriString);
+                    
+                    if (dispatcher.isInjectionEnabled()) {
+                        byte[] injectedData = dispatcher.getPreSelectedImageBytes();
+                        if (injectedData != null && injectedData.length > 0) {
+                            // Write our injected data instead
+                            super.write(injectedData, 0, injectedData.length);
+                            injected = true;
+                            Logger.i(TAG, "SUCCESS! Injected image via InterceptingOutputStream (" + 
+                                    injectedData.length + " bytes, replaced " + len + " bytes)");
+                            return; // Don't write original data
+                        }
+                    }
+                }
+            }
+            
+            // Pass through original data if not injected
+            if (!injected) {
+                super.write(b, off, len);
+            }
+        }
+        
+        @Override
+        public void close() throws IOException {
+            if (injected) {
+                Logger.i(TAG, "InterceptingOutputStream closed (injection was successful)");
+            }
+            super.close();
+        }
+        
+        private static boolean isJpegHeader(byte[] data) {
+            if (data == null || data.length < 3) return false;
+            return (data[0] & 0xFF) == 0xFF && 
+                   (data[1] & 0xFF) == 0xD8 && 
+                   (data[2] & 0xFF) == 0xFF;
+        }
     }
 }

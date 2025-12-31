@@ -278,7 +278,7 @@ public class HookDispatcher {
 
     /**
      * Load pre-selected image synchronously (for Camera2 hooks)
-     * Reads raw bytes from file to avoid triggering Bitmap.compress hooks
+     * Reads raw bytes from file - validates JPEG format and converts if needed
      */
     public byte[] getPreSelectedImageBytes() {
         if (!isPackageAllowedInPrefs(lpparam.packageName)) {
@@ -300,7 +300,7 @@ public class HookDispatcher {
                 return null;
             }
 
-            // Read raw file bytes - the file is already JPEG
+            // Read raw file bytes
             File file = new File(path);
             byte[] data = new byte[(int) file.length()];
             
@@ -317,6 +317,16 @@ public class HookDispatcher {
                 return null;
             }
             
+            // Validate that data is JPEG (magic bytes: FF D8 FF)
+            if (!isValidJpeg(data)) {
+                Logger.w(TAG, "File is not JPEG format, converting...");
+                data = convertToJpeg(data);
+                if (data == null) {
+                    Logger.e(TAG, "Failed to convert image to JPEG");
+                    return null;
+                }
+            }
+            
             Logger.i(TAG, "Loaded injected image: " + data.length + " bytes from " + path);
             return data;
         } catch (Exception e) {
@@ -324,6 +334,41 @@ public class HookDispatcher {
             return null;
         } finally {
             isLoadingImage.set(false);
+        }
+    }
+    
+    /**
+     * Check if byte array is valid JPEG data
+     */
+    private boolean isValidJpeg(byte[] data) {
+        if (data == null || data.length < 3) return false;
+        // JPEG magic bytes: FF D8 FF
+        return (data[0] & 0xFF) == 0xFF && 
+               (data[1] & 0xFF) == 0xD8 && 
+               (data[2] & 0xFF) == 0xFF;
+    }
+    
+    /**
+     * Convert any image data to JPEG format
+     */
+    private byte[] convertToJpeg(byte[] inputData) {
+        try {
+            Bitmap bitmap = BitmapFactory.decodeByteArray(inputData, 0, inputData.length);
+            if (bitmap == null) {
+                Logger.e(TAG, "Failed to decode image for conversion");
+                return null;
+            }
+            
+            ByteArrayOutputStream stream = new ByteArrayOutputStream();
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 95, stream);
+            byte[] jpegData = stream.toByteArray();
+            bitmap.recycle();
+            
+            Logger.i(TAG, "Converted image to JPEG: " + jpegData.length + " bytes");
+            return jpegData;
+        } catch (Exception e) {
+            Logger.e(TAG, "Error converting to JPEG: " + e.getMessage());
+            return null;
         }
     }
 

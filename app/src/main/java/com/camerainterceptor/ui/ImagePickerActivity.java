@@ -121,20 +121,34 @@ public class ImagePickerActivity extends Activity {
             File internalFile = new File(getFilesDir(), "injected_image.jpg");
             File dpFile = getDeviceProtectedFile();
 
-            try (InputStream inputStream = getContentResolver().openInputStream(uri);
-                    OutputStream outputStream = new FileOutputStream(destFile)) {
-
+            // IMPORTANT: Always convert to JPEG regardless of input format
+            // Camera apps expect JPEG data, so PNG/WEBP/etc must be converted
+            Bitmap bitmap = null;
+            try (InputStream inputStream = getContentResolver().openInputStream(uri)) {
                 if (inputStream == null) {
                     Toast.makeText(this, "Failed to open image", Toast.LENGTH_SHORT).show();
                     return;
                 }
-
-                byte[] buffer = new byte[4096];
-                int bytesRead;
-                while ((bytesRead = inputStream.read(buffer)) != -1) {
-                    outputStream.write(buffer, 0, bytesRead);
+                bitmap = BitmapFactory.decodeStream(inputStream);
+            }
+            
+            if (bitmap == null) {
+                Toast.makeText(this, "Failed to decode image", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            
+            // Save as JPEG with high quality
+            try (FileOutputStream outputStream = new FileOutputStream(destFile)) {
+                boolean success = bitmap.compress(Bitmap.CompressFormat.JPEG, 95, outputStream);
+                if (!success) {
+                    Toast.makeText(this, "Failed to save image as JPEG", Toast.LENGTH_SHORT).show();
+                    bitmap.recycle();
+                    return;
                 }
             }
+            
+            Logger.i(TAG, "Converted and saved image as JPEG: " + bitmap.getWidth() + "x" + bitmap.getHeight());
+            bitmap.recycle();
             
             // Make external file world-readable
             destFile.setReadable(true, false);
