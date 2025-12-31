@@ -2,6 +2,11 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
     <PreferenceCategory android:title="General Settings">
+        <Preference
+            android:key="select_image"
+            android:title="Select Injection Image"
+            android:summary="Choose the image to be injected into camera previews/captures" />
+
         <SwitchPreference
             android:key="enable_module"
             android:title="Enable Camera Interceptor"
