@@ -29,6 +29,18 @@
             android:exported="false"
             android:theme="@style/Theme.AppCompat.Dialog" />
 
+        <!-- App selection activity -->
+        <activity
+            android:name=".ui.AppSelectionActivity"
+            android:exported="false"
+            android:label="Select Apps" />
+
+        <!-- Log viewer activity -->
+        <activity
+            android:name=".ui.LogViewerActivity"
+            android:exported="false"
+            android:label="Logs" />
+
         <!-- LSPosed module metadata -->
         <meta-data
             android:name="xposedmodule"

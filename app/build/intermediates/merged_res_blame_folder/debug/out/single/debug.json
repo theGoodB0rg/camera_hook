@@ -6,5 +6,13 @@
     {
         "merged": "com.camerainterceptor.app-merged_res-31:/layout_activity_picker.xml.flat",
         "source": "com.camerainterceptor.app-main-33:/layout/activity_picker.xml"
+    },
+    {
+        "merged": "com.camerainterceptor.app-merged_res-31:/layout_activity_app_selection.xml.flat",
+        "source": "com.camerainterceptor.app-main-33:/layout/activity_app_selection.xml"
+    },
+    {
+        "merged": "com.camerainterceptor.app-merged_res-31:/layout_activity_log_viewer.xml.flat",
+        "source": "com.camerainterceptor.app-main-33:/layout/activity_log_viewer.xml"
     }
 ]

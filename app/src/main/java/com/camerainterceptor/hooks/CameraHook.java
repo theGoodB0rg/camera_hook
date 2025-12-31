@@ -58,7 +58,14 @@ public class CameraHook {
             XposedBridge.hookMethod(takePictureMethod, new XC_MethodHook() {
                 @Override
                 protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
+                    String targetPackage = dispatcher.getLoadPackageParam().packageName;
+                    if (!dispatcher.isPackageAllowed(targetPackage)) {
+                        Logger.d(TAG, "Package not allowed for injection: " + targetPackage);
+                        return;
+                    }
+
                     if (!dispatcher.isInjectionEnabled()) {
+                        Logger.d(TAG, "Injection disabled or no image available");
                         return;
                     }
 
@@ -73,7 +80,7 @@ public class CameraHook {
                         param.setResult(null);
 
                         // Inject pre-selected image
-                        Logger.i(TAG, "Injecting pre-selected image...");
+                        Logger.i(TAG, "Injecting pre-selected image into Camera API");
 
                         dispatcher.getPreSelectedImage(new HookCallback() {
                             @Override

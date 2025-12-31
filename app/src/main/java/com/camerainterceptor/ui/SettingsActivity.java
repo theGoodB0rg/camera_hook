@@ -139,6 +139,28 @@ public class SettingsActivity extends Activity {
                     return true;
                 });
             }
+
+            // Handle App Selection Click
+            android.preference.Preference selectApps = findPreference("select_apps");
+            if (selectApps != null) {
+                selectApps.setOnPreferenceClickListener(preference -> {
+                    android.content.Intent intent = new android.content.Intent(getActivity(),
+                            com.camerainterceptor.ui.AppSelectionActivity.class);
+                    startActivity(intent);
+                    return true;
+                });
+            }
+
+            // Handle View Logs Click
+            android.preference.Preference viewLogs = findPreference("view_logs");
+            if (viewLogs != null) {
+                viewLogs.setOnPreferenceClickListener(preference -> {
+                    android.content.Intent intent = new android.content.Intent(getActivity(),
+                            com.camerainterceptor.ui.LogViewerActivity.class);
+                    startActivity(intent);
+                    return true;
+                });
+            }
         }
     }
 
