@@ -1,0 +1,18 @@
+R_DEF: Internal format may change without notice
+local
+array xposed_scope
+id button_cancel
+id button_gallery
+id text_info
+layout activity_picker
+string app_name
+string camera_intercepted
+string cancel
+string error_selecting_image
+string no_gallery_app
+string notification_text
+string notification_title
+string permission_required
+string select_from_gallery
+string select_image
+xml preferences

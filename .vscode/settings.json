@@ -1,0 +1,11 @@
+{
+    "java.project.sourcePaths": [
+        "app/src/main/java"
+    ],
+    "java.project.outputPath": "bin",
+    "java.project.referencedLibraries": [
+        "libs/XposedBridge.jar",
+        "${ANDROID_SDK}/platforms/android-33/android.jar"
+    ],
+    "java.configuration.updateBuildConfiguration": "automatic"
+}

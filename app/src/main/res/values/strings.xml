@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Camera Interceptor</string>
+    <string name="notification_title">Camera Intercepted</string>
+    <string name="notification_text">A camera request was intercepted. Tap to select an image.</string>
+    <string name="select_from_gallery">Select from Gallery</string>
+    <string name="cancel">Cancel</string>
+    <string name="select_image">Select Image</string>
+    <string name="camera_intercepted">Camera Intercepted</string>
+    <string name="error_selecting_image">Error selecting image</string>
+    <string name="no_gallery_app">No gallery app found</string>
+    <string name="permission_required">Storage permission required</string>
+    
+    <!-- Array for LSPosed scope -->
+
+</resources>

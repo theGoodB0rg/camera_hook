@@ -1,0 +1,138 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="com.camerainterceptor"
+4    android:versionCode="1"
+5    android:versionName="1.0" >
+6
+7    <uses-sdk
+8        android:minSdkVersion="26"
+8-->C:\Users\HP\Desktop\My files\CameraInterceptor\app\src\main\AndroidManifest.xml
+9        android:targetSdkVersion="33" />
+9-->C:\Users\HP\Desktop\My files\CameraInterceptor\app\src\main\AndroidManifest.xml
+10
+11    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+11-->C:\Users\HP\Desktop\My files\CameraInterceptor\app\src\main\AndroidManifest.xml:5:5-80
+11-->C:\Users\HP\Desktop\My files\CameraInterceptor\app\src\main\AndroidManifest.xml:5:22-77
+12    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+12-->C:\Users\HP\Desktop\My files\CameraInterceptor\app\src\main\AndroidManifest.xml:6:5-81
+12-->C:\Users\HP\Desktop\My files\CameraInterceptor\app\src\main\AndroidManifest.xml:6:22-78
+13    <uses-permission android:name="android.permission.CAMERA" />
+13-->C:\Users\HP\Desktop\My files\CameraInterceptor\app\src\main\AndroidManifest.xml:7:5-65
+13-->C:\Users\HP\Desktop\My files\CameraInterceptor\app\src\main\AndroidManifest.xml:7:22-62
+14
+15    <permission
+15-->[androidx.core:core:1.9.0] C:\Users\HP\.gradle\caches\8.13\transforms\c73943ff4e63ef72223759efab1edf43\transformed\core-1.9.0\AndroidManifest.xml:22:5-24:47
+16        android:name="com.camerainterceptor.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
+16-->[androidx.core:core:1.9.0] C:\Users\HP\.gradle\caches\8.13\transforms\c73943ff4e63ef72223759efab1edf43\transformed\core-1.9.0\AndroidManifest.xml:23:9-81
+17        android:protectionLevel="signature" />
+17-->[androidx.core:core:1.9.0] C:\Users\HP\.gradle\caches\8.13\transforms\c73943ff4e63ef72223759efab1edf43\transformed\core-1.9.0\AndroidManifest.xml:24:9-44
+18
+19    <uses-permission android:name="com.camerainterceptor.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" />
+19-->[androidx.core:core:1.9.0] C:\Users\HP\.gradle\caches\8.13\transforms\c73943ff4e63ef72223759efab1edf43\transformed\core-1.9.0\AndroidManifest.xml:26:5-97
+19-->[androidx.core:core:1.9.0] C:\Users\HP\.gradle\caches\8.13\transforms\c73943ff4e63ef72223759efab1edf43\transformed\core-1.9.0\AndroidManifest.xml:26:22-94
+20
+21    <application
+21-->C:\Users\HP\Desktop\My files\CameraInterceptor\app\src\main\AndroidManifest.xml:9:5-46:19
+22        android:allowBackup="true"
+22-->C:\Users\HP\Desktop\My files\CameraInterceptor\app\src\main\AndroidManifest.xml:13:9-35
+23        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+23-->[androidx.core:core:1.9.0] C:\Users\HP\.gradle\caches\8.13\transforms\c73943ff4e63ef72223759efab1edf43\transformed\core-1.9.0\AndroidManifest.xml:28:18-86
+24        android:debuggable="true"
+25        android:extractNativeLibs="false"
+26        android:label="Camera Interceptor"
+26-->C:\Users\HP\Desktop\My files\CameraInterceptor\app\src\main\AndroidManifest.xml:10:9-43
+27        android:supportsRtl="true" >
+27-->C:\Users\HP\Desktop\My files\CameraInterceptor\app\src\main\AndroidManifest.xml:14:9-35
+28
+29        <!-- Main settings activity -->
+30        <activity
+30-->C:\Users\HP\Desktop\My files\CameraInterceptor\app\src\main\AndroidManifest.xml:17:9-24:20
+31            android:name="com.camerainterceptor.ui.SettingsActivity"
+31-->C:\Users\HP\Desktop\My files\CameraInterceptor\app\src\main\AndroidManifest.xml:18:13-48
+32            android:exported="true" >
+32-->C:\Users\HP\Desktop\My files\CameraInterceptor\app\src\main\AndroidManifest.xml:19:13-36
+33            <intent-filter>
+33-->C:\Users\HP\Desktop\My files\CameraInterceptor\app\src\main\AndroidManifest.xml:20:13-23:29
+34                <action android:name="android.intent.action.MAIN" />
+34-->C:\Users\HP\Desktop\My files\CameraInterceptor\app\src\main\AndroidManifest.xml:21:17-69
+34-->C:\Users\HP\Desktop\My files\CameraInterceptor\app\src\main\AndroidManifest.xml:21:25-66
+35
+36                <category android:name="android.intent.category.LAUNCHER" />
+36-->C:\Users\HP\Desktop\My files\CameraInterceptor\app\src\main\AndroidManifest.xml:22:17-77
+36-->C:\Users\HP\Desktop\My files\CameraInterceptor\app\src\main\AndroidManifest.xml:22:27-74
+37            </intent-filter>
+38        </activity>
+39
+40        <!-- Custom image picker activity -->
+41        <activity
+41-->C:\Users\HP\Desktop\My files\CameraInterceptor\app\src\main\AndroidManifest.xml:27:9-30:61
+42            android:name="com.camerainterceptor.ui.ImagePickerActivity"
+42-->C:\Users\HP\Desktop\My files\CameraInterceptor\app\src\main\AndroidManifest.xml:28:13-51
+43            android:exported="false"
+43-->C:\Users\HP\Desktop\My files\CameraInterceptor\app\src\main\AndroidManifest.xml:29:13-37
+44            android:theme="@style/Theme.AppCompat.Dialog" />
+44-->C:\Users\HP\Desktop\My files\CameraInterceptor\app\src\main\AndroidManifest.xml:30:13-58
+45
+46        <!-- LSPosed module metadata -->
+47        <meta-data
+47-->C:\Users\HP\Desktop\My files\CameraInterceptor\app\src\main\AndroidManifest.xml:33:9-35:36
+48            android:name="xposedmodule"
+48-->C:\Users\HP\Desktop\My files\CameraInterceptor\app\src\main\AndroidManifest.xml:34:13-40
+49            android:value="true" />
+49-->C:\Users\HP\Desktop\My files\CameraInterceptor\app\src\main\AndroidManifest.xml:35:13-33
+50        <meta-data
+50-->C:\Users\HP\Desktop\My files\CameraInterceptor\app\src\main\AndroidManifest.xml:36:9-38:96
+51            android:name="xposeddescription"
+51-->C:\Users\HP\Desktop\My files\CameraInterceptor\app\src\main\AndroidManifest.xml:37:13-45
+52            android:value="Intercepts camera requests and replaces them with gallery images" />
+52-->C:\Users\HP\Desktop\My files\CameraInterceptor\app\src\main\AndroidManifest.xml:38:13-93
+53        <meta-data
+53-->C:\Users\HP\Desktop\My files\CameraInterceptor\app\src\main\AndroidManifest.xml:39:9-41:34
+54            android:name="xposedminversion"
+54-->C:\Users\HP\Desktop\My files\CameraInterceptor\app\src\main\AndroidManifest.xml:40:13-44
+55            android:value="93" />
+55-->C:\Users\HP\Desktop\My files\CameraInterceptor\app\src\main\AndroidManifest.xml:41:13-31
+56        <meta-data
+56-->C:\Users\HP\Desktop\My files\CameraInterceptor\app\src\main\AndroidManifest.xml:42:9-44:54
+57            android:name="xposedscope"
+57-->C:\Users\HP\Desktop\My files\CameraInterceptor\app\src\main\AndroidManifest.xml:43:13-39
+58            android:resource="@array/xposed_scope" />
+58-->C:\Users\HP\Desktop\My files\CameraInterceptor\app\src\main\AndroidManifest.xml:44:13-51
+59
+60        <provider
+60-->[androidx.emoji2:emoji2:1.2.0] C:\Users\HP\.gradle\caches\8.13\transforms\d9c80605e5460b29d03222a064215b84\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:24:9-32:20
+61            android:name="androidx.startup.InitializationProvider"
+61-->[androidx.emoji2:emoji2:1.2.0] C:\Users\HP\.gradle\caches\8.13\transforms\d9c80605e5460b29d03222a064215b84\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:25:13-67
+62            android:authorities="com.camerainterceptor.androidx-startup"
+62-->[androidx.emoji2:emoji2:1.2.0] C:\Users\HP\.gradle\caches\8.13\transforms\d9c80605e5460b29d03222a064215b84\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:26:13-68
+63            android:exported="false" >
+63-->[androidx.emoji2:emoji2:1.2.0] C:\Users\HP\.gradle\caches\8.13\transforms\d9c80605e5460b29d03222a064215b84\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:27:13-37
+64            <meta-data
+64-->[androidx.emoji2:emoji2:1.2.0] C:\Users\HP\.gradle\caches\8.13\transforms\d9c80605e5460b29d03222a064215b84\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:29:13-31:52
+65                android:name="androidx.emoji2.text.EmojiCompatInitializer"
+65-->[androidx.emoji2:emoji2:1.2.0] C:\Users\HP\.gradle\caches\8.13\transforms\d9c80605e5460b29d03222a064215b84\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:30:17-75
+66                android:value="androidx.startup" />
+66-->[androidx.emoji2:emoji2:1.2.0] C:\Users\HP\.gradle\caches\8.13\transforms\d9c80605e5460b29d03222a064215b84\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:31:17-49
+67            <meta-data
+67-->[androidx.lifecycle:lifecycle-process:2.4.1] C:\Users\HP\.gradle\caches\8.13\transforms\75975ab75c01fa41d50a00d0439c9701\transformed\jetified-lifecycle-process-2.4.1\AndroidManifest.xml:31:13-33:52
+68                android:name="androidx.lifecycle.ProcessLifecycleInitializer"
+68-->[androidx.lifecycle:lifecycle-process:2.4.1] C:\Users\HP\.gradle\caches\8.13\transforms\75975ab75c01fa41d50a00d0439c9701\transformed\jetified-lifecycle-process-2.4.1\AndroidManifest.xml:32:17-78
+69                android:value="androidx.startup" />
+69-->[androidx.lifecycle:lifecycle-process:2.4.1] C:\Users\HP\.gradle\caches\8.13\transforms\75975ab75c01fa41d50a00d0439c9701\transformed\jetified-lifecycle-process-2.4.1\AndroidManifest.xml:33:17-49
+70        </provider>
+71
+72        <uses-library
+72-->[androidx.window:window:1.0.0] C:\Users\HP\.gradle\caches\8.13\transforms\7922f0e5bcd8952bed8ef4222024b251\transformed\jetified-window-1.0.0\AndroidManifest.xml:25:9-27:40
+73            android:name="androidx.window.extensions"
+73-->[androidx.window:window:1.0.0] C:\Users\HP\.gradle\caches\8.13\transforms\7922f0e5bcd8952bed8ef4222024b251\transformed\jetified-window-1.0.0\AndroidManifest.xml:26:13-54
+74            android:required="false" />
+74-->[androidx.window:window:1.0.0] C:\Users\HP\.gradle\caches\8.13\transforms\7922f0e5bcd8952bed8ef4222024b251\transformed\jetified-window-1.0.0\AndroidManifest.xml:27:13-37
+75        <uses-library
+75-->[androidx.window:window:1.0.0] C:\Users\HP\.gradle\caches\8.13\transforms\7922f0e5bcd8952bed8ef4222024b251\transformed\jetified-window-1.0.0\AndroidManifest.xml:28:9-30:40
+76            android:name="androidx.window.sidecar"
+76-->[androidx.window:window:1.0.0] C:\Users\HP\.gradle\caches\8.13\transforms\7922f0e5bcd8952bed8ef4222024b251\transformed\jetified-window-1.0.0\AndroidManifest.xml:29:13-51
+77            android:required="false" />
+77-->[androidx.window:window:1.0.0] C:\Users\HP\.gradle\caches\8.13\transforms\7922f0e5bcd8952bed8ef4222024b251\transformed\jetified-window-1.0.0\AndroidManifest.xml:30:13-37
+78    </application>
+79
+80</manifest>

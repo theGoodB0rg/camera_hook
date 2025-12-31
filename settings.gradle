@@ -1,0 +1,4 @@
+// Project settings for Camera Interceptor
+
+rootProject.name = 'CameraInterceptor'
+include ':app'

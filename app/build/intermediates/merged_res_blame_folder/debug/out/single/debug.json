@@ -1,0 +1,10 @@
+[
+    {
+        "merged": "com.camerainterceptor.app-merged_res-31:/xml_preferences.xml.flat",
+        "source": "com.camerainterceptor.app-main-33:/xml/preferences.xml"
+    },
+    {
+        "merged": "com.camerainterceptor.app-merged_res-31:/layout_activity_picker.xml.flat",
+        "source": "com.camerainterceptor.app-main-33:/layout/activity_picker.xml"
+    }
+]
