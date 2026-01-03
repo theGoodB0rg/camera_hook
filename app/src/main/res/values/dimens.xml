@@ -99,6 +99,7 @@
     <!-- Image picker -->
     <dimen name="image_preview_min_height">200dp</dimen>
     <dimen name="image_preview_max_height">300dp</dimen>
+    <dimen name="image_picker_preview_height">220dp</dimen>
 
     <!-- List items -->
     <dimen name="list_item_height_single">48dp</dimen>

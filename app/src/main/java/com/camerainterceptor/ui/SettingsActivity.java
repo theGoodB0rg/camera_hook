@@ -142,13 +142,12 @@ public class SettingsActivity extends AppCompatActivity {
             // Load preferences from XML
             setPreferencesFromResource(R.xml.preferences, rootKey);
 
-            // Handle Image Selection Click
+            // Handle Image Selection Click - Launch Bottom Sheet
             Preference selectImage = findPreference("select_image");
             if (selectImage != null) {
                 selectImage.setOnPreferenceClickListener(preference -> {
-                    android.content.Intent intent = new android.content.Intent(getActivity(),
-                            com.camerainterceptor.ui.ImagePickerActivity.class);
-                    startActivity(intent);
+                    ImagePickerFragment imagePickerFragment = ImagePickerFragment.newInstance();
+                    imagePickerFragment.show(getParentFragmentManager(), "ImagePickerFragment");
                     return true;
                 });
             }

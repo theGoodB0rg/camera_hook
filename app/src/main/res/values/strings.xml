@@ -45,6 +45,24 @@
     <string name="pref_help_title">Help</string>
     <string name="pref_help_summary">Documentation and instructions</string>
     
+    <!-- Image Picker -->
+    <string name="image_picker_title">Select Injection Image</string>
+    <string name="image_picker_description">Choose an image to be used instead of the live camera feed in target apps.</string>
+    <string name="image_picker_select">Select Image</string>
+    <string name="image_picker_clear">Clear Selection</string>
+    <string name="image_picker_no_image">No image selected</string>
+    <string name="image_picker_ready">Image ready for injection</string>
+    <string name="image_picker_saving">Saving image…</string>
+    <string name="image_picker_saved">Image saved &amp; ready for injection!</string>
+    <string name="image_picker_cleared">Injection disabled</string>
+    <string name="image_picker_error">Error occurred</string>
+    <string name="image_picker_error_open">Failed to open image</string>
+    <string name="image_picker_error_decode">Failed to decode image</string>
+    <string name="image_picker_error_save">Failed to save image</string>
+    <string name="image_picker_error_clear">Failed to clear selection</string>
+    <string name="image_picker_error_general">Error: %1$s</string>
+    <string name="image_picker_preview_description">Selected image preview</string>
+    
     <!-- Array for LSPosed scope -->
 
 </resources>
