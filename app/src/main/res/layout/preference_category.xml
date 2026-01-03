@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView 
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@android:id/title"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingStart="@dimen/spacing_base"
+    android:paddingEnd="@dimen/spacing_base"
+    android:paddingTop="@dimen/spacing_lg"
+    android:paddingBottom="@dimen/spacing_sm"
+    android:textAppearance="@style/TextAppearance.CameraInterceptor.LabelLarge"
+    android:textColor="?attr/colorPrimary"
+    tools:text="Category Title" />

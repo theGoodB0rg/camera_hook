@@ -1,0 +1,344 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- 
+        CameraInterceptor Common Styles
+        Reusable component styles for Material Design 3 compliance
+    -->
+
+    <!-- ===================== BASE STYLES ===================== -->
+    <!-- These are required for Android's implicit style parent resolution -->
+    
+    <style name="Widget.CameraInterceptor" parent=""/>
+    <style name="ShapeAppearance.CameraInterceptor" parent=""/>
+    <style name="TextAppearance.CameraInterceptor" parent=""/>
+
+    <!-- ===================== SHAPE APPEARANCES ===================== -->
+
+    <style name="ShapeAppearance.CameraInterceptor.SmallComponent" parent="ShapeAppearance.Material3.SmallComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">@dimen/corner_sm</item>
+    </style>
+
+    <style name="ShapeAppearance.CameraInterceptor.MediumComponent" parent="ShapeAppearance.Material3.MediumComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">@dimen/corner_md</item>
+    </style>
+
+    <style name="ShapeAppearance.CameraInterceptor.LargeComponent" parent="ShapeAppearance.Material3.LargeComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">@dimen/corner_lg</item>
+    </style>
+
+    <style name="ShapeAppearance.CameraInterceptor.Dialog" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">@dimen/dialog_corner_radius</item>
+    </style>
+
+    <style name="ShapeAppearance.CameraInterceptor.BottomSheet" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeTopLeft">@dimen/bottom_sheet_corner_radius</item>
+        <item name="cornerSizeTopRight">@dimen/bottom_sheet_corner_radius</item>
+        <item name="cornerSizeBottomLeft">0dp</item>
+        <item name="cornerSizeBottomRight">0dp</item>
+    </style>
+
+    <style name="ShapeAppearance.CameraInterceptor.ImagePreview" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">@dimen/image_preview_corner_radius</item>
+    </style>
+
+    <!-- ===================== BUTTON STYLES ===================== -->
+
+    <!-- Base button style -->
+    <style name="Widget.CameraInterceptor.Button" parent="Widget.Material3.Button">
+        <item name="cornerRadius">@dimen/button_corner_radius</item>
+        <item name="android:minHeight">@dimen/button_height</item>
+        <item name="android:paddingStart">@dimen/button_padding_horizontal</item>
+        <item name="android:paddingEnd">@dimen/button_padding_horizontal</item>
+    </style>
+
+    <!-- Outlined button -->
+    <style name="Widget.CameraInterceptor.Button.Outlined" parent="Widget.Material3.Button.OutlinedButton">
+        <item name="cornerRadius">@dimen/button_corner_radius</item>
+        <item name="android:minHeight">@dimen/button_height</item>
+        <item name="android:paddingStart">@dimen/button_padding_horizontal</item>
+        <item name="android:paddingEnd">@dimen/button_padding_horizontal</item>
+    </style>
+
+    <!-- Text button -->
+    <style name="Widget.CameraInterceptor.Button.Text" parent="Widget.Material3.Button.TextButton">
+        <item name="cornerRadius">@dimen/button_corner_radius</item>
+        <item name="android:minHeight">@dimen/button_height</item>
+    </style>
+
+    <!-- Tonal button -->
+    <style name="Widget.CameraInterceptor.Button.Tonal" parent="Widget.Material3.Button.TonalButton">
+        <item name="cornerRadius">@dimen/button_corner_radius</item>
+        <item name="android:minHeight">@dimen/button_height</item>
+        <item name="android:paddingStart">@dimen/button_padding_horizontal</item>
+        <item name="android:paddingEnd">@dimen/button_padding_horizontal</item>
+    </style>
+
+    <!-- Icon button -->
+    <style name="Widget.CameraInterceptor.Button.Icon" parent="Widget.Material3.Button.IconButton">
+        <item name="android:minWidth">@dimen/touch_target_min</item>
+        <item name="android:minHeight">@dimen/touch_target_min</item>
+    </style>
+
+    <!-- ===================== CARD STYLES ===================== -->
+
+    <style name="Widget.CameraInterceptor.CardView" parent="Widget.Material3.CardView.Elevated">
+        <item name="cardCornerRadius">@dimen/card_corner_radius</item>
+        <item name="cardElevation">@dimen/card_elevation</item>
+        <item name="contentPadding">@dimen/spacing_base</item>
+    </style>
+
+    <style name="Widget.CameraInterceptor.CardView.Filled" parent="Widget.Material3.CardView.Filled">
+        <item name="cardCornerRadius">@dimen/card_corner_radius</item>
+        <item name="contentPadding">@dimen/spacing_base</item>
+    </style>
+
+    <style name="Widget.CameraInterceptor.CardView.Outlined" parent="Widget.Material3.CardView.Outlined">
+        <item name="cardCornerRadius">@dimen/card_corner_radius</item>
+        <item name="contentPadding">@dimen/spacing_base</item>
+    </style>
+
+    <!-- ===================== TOOLBAR STYLES ===================== -->
+
+    <style name="Widget.CameraInterceptor.Toolbar" parent="Widget.Material3.Toolbar">
+        <item name="android:minHeight">@dimen/toolbar_height</item>
+        <item name="titleTextAppearance">@style/TextAppearance.CameraInterceptor.TitleLarge</item>
+    </style>
+
+    <style name="Widget.CameraInterceptor.CollapsingToolbar" parent="Widget.Material3.CollapsingToolbar">
+        <item name="expandedTitleTextAppearance">@style/TextAppearance.CameraInterceptor.HeadlineMedium</item>
+        <item name="collapsedTitleTextAppearance">@style/TextAppearance.CameraInterceptor.TitleLarge</item>
+    </style>
+
+    <!-- ===================== FAB STYLES ===================== -->
+
+    <style name="Widget.CameraInterceptor.FAB" parent="Widget.Material3.FloatingActionButton.Primary">
+        <item name="elevation">@dimen/fab_elevation</item>
+    </style>
+
+    <style name="Widget.CameraInterceptor.FAB.Small" parent="Widget.Material3.FloatingActionButton.Primary">
+        <item name="fabCustomSize">@dimen/fab_size_small</item>
+        <item name="elevation">@dimen/fab_elevation</item>
+    </style>
+
+    <style name="Widget.CameraInterceptor.FAB.Large" parent="Widget.Material3.FloatingActionButton.Primary">
+        <item name="fabCustomSize">@dimen/fab_size_large</item>
+        <item name="elevation">@dimen/fab_elevation</item>
+    </style>
+
+    <style name="Widget.CameraInterceptor.ExtendedFAB" parent="Widget.Material3.ExtendedFloatingActionButton.Primary">
+        <item name="elevation">@dimen/fab_elevation</item>
+    </style>
+
+    <!-- ===================== BOTTOM APP BAR ===================== -->
+
+    <style name="Widget.CameraInterceptor.BottomAppBar" parent="Widget.Material3.BottomAppBar">
+        <item name="elevation">@dimen/bottom_bar_elevation</item>
+    </style>
+
+    <!-- ===================== BOTTOM SHEET ===================== -->
+
+    <style name="Widget.CameraInterceptor.BottomSheet" parent="Widget.Material3.BottomSheet">
+        <item name="shapeAppearance">@style/ShapeAppearance.CameraInterceptor.BottomSheet</item>
+    </style>
+
+    <style name="Widget.CameraInterceptor.BottomSheet.DragHandle" parent="">
+        <item name="android:layout_width">@dimen/bottom_sheet_handle_width</item>
+        <item name="android:layout_height">@dimen/bottom_sheet_handle_height</item>
+        <item name="android:layout_marginTop">@dimen/bottom_sheet_handle_margin</item>
+        <item name="android:layout_marginBottom">@dimen/bottom_sheet_handle_margin</item>
+        <item name="android:background">@drawable/bg_bottom_sheet_handle</item>
+    </style>
+
+    <!-- ===================== TEXT APPEARANCES ===================== -->
+
+    <style name="TextAppearance.CameraInterceptor.DisplayLarge" parent="TextAppearance.Material3.DisplayLarge">
+        <item name="android:textSize">@dimen/text_size_display_large</item>
+    </style>
+
+    <style name="TextAppearance.CameraInterceptor.DisplayMedium" parent="TextAppearance.Material3.DisplayMedium">
+        <item name="android:textSize">@dimen/text_size_display_medium</item>
+    </style>
+
+    <style name="TextAppearance.CameraInterceptor.DisplaySmall" parent="TextAppearance.Material3.DisplaySmall">
+        <item name="android:textSize">@dimen/text_size_display_small</item>
+    </style>
+
+    <style name="TextAppearance.CameraInterceptor.HeadlineLarge" parent="TextAppearance.Material3.HeadlineLarge">
+        <item name="android:textSize">@dimen/text_size_headline_large</item>
+    </style>
+
+    <style name="TextAppearance.CameraInterceptor.HeadlineMedium" parent="TextAppearance.Material3.HeadlineMedium">
+        <item name="android:textSize">@dimen/text_size_headline_medium</item>
+    </style>
+
+    <style name="TextAppearance.CameraInterceptor.HeadlineSmall" parent="TextAppearance.Material3.HeadlineSmall">
+        <item name="android:textSize">@dimen/text_size_headline_small</item>
+    </style>
+
+    <style name="TextAppearance.CameraInterceptor.TitleLarge" parent="TextAppearance.Material3.TitleLarge">
+        <item name="android:textSize">@dimen/text_size_title_large</item>
+    </style>
+
+    <style name="TextAppearance.CameraInterceptor.TitleMedium" parent="TextAppearance.Material3.TitleMedium">
+        <item name="android:textSize">@dimen/text_size_title_medium</item>
+    </style>
+
+    <style name="TextAppearance.CameraInterceptor.TitleSmall" parent="TextAppearance.Material3.TitleSmall">
+        <item name="android:textSize">@dimen/text_size_title_small</item>
+    </style>
+
+    <style name="TextAppearance.CameraInterceptor.BodyLarge" parent="TextAppearance.Material3.BodyLarge">
+        <item name="android:textSize">@dimen/text_size_body_large</item>
+    </style>
+
+    <style name="TextAppearance.CameraInterceptor.BodyMedium" parent="TextAppearance.Material3.BodyMedium">
+        <item name="android:textSize">@dimen/text_size_body_medium</item>
+    </style>
+
+    <style name="TextAppearance.CameraInterceptor.BodySmall" parent="TextAppearance.Material3.BodySmall">
+        <item name="android:textSize">@dimen/text_size_body_small</item>
+    </style>
+
+    <style name="TextAppearance.CameraInterceptor.LabelLarge" parent="TextAppearance.Material3.LabelLarge">
+        <item name="android:textSize">@dimen/text_size_label_large</item>
+    </style>
+
+    <style name="TextAppearance.CameraInterceptor.LabelMedium" parent="TextAppearance.Material3.LabelMedium">
+        <item name="android:textSize">@dimen/text_size_label_medium</item>
+    </style>
+
+    <style name="TextAppearance.CameraInterceptor.LabelSmall" parent="TextAppearance.Material3.LabelSmall">
+        <item name="android:textSize">@dimen/text_size_label_small</item>
+    </style>
+
+    <!-- Log viewer monospace text -->
+    <style name="TextAppearance.CameraInterceptor.Log" parent="TextAppearance.Material3.BodySmall">
+        <item name="android:textSize">@dimen/log_text_size</item>
+        <item name="android:fontFamily">monospace</item>
+        <item name="android:typeface">monospace</item>
+    </style>
+
+    <!-- Empty state text styles -->
+    <style name="TextAppearance.CameraInterceptor.EmptyState" parent=""/>
+    
+    <style name="TextAppearance.CameraInterceptor.EmptyState.Title" parent="TextAppearance.CameraInterceptor.TitleMedium">
+        <item name="android:textColor">?attr/colorOnSurfaceVariant</item>
+    </style>
+
+    <style name="TextAppearance.CameraInterceptor.EmptyState.Body" parent="TextAppearance.CameraInterceptor.BodyMedium">
+        <item name="android:textColor">?attr/colorOnSurfaceVariant</item>
+    </style>
+
+    <!-- ===================== CHIP STYLES ===================== -->
+    
+    <!-- Base chip style (required for implicit parent resolution) -->
+    <style name="Widget.CameraInterceptor.Chip" parent="Widget.Material3.Chip.Assist"/>
+
+    <style name="Widget.CameraInterceptor.Chip.Filter" parent="Widget.Material3.Chip.Filter">
+        <item name="chipCornerRadius">@dimen/chip_corner_radius</item>
+    </style>
+
+    <style name="Widget.CameraInterceptor.Chip.Choice" parent="Widget.Material3.Chip.Suggestion">
+        <item name="chipCornerRadius">@dimen/chip_corner_radius</item>
+    </style>
+
+    <!-- ===================== SWITCH STYLES ===================== -->
+
+    <style name="Widget.CameraInterceptor.Switch" parent="Widget.Material3.CompoundButton.MaterialSwitch">
+    </style>
+
+    <!-- ===================== DIVIDER STYLES ===================== -->
+
+    <style name="Widget.CameraInterceptor.Divider" parent="Widget.Material3.MaterialDivider">
+        <item name="dividerColor">?attr/colorOutlineVariant</item>
+        <item name="dividerThickness">@dimen/divider_height</item>
+    </style>
+
+    <!-- ===================== SEARCH VIEW STYLES ===================== -->
+
+    <style name="Widget.CameraInterceptor.SearchView" parent="Widget.Material3.SearchView">
+    </style>
+
+    <style name="Widget.CameraInterceptor.SearchBar" parent="Widget.Material3.SearchBar">
+    </style>
+
+    <!-- ===================== PROGRESS INDICATOR STYLES ===================== -->
+
+    <style name="Widget.CameraInterceptor.CircularProgressIndicator" parent="Widget.Material3.CircularProgressIndicator">
+        <item name="indicatorColor">?attr/colorPrimary</item>
+        <item name="trackColor">?attr/colorSurfaceVariant</item>
+    </style>
+
+    <style name="Widget.CameraInterceptor.LinearProgressIndicator" parent="Widget.Material3.LinearProgressIndicator">
+        <item name="indicatorColor">?attr/colorPrimary</item>
+        <item name="trackColor">?attr/colorSurfaceVariant</item>
+    </style>
+
+    <!-- ===================== LIST ITEM STYLES ===================== -->
+
+    <style name="Widget.CameraInterceptor.ListItem" parent="">
+        <item name="android:minHeight">@dimen/list_item_height_two_line</item>
+        <item name="android:paddingStart">@dimen/list_item_padding_horizontal</item>
+        <item name="android:paddingEnd">@dimen/list_item_padding_horizontal</item>
+        <item name="android:paddingTop">@dimen/list_item_padding_vertical</item>
+        <item name="android:paddingBottom">@dimen/list_item_padding_vertical</item>
+        <item name="android:background">?attr/selectableItemBackground</item>
+    </style>
+
+    <style name="Widget.CameraInterceptor.ListItem.ThreeLine" parent="Widget.CameraInterceptor.ListItem">
+        <item name="android:minHeight">@dimen/list_item_height_three_line</item>
+    </style>
+
+    <!-- ===================== PREFERENCE STYLES ===================== -->
+
+    <style name="PreferenceThemeOverlay.CameraInterceptor" parent="PreferenceThemeOverlay.v14.Material">
+        <item name="android:tint">?attr/colorPrimary</item>
+        <item name="preferenceFragmentCompatStyle">@style/Widget.CameraInterceptor.PreferenceFragment</item>
+        <item name="preferenceCategoryStyle">@style/Widget.CameraInterceptor.Preference.Category</item>
+        <item name="preferenceStyle">@style/Widget.CameraInterceptor.Preference</item>
+        <item name="switchPreferenceCompatStyle">@style/Widget.CameraInterceptor.Preference.SwitchPreferenceCompat</item>
+    </style>
+
+    <!-- Preference Fragment Style -->
+    <style name="Widget.CameraInterceptor.PreferenceFragment" parent="@style/PreferenceFragment.Material">
+        <item name="android:divider">@null</item>
+        <item name="android:dividerHeight">0dp</item>
+    </style>
+
+    <!-- Preference Category Header Style -->
+    <style name="Widget.CameraInterceptor.Preference.Category" parent="Preference.Category.Material">
+        <item name="android:layout">@layout/preference_category</item>
+        <item name="allowDividerAbove">false</item>
+        <item name="allowDividerBelow">false</item>
+    </style>
+
+    <!-- Base Preference Style -->
+    <style name="Widget.CameraInterceptor.Preference" parent="Preference.Material">
+        <item name="android:layout">@layout/preference_item</item>
+        <item name="allowDividerAbove">false</item>
+        <item name="allowDividerBelow">false</item>
+        <item name="iconSpaceReserved">true</item>
+    </style>
+
+    <!-- Switch Preference Style -->
+    <style name="Widget.CameraInterceptor.Preference.SwitchPreferenceCompat" parent="Preference.SwitchPreferenceCompat.Material">
+        <item name="android:layout">@layout/preference_item</item>
+        <item name="allowDividerAbove">false</item>
+        <item name="allowDividerBelow">false</item>
+        <item name="iconSpaceReserved">true</item>
+    </style>
+
+    <!-- ===================== EMPTY STATE STYLE ===================== -->
+
+    <style name="Widget.CameraInterceptor.EmptyState" parent="">
+        <item name="android:gravity">center</item>
+        <item name="android:padding">@dimen/spacing_xl</item>
+    </style>
+
+</resources>

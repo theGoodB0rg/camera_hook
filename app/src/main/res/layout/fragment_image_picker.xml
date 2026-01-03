@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/spacing_xl">
+
+        <!-- Drag Handle -->
+        <View
+            android:layout_width="@dimen/bottom_sheet_handle_width"
+            android:layout_height="@dimen/bottom_sheet_handle_height"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/bottom_sheet_handle_margin"
+            android:layout_marginBottom="@dimen/bottom_sheet_handle_margin"
+            android:background="@drawable/bg_bottom_sheet_handle" />
+
+        <!-- Title -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/image_picker_title"
+            android:textAppearance="@style/TextAppearance.CameraInterceptor.HeadlineSmall"
+            android:textColor="?attr/colorOnSurface"
+            android:paddingHorizontal="@dimen/spacing_lg"
+            android:paddingBottom="@dimen/spacing_sm" />
+
+        <!-- Description -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/image_picker_description"
+            android:textAppearance="@style/TextAppearance.CameraInterceptor.BodyMedium"
+            android:textColor="?attr/colorOnSurfaceVariant"
+            android:paddingHorizontal="@dimen/spacing_lg"
+            android:paddingBottom="@dimen/spacing_lg" />
+
+        <!-- Image Preview Card -->
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/spacing_lg"
+            android:layout_marginBottom="@dimen/spacing_lg"
+            app:cardCornerRadius="@dimen/card_corner_radius"
+            app:cardElevation="0dp"
+            app:strokeWidth="1dp"
+            app:strokeColor="?attr/colorOutlineVariant"
+            app:cardBackgroundColor="?attr/colorSurfaceVariant">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <!-- Image Preview -->
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/image_preview"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/image_picker_preview_height"
+                    android:scaleType="centerCrop"
+                    android:visibility="gone"
+                    android:contentDescription="@string/image_picker_preview_description"
+                    app:shapeAppearance="@style/ShapeAppearance.CameraInterceptor.ImagePreview"
+                    tools:visibility="visible"
+                    tools:src="@drawable/ic_image" />
+
+                <!-- Placeholder Container -->
+                <FrameLayout
+                    android:id="@+id/placeholder_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/image_picker_preview_height"
+                    android:visibility="visible"
+                    tools:visibility="gone">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:layout_width="@dimen/icon_size_xl"
+                            android:layout_height="@dimen/icon_size_xl"
+                            android:src="@drawable/ic_camera_placeholder"
+                            android:contentDescription="@null"
+                            app:tint="?attr/colorOnSurfaceVariant"
+                            android:alpha="0.6" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/spacing_sm"
+                            android:text="@string/image_picker_no_image"
+                            android:textAppearance="@style/TextAppearance.CameraInterceptor.BodyMedium"
+                            android:textColor="?attr/colorOnSurfaceVariant" />
+
+                    </LinearLayout>
+
+                </FrameLayout>
+
+                <!-- Loading Indicator -->
+                <com.google.android.material.progressindicator.CircularProgressIndicator
+                    android:id="@+id/progress_indicator"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:indeterminate="true"
+                    android:visibility="gone"
+                    app:indicatorColor="?attr/colorPrimary"
+                    app:trackColor="?attr/colorSurfaceVariant"
+                    tools:visibility="visible" />
+
+            </FrameLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Status Text -->
+        <TextView
+            android:id="@+id/status_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/TextAppearance.CameraInterceptor.LabelMedium"
+            android:textColor="?attr/colorOnSurfaceVariant"
+            android:paddingHorizontal="@dimen/spacing_lg"
+            android:paddingBottom="@dimen/spacing_lg"
+            android:gravity="center"
+            tools:text="Image ready for injection" />
+
+        <!-- Action Buttons -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingHorizontal="@dimen/spacing_lg">
+
+            <!-- Primary Button: Select Image -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/button_select"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/image_picker_select"
+                app:icon="@drawable/ic_image"
+                app:iconGravity="textStart"
+                style="@style/Widget.CameraInterceptor.Button" />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/spacing_sm" />
+
+            <!-- Secondary Button: Clear Selection -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/button_clear"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/image_picker_clear"
+                android:enabled="false"
+                app:icon="@drawable/ic_clear"
+                app:iconGravity="textStart"
+                style="@style/Widget.CameraInterceptor.Button.Outlined" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
