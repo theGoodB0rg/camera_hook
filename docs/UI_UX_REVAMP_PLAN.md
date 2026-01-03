@@ -397,7 +397,7 @@ Implement:
 
 ## Phase 4: App Selection Screen Overhaul
 
-**Status:** ⬜ Not Started  
+**Status:** ✅ Completed (January 3, 2026)  
 **Estimated Files:** 4-6 modified files  
 **Dependencies:** Phase 1 complete
 
@@ -498,17 +498,17 @@ Components:
 
 ### Phase 4 Completion Checklist
 
-- [ ] RecyclerView replaces ListView
-- [ ] Adapter with DiffUtil implemented
-- [ ] Search functionality in toolbar
-- [ ] Filter chips (User/System/All apps)
-- [ ] List item redesigned with ConstraintLayout
-- [ ] MaterialSwitch and mode chips functional
-- [ ] Empty state with illustration
-- [ ] Loading state (shimmer or progress)
-- [ ] ExtendedFAB for save action
-- [ ] `gradle assembleDebug` passes
-- [ ] Changes committed: `feat(ui): Phase 4 - App Selection Overhaul`
+- [x] RecyclerView replaces ListView
+- [x] Adapter with DiffUtil implemented
+- [x] Search functionality in toolbar
+- [x] Filter chips (User/System/All apps)
+- [x] List item redesigned with ConstraintLayout
+- [x] MaterialSwitch and mode chips functional
+- [x] Empty state with illustration
+- [x] Loading state (shimmer or progress)
+- [x] ExtendedFAB for save action
+- [x] `gradle assembleDebug` passes
+- [x] Changes committed: `feat(ui): Phase 4 - App Selection Overhaul`
 
 ---
 
