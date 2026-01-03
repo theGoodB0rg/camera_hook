@@ -9,6 +9,7 @@ import com.camerainterceptor.hooks.CameraHook;
 import com.camerainterceptor.hooks.CameraxHook;
 import com.camerainterceptor.hooks.FileOutputHook;
 import com.camerainterceptor.hooks.IntentHook;
+import com.camerainterceptor.hooks.MediaStoreHook;
 import com.camerainterceptor.utils.Logger;
 
 import de.robv.android.xposed.IXposedHookLoadPackage;
@@ -77,6 +78,7 @@ public class MainHook implements IXposedHookLoadPackage, IXposedHookZygoteInit {
             hookDispatcher.registerHook(new CameraxHook(hookDispatcher));
             hookDispatcher.registerHook(new FileOutputHook(hookDispatcher));
             hookDispatcher.registerHook(new IntentHook(hookDispatcher));
+            hookDispatcher.registerHook(new MediaStoreHook(hookDispatcher));
 
             Logger.i(TAG, "All hooks registered successfully");
         } catch (Throwable t) {
