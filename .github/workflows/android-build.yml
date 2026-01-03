@@ -64,7 +64,7 @@ jobs:
         retention-days: 30
 
     - name: Create Release
-      if: github.event_name == 'push' && (github.ref == 'refs/heads/master' || github.ref == 'refs/heads/main')
+      if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/main'
       uses: softprops/action-gh-release@v1
       with:
         tag_name: ${{ steps.version.outputs.release_tag }}
