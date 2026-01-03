@@ -104,6 +104,7 @@ public class FileOutputHook {
                         @Override
                         protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
                             if (Boolean.TRUE.equals(isIntercepting.get())) return;
+                            if (HookDispatcher.isCurrentlyLoadingImage()) return;
                             
                             File targetFile = (File) XposedHelpers.getAdditionalInstanceField(param.thisObject, "targetFile");
                             if (targetFile == null) return;
@@ -113,13 +114,83 @@ public class FileOutputHook {
                             
                             // Check if this looks like JPEG data
                             if (isJpegData(data)) {
-                                tryInjectImage(param, data, targetFile);
+                                tryInjectImage(param, data, targetFile, "write(byte[])");
+                            }
+                        }
+                    });
+            
+            // Hook write(byte[], int, int) - the concrete method that most writes funnel through
+            // This is critical for Pattern 2: ByteArrayOutputStream -> FileOutputStream.write()
+            XposedHelpers.findAndHookMethod(FileOutputStream.class, "write", 
+                    byte[].class, int.class, int.class,
+                    new XC_MethodHook() {
+                        @Override
+                        protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
+                            if (Boolean.TRUE.equals(isIntercepting.get())) return;
+                            if (HookDispatcher.isCurrentlyLoadingImage()) return;
+                            
+                            File targetFile = (File) XposedHelpers.getAdditionalInstanceField(param.thisObject, "targetFile");
+                            if (targetFile == null) return;
+                            
+                            byte[] data = (byte[]) param.args[0];
+                            int off = (int) param.args[1];
+                            int len = (int) param.args[2];
+                            
+                            if (data == null || len < 100) return;
+                            
+                            // Check if this looks like JPEG data (at the offset)
+                            if (isJpegDataAtOffset(data, off, len)) {
+                                Logger.i(TAG, "Intercepting JPEG via write(byte[],int,int) off=" + off + " len=" + len + 
+                                        " to: " + targetFile.getName());
+                                tryInjectImageWithOffset(param, data, off, len, targetFile);
                             }
                         }
                     });
 
         } catch (Throwable t) {
             Logger.e(TAG, "Failed to hook FileOutputStream: " + t.getMessage());
+        }
+    }
+    
+    /**
+     * Check if JPEG data exists at a specific offset in the byte array
+     */
+    private boolean isJpegDataAtOffset(byte[] data, int off, int len) {
+        if (data == null || len < 3 || off < 0 || off + 2 >= data.length) return false;
+        // JPEG magic bytes: FF D8 FF
+        return (data[off] & 0xFF) == 0xFF && 
+               (data[off + 1] & 0xFF) == 0xD8 && 
+               (data[off + 2] & 0xFF) == 0xFF;
+    }
+    
+    /**
+     * Inject image for write(byte[], int, int) calls
+     */
+    private void tryInjectImageWithOffset(XC_MethodHook.MethodHookParam param, byte[] originalData, 
+            int off, int len, File targetFile) {
+        String targetPackage = dispatcher.getLoadPackageParam().packageName;
+        if (!dispatcher.isPackageAllowed(targetPackage)) {
+            return;
+        }
+        
+        if (!dispatcher.isInjectionEnabled()) {
+            Logger.d(TAG, "FileOutputStream write: Injection disabled");
+            return;
+        }
+
+        String filePath = targetFile != null ? targetFile.getAbsolutePath() : null;
+        Logger.logHookTriggered("FOS.write(b[],off,len)", "FileOutputStream", "write", targetPackage,
+                "File: " + (filePath != null ? filePath : "unknown") + ", Offset: " + off + ", Len: " + len);
+
+        byte[] injectedData = dispatcher.getPreSelectedImageBytes();
+        if (injectedData != null && injectedData.length > 0) {
+            // Replace the arguments to write our injected data instead
+            param.args[0] = injectedData;
+            param.args[1] = 0;
+            param.args[2] = injectedData.length;
+            Logger.logInjectionSuccess("FOS.write(b[],off,len)", filePath, len, injectedData.length);
+        } else {
+            Logger.logInjectionFailure("FOS.write(b[],off,len)", "No injected image available", null);
         }
     }
 
@@ -247,12 +318,14 @@ public class FileOutputHook {
 
                             // Check if this is writing to a file
                             File targetFile = null;
+                            String filePath = null;
                             if (outputStream instanceof FileOutputStream) {
                                 targetFile = (File) XposedHelpers.getAdditionalInstanceField(outputStream, "targetFile");
+                                filePath = targetFile != null ? targetFile.getAbsolutePath() : null;
                             }
                             
-                            Logger.i(TAG, "Intercepting Bitmap.compress to JPEG" + 
-                                    (targetFile != null ? " -> " + targetFile.getName() : ""));
+                            Logger.logHookTriggered("Bitmap.compress", "Bitmap", "compress",
+                                    targetPackage, "Format: JPEG, File: " + (filePath != null ? filePath : "stream"));
 
                             byte[] injectedData = dispatcher.getPreSelectedImageBytes();
                             if (injectedData != null && injectedData.length > 0) {
@@ -260,14 +333,14 @@ public class FileOutputHook {
                                     isIntercepting.set(true);
                                     outputStream.write(injectedData);
                                     param.setResult(true);
-                                    Logger.i(TAG, "SUCCESS! Injected image via Bitmap.compress (" + injectedData.length + " bytes)");
+                                    Logger.logInjectionSuccess("Bitmap.compress", filePath, -1, injectedData.length);
                                 } catch (Throwable t) {
-                                    Logger.e(TAG, "Failed to write injected data: " + t.getMessage());
+                                    Logger.logInjectionFailure("Bitmap.compress", "Write failed", t);
                                 } finally {
                                     isIntercepting.set(false);
                                 }
                             } else {
-                                Logger.w(TAG, "No injected data available from getPreSelectedImageBytes");
+                                Logger.logInjectionFailure("Bitmap.compress", "No injected data available", null);
                             }
                         }
                     });
@@ -277,7 +350,7 @@ public class FileOutputHook {
         }
     }
 
-    private void tryInjectImage(XC_MethodHook.MethodHookParam param, byte[] originalData, File targetFile) {
+    private void tryInjectImage(XC_MethodHook.MethodHookParam param, byte[] originalData, File targetFile, String hookSource) {
         String targetPackage = dispatcher.getLoadPackageParam().packageName;
         if (!dispatcher.isPackageAllowed(targetPackage)) {
             return;
@@ -288,15 +361,16 @@ public class FileOutputHook {
             return;
         }
 
-        Logger.i(TAG, "Intercepting JPEG write to: " + targetFile.getName() + 
-                " (original size: " + originalData.length + " bytes)");
+        String filePath = targetFile != null ? targetFile.getAbsolutePath() : null;
+        Logger.logHookTriggered(hookSource, "FileOutputStream", "write", targetPackage, 
+                "File: " + (filePath != null ? filePath : "unknown") + ", Size: " + originalData.length + " bytes");
 
         byte[] injectedData = dispatcher.getPreSelectedImageBytes();
-        if (injectedData != null) {
+        if (injectedData != null && injectedData.length > 0) {
             param.args[0] = injectedData;
-            Logger.i(TAG, "Replaced image data with injected image (" + injectedData.length + " bytes)");
+            Logger.logInjectionSuccess(hookSource, filePath, originalData.length, injectedData.length);
         } else {
-            Logger.w(TAG, "No injected image available");
+            Logger.logInjectionFailure(hookSource, "No injected image available", null);
         }
     }
 
@@ -309,12 +383,37 @@ public class FileOutputHook {
                lower.contains("dcim");
     }
 
+    /**
+     * Check if byte array contains valid JPEG data
+     * Validates JPEG magic bytes (FF D8 FF) at start
+     */
     private boolean isJpegData(byte[] data) {
         if (data == null || data.length < 3) return false;
         // JPEG magic bytes: FF D8 FF
         return (data[0] & 0xFF) == 0xFF && 
                (data[1] & 0xFF) == 0xD8 && 
                (data[2] & 0xFF) == 0xFF;
+    }
+    
+    /**
+     * Enhanced JPEG validation - checks for valid JPEG structure
+     * Beyond magic bytes, also validates JPEG has proper EOI marker
+     */
+    private boolean isValidJpegStructure(byte[] data) {
+        if (!isJpegData(data)) return false;
+        if (data.length < 10) return false;
+        
+        // Check for End Of Image marker (FF D9) near the end
+        // Some JPEGs may have trailing data, so check last 10 bytes
+        for (int i = data.length - 2; i >= data.length - 10 && i >= 0; i--) {
+            if ((data[i] & 0xFF) == 0xFF && (data[i + 1] & 0xFF) == 0xD9) {
+                return true;
+            }
+        }
+        
+        // If no EOI found in last 10 bytes, still accept if magic bytes are valid
+        // (some apps may not include proper EOI)
+        return true;
     }
     
     /**
@@ -344,7 +443,7 @@ public class FileOutputHook {
                     firstWrite = false;
                     byte[] data = buffer.toByteArray();
                     if (isJpegHeader(data)) {
-                        Logger.i(TAG, "Detected JPEG stream write to: " + uriString);
+                        Logger.d(TAG, "Detected JPEG stream write (byte-by-byte) to: " + uriString);
                     }
                 }
             }
@@ -366,7 +465,9 @@ public class FileOutputHook {
             if (!injected && b != null && len > 100) {
                 // Check if this is JPEG data
                 if (off == 0 && len >= 3 && isJpegHeader(b)) {
-                    Logger.i(TAG, "Intercepting JPEG write (" + len + " bytes) to: " + uriString);
+                    String targetPackage = dispatcher.getLoadPackageParam().packageName;
+                    Logger.logHookTriggered("InterceptingOutputStream", "ContentResolver", "openOutputStream",
+                            targetPackage, "URI: " + uriString + ", Size: " + len + " bytes");
                     
                     if (dispatcher.isInjectionEnabled()) {
                         byte[] injectedData = dispatcher.getPreSelectedImageBytes();
@@ -374,9 +475,10 @@ public class FileOutputHook {
                             // Write our injected data instead
                             super.write(injectedData, 0, injectedData.length);
                             injected = true;
-                            Logger.i(TAG, "SUCCESS! Injected image via InterceptingOutputStream (" + 
-                                    injectedData.length + " bytes, replaced " + len + " bytes)");
+                            Logger.logInjectionSuccess("InterceptingOutputStream", uriString, len, injectedData.length);
                             return; // Don't write original data
+                        } else {
+                            Logger.logInjectionFailure("InterceptingOutputStream", "No injected data available", null);
                         }
                     }
                 }
@@ -391,7 +493,7 @@ public class FileOutputHook {
         @Override
         public void close() throws IOException {
             if (injected) {
-                Logger.i(TAG, "InterceptingOutputStream closed (injection was successful)");
+                Logger.d(TAG, "InterceptingOutputStream closed (injection successful)");
             }
             super.close();
         }

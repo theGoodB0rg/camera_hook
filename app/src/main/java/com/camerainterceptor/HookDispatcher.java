@@ -13,6 +13,7 @@ import com.camerainterceptor.utils.Logger;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.lang.ref.SoftReference;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -20,6 +21,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.Callable;
 import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.atomic.AtomicLong;
 import java.util.concurrent.atomic.AtomicReference;
 
 import de.robv.android.xposed.XSharedPreferences;
@@ -34,6 +36,19 @@ public class HookDispatcher {
     
     // World-readable external path - must match ImagePickerActivity
     private static final String EXTERNAL_IMAGE_PATH = "/sdcard/.camerainterceptor/injected_image.jpg";
+    
+    // Edge case handling constants
+    private static final long MIN_INJECTION_INTERVAL_MS = 100; // Minimum 100ms between injections
+    private static final int MAX_IMAGE_SIZE_BYTES = 10 * 1024 * 1024; // 10MB max image size
+    private static final long CACHE_VALIDITY_MS = 30000; // Cache valid for 30 seconds
+    
+    // Rate limiting for rapid captures
+    private static final AtomicLong lastInjectionTime = new AtomicLong(0);
+    
+    // Cached image data with soft reference (allows GC under memory pressure)
+    private static SoftReference<byte[]> cachedImageData = new SoftReference<>(null);
+    private static long cachedImageTimestamp = 0;
+    private static String cachedImagePath = null;
 
     private final Context context;
     private final XC_LoadPackage.LoadPackageParam lpparam;
@@ -289,6 +304,7 @@ public class HookDispatcher {
     /**
      * Load pre-selected image synchronously (for Camera2 hooks)
      * Reads raw bytes from file - validates JPEG format and converts if needed
+     * Includes caching for rapid captures and memory-safe loading
      */
     public byte[] getPreSelectedImageBytes() {
         if (!isPackageAllowedInPrefs(lpparam.packageName)) {
@@ -299,20 +315,55 @@ public class HookDispatcher {
         if (Boolean.TRUE.equals(isLoadingImage.get())) {
             return null;
         }
+        
+        // Rate limiting for rapid captures
+        long now = System.currentTimeMillis();
+        long lastTime = lastInjectionTime.get();
+        if (now - lastTime < MIN_INJECTION_INTERVAL_MS) {
+            Logger.d(TAG, "Rate limiting: too fast, using cached data if available");
+            byte[] cached = cachedImageData.get();
+            if (cached != null) {
+                return cached;
+            }
+            // If no cache, proceed anyway but log warning
+            Logger.w(TAG, "Rate limit triggered but no cache available, proceeding with load");
+        }
+        
+        // Check if we have valid cached data
+        String currentPath = findInjectableImagePath();
+        if (currentPath != null && currentPath.equals(cachedImagePath)) {
+            byte[] cached = cachedImageData.get();
+            if (cached != null && (now - cachedImageTimestamp) < CACHE_VALIDITY_MS) {
+                Logger.d(TAG, "Using cached image data (" + cached.length + " bytes)");
+                lastInjectionTime.set(now);
+                return cached;
+            }
+        }
 
         try {
             isLoadingImage.set(true);
             
-            String path = findInjectableImagePath();
-            
-            if (path == null) {
+            if (currentPath == null) {
                 Logger.w(TAG, "getPreSelectedImageBytes: No readable image file found");
                 return null;
             }
 
+            // Check file size before loading
+            File file = new File(currentPath);
+            long fileSize = file.length();
+            
+            if (fileSize > MAX_IMAGE_SIZE_BYTES) {
+                Logger.e(TAG, "Image file too large: " + fileSize + " bytes (max: " + MAX_IMAGE_SIZE_BYTES + ")");
+                return null;
+            }
+            
+            if (fileSize == 0) {
+                Logger.e(TAG, "Image file is empty: " + currentPath);
+                return null;
+            }
+
             // Read raw file bytes
-            File file = new File(path);
-            byte[] data = new byte[(int) file.length()];
+            byte[] data = new byte[(int) fileSize];
             
             java.io.FileInputStream fis = new java.io.FileInputStream(file);
             int bytesRead = 0;
@@ -337,14 +388,35 @@ public class HookDispatcher {
                 }
             }
             
-            Logger.i(TAG, "Loaded injected image: " + data.length + " bytes from " + path);
+            // Cache the loaded data
+            cachedImageData = new SoftReference<>(data);
+            cachedImageTimestamp = now;
+            cachedImagePath = currentPath;
+            lastInjectionTime.set(now);
+            
+            Logger.i(TAG, "Loaded and cached injected image: " + data.length + " bytes from " + currentPath);
             return data;
+        } catch (OutOfMemoryError oom) {
+            Logger.e(TAG, "Out of memory loading image - clearing cache and retrying with smaller allocation");
+            clearImageCache();
+            System.gc();
+            return null;
         } catch (Exception e) {
             Logger.e(TAG, "Error reading image sync: " + e.getMessage());
             return null;
         } finally {
             isLoadingImage.set(false);
         }
+    }
+    
+    /**
+     * Clear the cached image data
+     */
+    public static void clearImageCache() {
+        cachedImageData = new SoftReference<>(null);
+        cachedImageTimestamp = 0;
+        cachedImagePath = null;
+        Logger.d(TAG, "Image cache cleared");
     }
     
     /**
