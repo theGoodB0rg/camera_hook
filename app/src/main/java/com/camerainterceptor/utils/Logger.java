@@ -35,6 +35,12 @@ public class Logger {
     // Debug mode - can be toggled at runtime
     private static final AtomicBoolean debugModeEnabled = new AtomicBoolean(true);
     
+    // Track if storage is accessible (set after first successful access)
+    private static final AtomicBoolean storageAccessible = new AtomicBoolean(false);
+    private static final AtomicBoolean storageCheckFailed = new AtomicBoolean(false);
+    private static volatile File cachedLogDir = null;
+    private static volatile File cachedLogFile = null;
+    
     // Statistics tracking
     private static final AtomicLong totalHooksTriggered = new AtomicLong(0);
     private static final AtomicLong successfulInjections = new AtomicLong(0);
@@ -43,38 +49,91 @@ public class Logger {
     private static final ThreadPoolExecutor logExecutor = new ThreadPoolExecutor(
             1, 1, 30, TimeUnit.SECONDS, new LinkedBlockingQueue<>());
     
-    static {
-        // Initialize logging system
-        if (LOG_TO_FILE) {
-            try {
-                File logDir = new File(Environment.getExternalStorageDirectory(), LOG_FILE_DIR);
-                if (!logDir.exists() && !logDir.mkdirs()) {
-                    Log.e(MODULE_TAG, "Failed to create log directory");
-                }
-                
-                File logFile = new File(logDir, LOG_FILE_NAME);
-                if (logFile.exists() && logFile.length() > MAX_LOG_FILE_SIZE) {
-                    // Backup old log file
-                    File backupFile = new File(logDir, LOG_FILE_NAME + ".bak");
-                    if (backupFile.exists()) {
-                        backupFile.delete();
-                    }
-                    logFile.renameTo(backupFile);
-                }
-                
-                // Create a header for the log file if it's new
-                if (!logFile.exists()) {
-                    try (FileWriter writer = new FileWriter(logFile)) {
-                        writer.write("=== CameraInterceptor Log Started at " + 
-                                new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.US).format(new Date()) + 
-                                " ===\n\n");
-                    } catch (IOException e) {
-                        Log.e(MODULE_TAG, "Failed to write log header: " + e.getMessage());
-                    }
-                }
-            } catch (Exception e) {
-                Log.e(MODULE_TAG, "Error initializing log file: " + e.getMessage());
+    // NOTE: Static initializer removed - we now initialize lazily to avoid
+    // crashes when storage isn't accessible during early boot (zygote)
+    
+    /**
+     * Safely get the log directory, handling early boot scenarios
+     */
+    private static File getLogDir() {
+        if (cachedLogDir != null) {
+            return cachedLogDir;
+        }
+        
+        // If we already know storage isn't accessible, don't try again
+        if (storageCheckFailed.get()) {
+            return null;
+        }
+        
+        try {
+            // Check if Environment is ready by checking the state
+            String state = Environment.getExternalStorageState();
+            if (!Environment.MEDIA_MOUNTED.equals(state)) {
+                return null;
             }
+            
+            File extDir = Environment.getExternalStorageDirectory();
+            if (extDir == null) {
+                return null;
+            }
+            
+            File logDir = new File(extDir, LOG_FILE_DIR);
+            if (!logDir.exists() && !logDir.mkdirs()) {
+                Log.w(MODULE_TAG, "Could not create log directory");
+                return null;
+            }
+            
+            cachedLogDir = logDir;
+            storageAccessible.set(true);
+            return logDir;
+        } catch (Throwable t) {
+            // This is expected during early boot - don't spam logs
+            storageCheckFailed.set(true);
+            return null;
+        }
+    }
+    
+    /**
+     * Safely get the log file, handling early boot scenarios
+     */
+    private static File getLogFile() {
+        if (cachedLogFile != null && cachedLogFile.getParentFile().exists()) {
+            return cachedLogFile;
+        }
+        
+        File logDir = getLogDir();
+        if (logDir == null) {
+            return null;
+        }
+        
+        try {
+            File logFile = new File(logDir, LOG_FILE_NAME);
+            
+            // Rotate log if too large
+            if (logFile.exists() && logFile.length() > MAX_LOG_FILE_SIZE) {
+                File backupFile = new File(logDir, LOG_FILE_NAME + ".bak");
+                if (backupFile.exists()) {
+                    backupFile.delete();
+                }
+                logFile.renameTo(backupFile);
+                logFile = new File(logDir, LOG_FILE_NAME);
+            }
+            
+            // Create header if new file
+            if (!logFile.exists()) {
+                try (FileWriter writer = new FileWriter(logFile)) {
+                    writer.write("=== CameraInterceptor Log Started at " + 
+                            new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.US).format(new Date()) + 
+                            " ===\n\n");
+                } catch (IOException e) {
+                    // Ignore - file logging will just be unavailable
+                }
+            }
+            
+            cachedLogFile = logFile;
+            return logFile;
+        } catch (Throwable t) {
+            return null;
         }
     }
     
@@ -148,24 +207,33 @@ public class Logger {
             }
         }
         
-        // Log to file asynchronously
+        // Log to file asynchronously (safe - handles early boot gracefully)
         if (LOG_TO_FILE) {
+            final String messageToLog = fullMessage;
             logExecutor.execute(() -> {
                 try {
-                    File logDir = new File(Environment.getExternalStorageDirectory(), LOG_FILE_DIR);
-                    File logFile = new File(logDir, LOG_FILE_NAME);
+                    // Reset failed flag periodically to allow retrying after boot completes
+                    if (storageCheckFailed.get()) {
+                        storageCheckFailed.set(false);
+                    }
+                    
+                    File logFile = getLogFile();
+                    if (logFile == null) {
+                        // Storage not accessible yet - this is normal during early boot
+                        return;
+                    }
                     
                     try (FileWriter writer = new FileWriter(logFile, true)) {
-                        writer.write(fullMessage + "\n");
+                        writer.write(messageToLog + "\n");
                     } catch (IOException e) {
+                        // File write failed - maybe storage became unavailable
+                        cachedLogFile = null;
                         if (LOG_TO_ANDROID) {
-                            Log.e(MODULE_TAG, "Failed to write to log file: " + e.getMessage());
+                            Log.w(MODULE_TAG, "Log file write failed: " + e.getMessage());
                         }
                     }
-                } catch (Exception e) {
-                    if (LOG_TO_ANDROID) {
-                        Log.e(MODULE_TAG, "Error writing to log file: " + e.getMessage());
-                    }
+                } catch (Throwable t) {
+                    // Silently ignore - file logging is optional
                 }
             });
         }

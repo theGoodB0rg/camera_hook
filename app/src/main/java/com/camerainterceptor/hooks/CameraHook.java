@@ -2,6 +2,7 @@ package com.camerainterceptor.hooks;
 
 import android.hardware.Camera;
 import android.hardware.Camera.PictureCallback;
+import android.hardware.Camera.ShutterCallback;
 import android.os.Handler;
 import android.os.Looper;
 
@@ -26,10 +27,14 @@ import de.robv.android.xposed.XposedHelpers;
  * 
  * Design principle: If injection fails for ANY reason, gracefully fall back
  * to letting the original capture proceed. Never crash or hang the app.
+ * 
+ * IMPORTANT: After injection, we must restart the camera preview so apps can
+ * take another photo. Many apps expect the preview to resume after capture.
  */
 public class CameraHook {
     private static final String TAG = "CameraHook";
     private static final long INJECTION_TIMEOUT_MS = 2000; // 2 second timeout
+    private static final long PREVIEW_RESTART_DELAY_MS = 100; // Small delay before restarting preview
     
     private final HookDispatcher dispatcher;
     private final Handler mainHandler;
@@ -145,30 +150,80 @@ public class CameraHook {
                         // SUCCESS - we have valid image data, now block original and inject
                         final byte[] imageData = imageDataRef.get();
                         
+                        // Get all callbacks for proper simulation
+                        final ShutterCallback shutterCallback = (ShutterCallback) param.args[0];
+                        final PictureCallback rawCallback = (PictureCallback) param.args[1];
+                        final PictureCallback postviewCallback = (PictureCallback) param.args[2];
+                        
                         // Block original method ONLY after we confirm we have valid data
                         param.setResult(null);
                         Logger.i(TAG, "Blocking original capture, injecting " + imageData.length + " bytes");
 
-                        // Deliver to callback with error handling
-                        try {
-                            // Some apps expect callback on main thread
-                            if (Looper.myLooper() == Looper.getMainLooper()) {
-                                jpegCallback.onPictureTaken(imageData, camera);
-                            } else {
-                                mainHandler.post(() -> {
+                        // Deliver callbacks in proper order with error handling
+                        // The sequence should be: shutter -> raw -> postview -> jpeg -> restart preview
+                        Runnable deliverCallbacks = () -> {
+                            try {
+                                // 1. Shutter callback (simulates the click sound moment)
+                                if (shutterCallback != null) {
                                     try {
-                                        jpegCallback.onPictureTaken(imageData, camera);
-                                        Logger.i(TAG, "Successfully delivered injected image to app (via main thread)");
+                                        shutterCallback.onShutter();
+                                        Logger.d(TAG, "Delivered shutter callback");
                                     } catch (Throwable t) {
-                                        Logger.e(TAG, "Error in callback delivery (main thread): " + t.getMessage());
+                                        Logger.w(TAG, "Shutter callback error (non-fatal): " + t.getMessage());
                                     }
-                                });
+                                }
+                                
+                                // 2. Raw callback (usually null, but call if provided)
+                                if (rawCallback != null) {
+                                    try {
+                                        rawCallback.onPictureTaken(null, camera);
+                                        Logger.d(TAG, "Delivered raw callback");
+                                    } catch (Throwable t) {
+                                        Logger.w(TAG, "Raw callback error (non-fatal): " + t.getMessage());
+                                    }
+                                }
+                                
+                                // 3. Postview callback (usually null, but call if provided)
+                                if (postviewCallback != null) {
+                                    try {
+                                        postviewCallback.onPictureTaken(null, camera);
+                                        Logger.d(TAG, "Delivered postview callback");
+                                    } catch (Throwable t) {
+                                        Logger.w(TAG, "Postview callback error (non-fatal): " + t.getMessage());
+                                    }
+                                }
+                                
+                                // 4. JPEG callback with injected data (the main one)
+                                jpegCallback.onPictureTaken(imageData, camera);
+                                Logger.i(TAG, "Successfully delivered injected image to app");
+                                
+                                // 5. Restart preview after a small delay
+                                // This is CRITICAL - many apps expect preview to restart after capture
+                                // Without this, the shutter button may not re-enable
+                                mainHandler.postDelayed(() -> {
+                                    try {
+                                        camera.startPreview();
+                                        Logger.d(TAG, "Restarted camera preview after injection");
+                                    } catch (Throwable t) {
+                                        // Preview restart failed - this is OK, app may handle it
+                                        Logger.w(TAG, "Preview restart failed (app may handle): " + t.getMessage());
+                                    }
+                                }, PREVIEW_RESTART_DELAY_MS);
+                                
+                            } catch (Throwable t) {
+                                Logger.e(TAG, "Error delivering image to app: " + t.getMessage());
+                                // Try to restart preview even on error
+                                try {
+                                    camera.startPreview();
+                                } catch (Throwable ignored) {}
                             }
-                            Logger.i(TAG, "Successfully delivered injected image to app");
-                        } catch (Throwable t) {
-                            Logger.e(TAG, "Error delivering image to app: " + t.getMessage());
-                            // Can't undo param.setResult(null) here, but at least we logged it
-                            // The file output hooks may still catch the save operation
+                        };
+                        
+                        // Execute on main thread if not already there
+                        if (Looper.myLooper() == Looper.getMainLooper()) {
+                            deliverCallbacks.run();
+                        } else {
+                            mainHandler.post(deliverCallbacks);
                         }
 
                     } catch (InterruptedException e) {

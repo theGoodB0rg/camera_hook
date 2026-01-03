@@ -78,10 +78,14 @@ public class FileOutputHook {
                     new XC_MethodHook() {
                         @Override
                         protected void afterHookedMethod(MethodHookParam param) throws Throwable {
-                            File file = (File) param.args[0];
-                            if (file != null && isImageFile(file.getName())) {
-                                XposedHelpers.setAdditionalInstanceField(param.thisObject, "targetFile", file);
-                                Logger.d(TAG, "FileOutputStream opened for image: " + file.getAbsolutePath());
+                            try {
+                                File file = (File) param.args[0];
+                                if (file != null && isImageFile(file.getName())) {
+                                    XposedHelpers.setAdditionalInstanceField(param.thisObject, "targetFile", file);
+                                    Logger.d(TAG, "FileOutputStream opened for image: " + file.getAbsolutePath());
+                                }
+                            } catch (Throwable t) {
+                                // Never crash the app - this is just tracking
                             }
                         }
                     });
