@@ -82,6 +82,40 @@
     <string name="mode_inject">Inject</string>
     <string name="mode_profile">Profile</string>
     
+    <!-- Log Viewer Screen -->
+    <string name="log_viewer_title">Logs</string>
+    <string name="log_loading">Loading logs…</string>
+    <string name="log_empty_title">No logs yet</string>
+    <string name="log_empty_subtitle">Logs will appear here when the module intercepts camera activity</string>
+    <string name="log_no_matches">No matching logs</string>
+    <string name="log_adjust_filters">Try adjusting your search or filters</string>
+    <string name="log_error_loading">Error loading logs</string>
+    <string name="log_error_detail">Error: %1$s</string>
+    <string name="log_retry">Retry</string>
+    <string name="log_search_hint">Search logs…</string>
+    <string name="log_scroll_bottom">Scroll to bottom</string>
+    
+    <!-- Log Level Filters -->
+    <string name="log_level_error">Error</string>
+    <string name="log_level_warn">Warning</string>
+    <string name="log_level_info">Info</string>
+    <string name="log_level_debug">Debug</string>
+    
+    <!-- Log Actions -->
+    <string name="log_clear">Clear logs</string>
+    <string name="log_clear_title">Clear all logs?</string>
+    <string name="log_clear_message">This will permanently delete all log entries. You can undo this action immediately after.</string>
+    <string name="log_clear_confirm">Clear</string>
+    <string name="log_cleared">Logs cleared</string>
+    <string name="log_clear_failed">Failed to clear logs</string>
+    <string name="log_undo">Undo</string>
+    <string name="log_restored">Logs restored</string>
+    <string name="log_restore_failed">Failed to restore logs</string>
+    <string name="log_share">Share logs</string>
+    <string name="log_export">Export logs</string>
+    <string name="log_copy_all">Copy all</string>
+    <string name="log_copied">Logs copied to clipboard</string>
+    
     <!-- Array for LSPosed scope -->
 
 </resources>
