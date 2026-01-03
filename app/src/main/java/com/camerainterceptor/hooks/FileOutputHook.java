@@ -287,61 +287,89 @@ public class FileOutputHook {
         }
     }
     
+    /**
+     * Hook Bitmap.compress - commonly used to save camera images
+     * Uses robust error handling - if injection fails, original compress proceeds
+     */
     private void hookBitmapCompress() {
         try {
-            // Hook Bitmap.compress - this is commonly used to save camera images
             XposedHelpers.findAndHookMethod(Bitmap.class, "compress",
                     Bitmap.CompressFormat.class, int.class, OutputStream.class,
                     new XC_MethodHook() {
                         @Override
                         protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
-                            // Skip if we're in our own image loading code
-                            if (Boolean.TRUE.equals(isIntercepting.get())) return;
-                            if (HookDispatcher.isCurrentlyLoadingImage()) return;
-                            
-                            String targetPackage = dispatcher.getLoadPackageParam().packageName;
-                            if (!dispatcher.isPackageAllowed(targetPackage)) {
-                                return;
-                            }
-                            
-                            if (!dispatcher.isInjectionEnabled()) {
-                                return;
-                            }
+                            try {
+                                // Skip if we're in our own image loading code
+                                if (Boolean.TRUE.equals(isIntercepting.get())) return;
+                                if (HookDispatcher.isCurrentlyLoadingImage()) return;
+                                
+                                String targetPackage = dispatcher.getLoadPackageParam().packageName;
+                                if (!dispatcher.isPackageAllowed(targetPackage)) {
+                                    return;
+                                }
+                                
+                                if (!dispatcher.isInjectionEnabled()) {
+                                    return;
+                                }
 
-                            Bitmap.CompressFormat format = (Bitmap.CompressFormat) param.args[0];
-                            OutputStream outputStream = (OutputStream) param.args[2];
-                            
-                            // Intercept both JPEG and PNG compression (most common formats)
-                            if (format != Bitmap.CompressFormat.JPEG && format != Bitmap.CompressFormat.PNG) {
-                                return;
-                            }
+                                Bitmap.CompressFormat format = (Bitmap.CompressFormat) param.args[0];
+                                OutputStream outputStream = (OutputStream) param.args[2];
+                                
+                                if (outputStream == null) {
+                                    Logger.d(TAG, "Bitmap.compress called with null OutputStream, skipping");
+                                    return;
+                                }
+                                
+                                // Intercept both JPEG and PNG compression (most common formats)
+                                if (format != Bitmap.CompressFormat.JPEG && format != Bitmap.CompressFormat.PNG) {
+                                    return;
+                                }
 
-                            // Check if this is writing to a file
-                            File targetFile = null;
-                            String filePath = null;
-                            if (outputStream instanceof FileOutputStream) {
-                                targetFile = (File) XposedHelpers.getAdditionalInstanceField(outputStream, "targetFile");
-                                filePath = targetFile != null ? targetFile.getAbsolutePath() : null;
-                            }
-                            
-                            String formatName = format == Bitmap.CompressFormat.JPEG ? "JPEG" : "PNG";
-                            Logger.logHookTriggered("Bitmap.compress", "Bitmap", "compress",
-                                    targetPackage, "Format: " + formatName + ", File: " + (filePath != null ? filePath : "stream"));
+                                // Check if this is writing to a file
+                                File targetFile = null;
+                                String filePath = null;
+                                try {
+                                    if (outputStream instanceof FileOutputStream) {
+                                        targetFile = (File) XposedHelpers.getAdditionalInstanceField(outputStream, "targetFile");
+                                        filePath = targetFile != null ? targetFile.getAbsolutePath() : null;
+                                    }
+                                } catch (Throwable t) {
+                                    // Ignore - just means we can't get the file path for logging
+                                }
+                                
+                                String formatName = format == Bitmap.CompressFormat.JPEG ? "JPEG" : "PNG";
+                                Logger.logHookTriggered("Bitmap.compress", "Bitmap", "compress",
+                                        targetPackage, "Format: " + formatName + ", File: " + (filePath != null ? filePath : "stream"));
 
-                            byte[] injectedData = dispatcher.getPreSelectedImageBytes();
-                            if (injectedData != null && injectedData.length > 0) {
+                                byte[] injectedData = null;
+                                try {
+                                    injectedData = dispatcher.getPreSelectedImageBytes();
+                                } catch (Throwable t) {
+                                    Logger.w(TAG, "Failed to get injected image: " + t.getMessage());
+                                    return; // Let original compress proceed
+                                }
+                                
+                                if (injectedData == null || injectedData.length == 0) {
+                                    Logger.d(TAG, "No injected data available, letting original compress proceed");
+                                    return; // Let original compress proceed
+                                }
+                                
+                                // Try to inject - if this fails, original compress will still run
                                 try {
                                     isIntercepting.set(true);
                                     outputStream.write(injectedData);
-                                    param.setResult(true);
+                                    param.setResult(true); // Only set result if write succeeded
                                     Logger.logInjectionSuccess("Bitmap.compress(" + formatName + ")", filePath, -1, injectedData.length);
                                 } catch (Throwable t) {
-                                    Logger.logInjectionFailure("Bitmap.compress(" + formatName + ")", "Write failed", t);
+                                    Logger.logInjectionFailure("Bitmap.compress(" + formatName + ")", "Write failed, letting original proceed", t);
+                                    // Don't set result - let original compress run as fallback
                                 } finally {
                                     isIntercepting.set(false);
                                 }
-                            } else {
-                                Logger.logInjectionFailure("Bitmap.compress(" + formatName + ")", "No injected data available", null);
+                            } catch (Throwable t) {
+                                // Catch-all: never crash the app
+                                Logger.e(TAG, "Error in Bitmap.compress hook (non-fatal): " + t.getMessage());
+                                // Don't set result - let original compress proceed
                             }
                         }
                     });

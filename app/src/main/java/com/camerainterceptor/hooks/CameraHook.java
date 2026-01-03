@@ -2,6 +2,8 @@ package com.camerainterceptor.hooks;
 
 import android.hardware.Camera;
 import android.hardware.Camera.PictureCallback;
+import android.os.Handler;
+import android.os.Looper;
 
 import com.camerainterceptor.HookDispatcher;
 import com.camerainterceptor.interfaces.HookCallback;
@@ -9,6 +11,10 @@ import com.camerainterceptor.utils.ImageUtils.ImageMetadata;
 import com.camerainterceptor.utils.Logger;
 
 import java.lang.reflect.Method;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.atomic.AtomicReference;
 
 import de.robv.android.xposed.XC_MethodHook;
 import de.robv.android.xposed.XposedBridge;
@@ -16,14 +22,21 @@ import de.robv.android.xposed.XposedHelpers;
 
 /**
  * Hooks for the original Camera API (android.hardware.Camera)
- * Legacy API support with silent injection.
+ * Legacy API support with silent injection and robust error handling.
+ * 
+ * Design principle: If injection fails for ANY reason, gracefully fall back
+ * to letting the original capture proceed. Never crash or hang the app.
  */
 public class CameraHook {
     private static final String TAG = "CameraHook";
+    private static final long INJECTION_TIMEOUT_MS = 2000; // 2 second timeout
+    
     private final HookDispatcher dispatcher;
+    private final Handler mainHandler;
 
     public CameraHook(HookDispatcher dispatcher) {
         this.dispatcher = dispatcher;
+        this.mainHandler = new Handler(Looper.getMainLooper());
         initHooks();
     }
 
@@ -40,6 +53,7 @@ public class CameraHook {
 
     /**
      * Hook Camera.takePicture() to intercept photo capture
+     * Uses robust error handling - if anything fails, original capture proceeds
      */
     private void hookTakePicture() {
         try {
@@ -75,40 +89,96 @@ public class CameraHook {
                     }
 
                     Camera camera = (Camera) param.thisObject;
-                    Logger.i(TAG, "Camera.takePicture() intercepted, Silent Injection Enabled");
-
-                    // Get the JPEG callback (which is the last parameter)
                     PictureCallback jpegCallback = (PictureCallback) param.args[3];
 
-                    if (jpegCallback != null) {
-                        // Prevent the original method from executing (no real photo taken)
-                        param.setResult(null);
+                    if (jpegCallback == null) {
+                        Logger.d(TAG, "No JPEG callback provided, letting original proceed");
+                        return;
+                    }
 
-                        // Inject pre-selected image
-                        Logger.i(TAG, "Injecting pre-selected image into Camera API");
+                    Logger.i(TAG, "Camera.takePicture() intercepted, attempting injection...");
 
+                    // Try to get injected image with timeout - NEVER block indefinitely
+                    AtomicReference<byte[]> imageDataRef = new AtomicReference<>(null);
+                    AtomicBoolean gotImage = new AtomicBoolean(false);
+                    AtomicReference<Throwable> errorRef = new AtomicReference<>(null);
+                    CountDownLatch latch = new CountDownLatch(1);
+
+                    try {
                         dispatcher.getPreSelectedImage(new HookCallback() {
                             @Override
                             public void onImageSelected(byte[] imageData, ImageMetadata metadata) {
-                                try {
-                                    // Deliver fake image to app
-                                    jpegCallback.onPictureTaken(imageData, camera);
-                                    Logger.i(TAG, "Successfully delivered injected image to app");
-                                } catch (Throwable t) {
-                                    Logger.e(TAG, "Error delivering image to app: " + t.getMessage());
+                                if (imageData != null && imageData.length > 0) {
+                                    imageDataRef.set(imageData);
+                                    gotImage.set(true);
                                 }
+                                latch.countDown();
                             }
 
                             @Override
                             public void onImageSelectionCancelled() {
-                                Logger.w(TAG, "Image selection cancelled/failed, cannot inject.");
+                                Logger.w(TAG, "Image selection cancelled");
+                                latch.countDown();
                             }
 
                             @Override
                             public void onError(Throwable throwable) {
-                                Logger.e(TAG, "Error obtaining pre-selected image: " + throwable.getMessage());
+                                Logger.e(TAG, "Error getting image: " + throwable.getMessage());
+                                errorRef.set(throwable);
+                                latch.countDown();
                             }
                         });
+
+                        // Wait with timeout - never block forever
+                        boolean completed = latch.await(INJECTION_TIMEOUT_MS, TimeUnit.MILLISECONDS);
+
+                        if (!completed) {
+                            Logger.w(TAG, "Injection timed out after " + INJECTION_TIMEOUT_MS + "ms, letting original capture proceed");
+                            return; // Let original takePicture run
+                        }
+
+                        if (!gotImage.get() || imageDataRef.get() == null) {
+                            Logger.w(TAG, "Failed to get injected image, letting original capture proceed");
+                            return; // Let original takePicture run
+                        }
+
+                        // SUCCESS - we have valid image data, now block original and inject
+                        final byte[] imageData = imageDataRef.get();
+                        
+                        // Block original method ONLY after we confirm we have valid data
+                        param.setResult(null);
+                        Logger.i(TAG, "Blocking original capture, injecting " + imageData.length + " bytes");
+
+                        // Deliver to callback with error handling
+                        try {
+                            // Some apps expect callback on main thread
+                            if (Looper.myLooper() == Looper.getMainLooper()) {
+                                jpegCallback.onPictureTaken(imageData, camera);
+                            } else {
+                                mainHandler.post(() -> {
+                                    try {
+                                        jpegCallback.onPictureTaken(imageData, camera);
+                                        Logger.i(TAG, "Successfully delivered injected image to app (via main thread)");
+                                    } catch (Throwable t) {
+                                        Logger.e(TAG, "Error in callback delivery (main thread): " + t.getMessage());
+                                    }
+                                });
+                            }
+                            Logger.i(TAG, "Successfully delivered injected image to app");
+                        } catch (Throwable t) {
+                            Logger.e(TAG, "Error delivering image to app: " + t.getMessage());
+                            // Can't undo param.setResult(null) here, but at least we logged it
+                            // The file output hooks may still catch the save operation
+                        }
+
+                    } catch (InterruptedException e) {
+                        Logger.w(TAG, "Injection interrupted, letting original capture proceed");
+                        Thread.currentThread().interrupt();
+                        return; // Let original takePicture run
+                    } catch (Throwable t) {
+                        Logger.e(TAG, "Unexpected error during injection: " + t.getMessage());
+                        Logger.logStackTrace(TAG, t);
+                        return; // Let original takePicture run
                     }
                 }
             });

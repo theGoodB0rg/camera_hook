@@ -20,6 +20,9 @@ import de.robv.android.xposed.XposedHelpers;
 
 /**
  * Hooks for the Camera2 API (android.hardware.camera2) and ImageReader
+ * 
+ * Design principle: All hooks use non-blocking approaches with robust error handling.
+ * If anything fails, the original camera flow continues uninterrupted.
  */
 public class Camera2Hook {
     private static final String TAG = "Camera2Hook";
@@ -34,13 +37,13 @@ public class Camera2Hook {
         try {
             Logger.i(TAG, "Initializing Camera2 API hooks");
 
-            // Hook ImageReader methods
+            // Hook ImageReader methods - safe, non-blocking
             hookImageReader();
             
-            // Hook OnImageAvailableListener
+            // Hook OnImageAvailableListener - safe wrapper with error handling
             hookOnImageAvailableListener();
 
-            // Log CaptureSession activity
+            // Log CaptureSession activity - logging only, never blocks
             hookCaptureSession();
 
             Logger.i(TAG, "Camera2 API hooks initialized successfully");
@@ -61,14 +64,26 @@ public class Camera2Hook {
                     ImageReader.OnImageAvailableListener originalListener = 
                             (ImageReader.OnImageAvailableListener) param.args[0];
                     
-                    // Wrap the listener
+                    // Wrap the listener with robust error handling
                     ImageReader.OnImageAvailableListener wrappedListener = reader -> {
-                        String targetPackage = dispatcher.getLoadPackageParam().packageName;
-                        if (dispatcher.isPackageAllowed(targetPackage) && dispatcher.isInjectionEnabled()) {
-                            Logger.i(TAG, "OnImageAvailableListener triggered - image capture detected");
+                        try {
+                            String targetPackage = dispatcher.getLoadPackageParam().packageName;
+                            if (dispatcher.isPackageAllowed(targetPackage) && dispatcher.isInjectionEnabled()) {
+                                Logger.i(TAG, "OnImageAvailableListener triggered - image capture detected");
+                            }
+                        } catch (Throwable t) {
+                            // Log but don't crash - just continue to original
+                            Logger.e(TAG, "Error in wrapped listener logging: " + t.getMessage());
                         }
-                        // Always call original - we'll intercept at save time
-                        originalListener.onImageAvailable(reader);
+                        
+                        // ALWAYS call original - never break the app's camera flow
+                        try {
+                            originalListener.onImageAvailable(reader);
+                        } catch (Throwable t) {
+                            // Re-throw app's own exceptions - don't swallow them
+                            Logger.e(TAG, "Original listener threw exception: " + t.getMessage());
+                            throw t;
+                        }
                     };
                     
                     param.args[0] = wrappedListener;
@@ -103,46 +118,54 @@ public class Camera2Hook {
     }
 
     private void processImage(XC_MethodHook.MethodHookParam param) {
-        String targetPackage = dispatcher.getLoadPackageParam().packageName;
-        if (!dispatcher.isPackageAllowed(targetPackage)) {
-            return;
-        }
-
-        if (!dispatcher.isInjectionEnabled()) {
-            return;
-        }
-
-        Image image = (Image) param.getResult();
-        if (image == null)
-            return;
-
         try {
+            String targetPackage = dispatcher.getLoadPackageParam().packageName;
+            if (!dispatcher.isPackageAllowed(targetPackage)) {
+                return;
+            }
+
+            if (!dispatcher.isInjectionEnabled()) {
+                return;
+            }
+
+            Image image = (Image) param.getResult();
+            if (image == null)
+                return;
+
             int format = image.getFormat();
             Logger.d(TAG, "ImageReader acquired image, format: " + format + 
                     " (JPEG=256, YUV_420_888=35)");
 
-            // For JPEG images, try to replace the data
+            // For JPEG images, try to replace the data (best effort, non-blocking)
             if (format == 256 || format == 0x100) {
                 Logger.i(TAG, "Intercepted JPEG Image in ImageReader");
 
-                byte[] fakeData = dispatcher.getPreSelectedImageBytes();
-                if (fakeData == null) {
+                byte[] fakeData = null;
+                try {
+                    fakeData = dispatcher.getPreSelectedImageBytes();
+                } catch (Throwable t) {
+                    Logger.w(TAG, "Failed to get injected image bytes: " + t.getMessage());
+                    return; // Let original image through
+                }
+                
+                if (fakeData == null || fakeData.length == 0) {
                     Logger.w(TAG, "No fake image bytes available to inject");
-                    return;
+                    return; // Let original image through
                 }
 
                 Image.Plane[] planes = image.getPlanes();
                 if (planes == null || planes.length == 0) {
-                    Logger.w(TAG, "ImageReader planes empty; cannot inject");
+                    Logger.w(TAG, "ImageReader planes empty; will intercept at file save level");
                     return;
                 }
 
                 ByteBuffer buffer = planes[0].getBuffer();
                 if (buffer == null) {
-                    Logger.w(TAG, "ImageReader buffer null; cannot inject");
+                    Logger.w(TAG, "ImageReader buffer null; will intercept at file save level");
                     return;
                 }
 
+                // Try buffer modification - this often fails (read-only) and that's OK
                 try {
                     if (!buffer.isReadOnly()) {
                         int capacity = buffer.capacity();
@@ -152,17 +175,19 @@ public class Camera2Hook {
                             buffer.limit(fakeData.length);
                             Logger.i(TAG, "Injected " + fakeData.length + " bytes into Image buffer");
                         } else {
-                            Logger.w(TAG, "Buffer too small: " + capacity + " < " + fakeData.length);
+                            Logger.d(TAG, "Buffer too small (" + capacity + " < " + fakeData.length + "), will intercept at file save level");
                         }
                     } else {
                         Logger.d(TAG, "Buffer is read-only, will intercept at file save level");
                     }
                 } catch (Throwable t) {
-                    Logger.d(TAG, "Buffer modification failed (expected): " + t.getMessage());
+                    // This is expected for many devices/apps - not an error
+                    Logger.d(TAG, "Buffer modification not possible (expected): " + t.getMessage());
                 }
             }
         } catch (Throwable t) {
-            Logger.e(TAG, "Error processing Image: " + t.getMessage());
+            // Catch-all: never crash the app, just log and let original flow continue
+            Logger.e(TAG, "Error processing Image (non-fatal): " + t.getMessage());
         }
     }
 
