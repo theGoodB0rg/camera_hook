@@ -320,7 +320,7 @@ Add preference-specific styles:
 
 ## Phase 3: Image Picker Redesign
 
-**Status:** ⬜ Not Started  
+**Status:** ✅ Completed (January 3, 2026)  
 **Estimated Files:** 2-4 modified/new files  
 **Dependencies:** Phase 1 complete
 
@@ -384,14 +384,14 @@ Implement:
 
 ### Phase 3 Completion Checklist
 
-- [ ] `ImagePickerFragment` (BottomSheetDialogFragment) created
-- [ ] Old `ImagePickerActivity` removed or deprecated
-- [ ] Image preview with rounded corners and placeholder
-- [ ] MaterialButtons with icons
-- [ ] Loading and error states
-- [ ] Swipe-to-dismiss works
-- [ ] `gradle assembleDebug` passes
-- [ ] Changes committed: `feat(ui): Phase 3 - Image Picker Redesign`
+- [x] `ImagePickerFragment` (BottomSheetDialogFragment) created
+- [x] Old `ImagePickerActivity` removed or deprecated
+- [x] Image preview with rounded corners and placeholder
+- [x] MaterialButtons with icons
+- [x] Loading and error states
+- [x] Swipe-to-dismiss works
+- [x] `gradle assembleDebug` passes
+- [x] Changes committed: `feat(ui): Phase 3 - Image Picker Redesign`
 
 ---
 
