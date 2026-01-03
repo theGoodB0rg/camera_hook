@@ -41,17 +41,45 @@ jobs:
     - name: Build Debug APK
       run: ./gradlew assembleDebug --no-daemon
 
+    - name: Get version info
+      id: version
+      run: |
+        VERSION_NAME=$(grep -oP 'versionName "\K[^"]+' app/build.gradle)
+        VERSION_CODE=$(grep -oP 'versionCode \K\d+' app/build.gradle)
+        SHORT_SHA=${GITHUB_SHA::7}
+        echo "version_name=$VERSION_NAME" >> $GITHUB_OUTPUT
+        echo "version_code=$VERSION_CODE" >> $GITHUB_OUTPUT
+        echo "short_sha=$SHORT_SHA" >> $GITHUB_OUTPUT
+        echo "release_tag=v${VERSION_NAME}-build.${VERSION_CODE}-${SHORT_SHA}" >> $GITHUB_OUTPUT
+
+    - name: Rename APK
+      run: |
+        mv app/build/outputs/apk/debug/app-debug.apk app/build/outputs/apk/debug/CameraInterceptor-${{ steps.version.outputs.version_name }}-debug.apk
+
     - name: Upload APK artifact
       uses: actions/upload-artifact@v4
       with:
-        name: CameraInterceptor-debug
+        name: CameraInterceptor-${{ steps.version.outputs.version_name }}-debug
         path: app/build/outputs/apk/debug/*.apk
         retention-days: 30
 
-    - name: Create Release (on tag)
-      if: startsWith(github.ref, 'refs/tags/v')
+    - name: Create Release
+      if: github.event_name == 'push' && (github.ref == 'refs/heads/master' || github.ref == 'refs/heads/main')
       uses: softprops/action-gh-release@v1
       with:
+        tag_name: ${{ steps.version.outputs.release_tag }}
+        name: CameraInterceptor v${{ steps.version.outputs.version_name }} (Build ${{ steps.version.outputs.version_code }})
+        body: |
+          ## 📦 Automated Release
+          
+          **Version:** ${{ steps.version.outputs.version_name }}
+          **Build:** ${{ steps.version.outputs.version_code }}
+          **Commit:** ${{ github.sha }}
+          
+          ### Download
+          Download the APK below and install it on your device.
         files: app/build/outputs/apk/debug/*.apk
+        draft: false
+        prerelease: false
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
