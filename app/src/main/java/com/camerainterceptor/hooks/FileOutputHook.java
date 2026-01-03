@@ -311,8 +311,8 @@ public class FileOutputHook {
                             Bitmap.CompressFormat format = (Bitmap.CompressFormat) param.args[0];
                             OutputStream outputStream = (OutputStream) param.args[2];
                             
-                            // Only intercept JPEG compression
-                            if (format != Bitmap.CompressFormat.JPEG) {
+                            // Intercept both JPEG and PNG compression (most common formats)
+                            if (format != Bitmap.CompressFormat.JPEG && format != Bitmap.CompressFormat.PNG) {
                                 return;
                             }
 
@@ -324,8 +324,9 @@ public class FileOutputHook {
                                 filePath = targetFile != null ? targetFile.getAbsolutePath() : null;
                             }
                             
+                            String formatName = format == Bitmap.CompressFormat.JPEG ? "JPEG" : "PNG";
                             Logger.logHookTriggered("Bitmap.compress", "Bitmap", "compress",
-                                    targetPackage, "Format: JPEG, File: " + (filePath != null ? filePath : "stream"));
+                                    targetPackage, "Format: " + formatName + ", File: " + (filePath != null ? filePath : "stream"));
 
                             byte[] injectedData = dispatcher.getPreSelectedImageBytes();
                             if (injectedData != null && injectedData.length > 0) {
@@ -333,14 +334,14 @@ public class FileOutputHook {
                                     isIntercepting.set(true);
                                     outputStream.write(injectedData);
                                     param.setResult(true);
-                                    Logger.logInjectionSuccess("Bitmap.compress", filePath, -1, injectedData.length);
+                                    Logger.logInjectionSuccess("Bitmap.compress(" + formatName + ")", filePath, -1, injectedData.length);
                                 } catch (Throwable t) {
-                                    Logger.logInjectionFailure("Bitmap.compress", "Write failed", t);
+                                    Logger.logInjectionFailure("Bitmap.compress(" + formatName + ")", "Write failed", t);
                                 } finally {
                                     isIntercepting.set(false);
                                 }
                             } else {
-                                Logger.logInjectionFailure("Bitmap.compress", "No injected data available", null);
+                                Logger.logInjectionFailure("Bitmap.compress(" + formatName + ")", "No injected data available", null);
                             }
                         }
                     });
@@ -378,9 +379,10 @@ public class FileOutputHook {
         if (fileName == null) return false;
         String lower = fileName.toLowerCase();
         return lower.endsWith(".jpg") || lower.endsWith(".jpeg") || 
-               lower.endsWith(".png") || lower.contains("img_") || 
-               lower.contains("photo") || lower.contains("camera") ||
-               lower.contains("dcim");
+               lower.endsWith(".png") || lower.endsWith(".webp") ||
+               lower.contains("img_") || lower.contains("photo") || 
+               lower.contains("camera") || lower.contains("dcim") ||
+               lower.contains("screenshot") || lower.contains("capture");
     }
 
     /**
@@ -393,6 +395,30 @@ public class FileOutputHook {
         return (data[0] & 0xFF) == 0xFF && 
                (data[1] & 0xFF) == 0xD8 && 
                (data[2] & 0xFF) == 0xFF;
+    }
+    
+    /**
+     * Check if byte array contains valid PNG data
+     * Validates PNG magic bytes (89 50 4E 47 0D 0A 1A 0A)
+     */
+    private boolean isPngData(byte[] data) {
+        if (data == null || data.length < 8) return false;
+        // PNG magic bytes: 89 50 4E 47 0D 0A 1A 0A
+        return (data[0] & 0xFF) == 0x89 &&
+               (data[1] & 0xFF) == 0x50 &&  // P
+               (data[2] & 0xFF) == 0x4E &&  // N
+               (data[3] & 0xFF) == 0x47 &&  // G
+               (data[4] & 0xFF) == 0x0D &&
+               (data[5] & 0xFF) == 0x0A &&
+               (data[6] & 0xFF) == 0x1A &&
+               (data[7] & 0xFF) == 0x0A;
+    }
+    
+    /**
+     * Check if byte array contains any supported image data (JPEG or PNG)
+     */
+    private boolean isImageData(byte[] data) {
+        return isJpegData(data) || isPngData(data);
     }
     
     /**
@@ -463,11 +489,12 @@ public class FileOutputHook {
             }
             
             if (!injected && b != null && len > 100) {
-                // Check if this is JPEG data
-                if (off == 0 && len >= 3 && isJpegHeader(b)) {
+                // Check if this is JPEG or PNG data
+                if (off == 0 && len >= 8 && isImageHeader(b)) {
                     String targetPackage = dispatcher.getLoadPackageParam().packageName;
+                    String format = isJpegHeader(b) ? "JPEG" : "PNG";
                     Logger.logHookTriggered("InterceptingOutputStream", "ContentResolver", "openOutputStream",
-                            targetPackage, "URI: " + uriString + ", Size: " + len + " bytes");
+                            targetPackage, "URI: " + uriString + ", Format: " + format + ", Size: " + len + " bytes");
                     
                     if (dispatcher.isInjectionEnabled()) {
                         byte[] injectedData = dispatcher.getPreSelectedImageBytes();
@@ -475,10 +502,10 @@ public class FileOutputHook {
                             // Write our injected data instead
                             super.write(injectedData, 0, injectedData.length);
                             injected = true;
-                            Logger.logInjectionSuccess("InterceptingOutputStream", uriString, len, injectedData.length);
+                            Logger.logInjectionSuccess("InterceptingOutputStream(" + format + ")", uriString, len, injectedData.length);
                             return; // Don't write original data
                         } else {
-                            Logger.logInjectionFailure("InterceptingOutputStream", "No injected data available", null);
+                            Logger.logInjectionFailure("InterceptingOutputStream(" + format + ")", "No injected data available", null);
                         }
                     }
                 }
@@ -503,6 +530,18 @@ public class FileOutputHook {
             return (data[0] & 0xFF) == 0xFF && 
                    (data[1] & 0xFF) == 0xD8 && 
                    (data[2] & 0xFF) == 0xFF;
+        }
+        
+        private static boolean isPngHeader(byte[] data) {
+            if (data == null || data.length < 8) return false;
+            return (data[0] & 0xFF) == 0x89 &&
+                   (data[1] & 0xFF) == 0x50 &&  // P
+                   (data[2] & 0xFF) == 0x4E &&  // N
+                   (data[3] & 0xFF) == 0x47;    // G
+        }
+        
+        private static boolean isImageHeader(byte[] data) {
+            return isJpegHeader(data) || isPngHeader(data);
         }
     }
 }
