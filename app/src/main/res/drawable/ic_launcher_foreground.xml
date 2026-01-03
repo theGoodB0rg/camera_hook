@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Camera Interceptor App Icon Foreground -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    
+    <!-- Camera body -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M38,38h32c2.2,0 4,1.8 4,4v24c0,2.2 -1.8,4 -4,4H38c-2.2,0 -4,-1.8 -4,-4V42c0,-2.2 1.8,-4 4,-4z"/>
+    
+    <!-- Camera lens outer ring -->
+    <path
+        android:fillColor="#004F58"
+        android:pathData="M54,54m-12,0a12,12 0,1 1,24 0a12,12 0,1 1,-24 0"/>
+    
+    <!-- Camera lens inner -->
+    <path
+        android:fillColor="#97F0FF"
+        android:pathData="M54,54m-7,0a7,7 0,1 1,14 0a7,7 0,1 1,-14 0"/>
+    
+    <!-- Camera lens center -->
+    <path
+        android:fillColor="#006874"
+        android:pathData="M54,54m-3,0a3,3 0,1 1,6 0a3,3 0,1 1,-6 0"/>
+    
+    <!-- Flash/viewfinder -->
+    <path
+        android:fillColor="#004F58"
+        android:pathData="M42,42h6v4h-6z"/>
+    
+    <!-- Image overlay indicator (corner) -->
+    <path
+        android:fillColor="#006874"
+        android:pathData="M62,62l8,8v-8z"/>
+    
+    <!-- Intercept symbol (diagonal line through) -->
+    <path
+        android:strokeColor="#BA1A1A"
+        android:strokeWidth="2.5"
+        android:strokeLineCap="round"
+        android:pathData="M40,68L68,40"/>
+    
+</vector>

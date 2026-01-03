@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- 
+        CameraInterceptor Dimension Resources
+        Consistent spacing scale based on 4dp grid system
+    -->
+
+    <!-- ===================== SPACING SCALE ===================== -->
+    <!-- Use these for margins, padding, and gaps -->
+    
+    <dimen name="spacing_none">0dp</dimen>
+    <dimen name="spacing_xxs">2dp</dimen>
+    <dimen name="spacing_xs">4dp</dimen>
+    <dimen name="spacing_sm">8dp</dimen>
+    <dimen name="spacing_md">12dp</dimen>
+    <dimen name="spacing_base">16dp</dimen>
+    <dimen name="spacing_lg">24dp</dimen>
+    <dimen name="spacing_xl">32dp</dimen>
+    <dimen name="spacing_xxl">48dp</dimen>
+    <dimen name="spacing_xxxl">64dp</dimen>
+
+    <!-- ===================== ICON SIZES ===================== -->
+    
+    <dimen name="icon_size_xs">16dp</dimen>
+    <dimen name="icon_size_sm">20dp</dimen>
+    <dimen name="icon_size_md">24dp</dimen>
+    <dimen name="icon_size_lg">32dp</dimen>
+    <dimen name="icon_size_xl">40dp</dimen>
+    <dimen name="icon_size_xxl">48dp</dimen>
+    <dimen name="icon_size_xxxl">56dp</dimen>
+
+    <!-- App list icon (consistent across app selection) -->
+    <dimen name="app_icon_size">48dp</dimen>
+
+    <!-- ===================== TOUCH TARGETS ===================== -->
+    <!-- Minimum touch target size per Material guidelines -->
+    
+    <dimen name="touch_target_min">48dp</dimen>
+    <dimen name="touch_target_comfortable">56dp</dimen>
+
+    <!-- ===================== CORNER RADII ===================== -->
+    <!-- Material Design 3 shape scale -->
+    
+    <dimen name="corner_none">0dp</dimen>
+    <dimen name="corner_xs">4dp</dimen>
+    <dimen name="corner_sm">8dp</dimen>
+    <dimen name="corner_md">12dp</dimen>
+    <dimen name="corner_lg">16dp</dimen>
+    <dimen name="corner_xl">28dp</dimen>
+    <dimen name="corner_full">50dp</dimen>
+
+    <!-- Component-specific corners -->
+    <dimen name="card_corner_radius">12dp</dimen>
+    <dimen name="button_corner_radius">20dp</dimen>
+    <dimen name="dialog_corner_radius">28dp</dimen>
+    <dimen name="bottom_sheet_corner_radius">28dp</dimen>
+    <dimen name="image_preview_corner_radius">16dp</dimen>
+    <dimen name="chip_corner_radius">8dp</dimen>
+
+    <!-- ===================== ELEVATION ===================== -->
+    <!-- Material Design elevation scale -->
+    
+    <dimen name="elevation_none">0dp</dimen>
+    <dimen name="elevation_xs">1dp</dimen>
+    <dimen name="elevation_sm">2dp</dimen>
+    <dimen name="elevation_md">4dp</dimen>
+    <dimen name="elevation_lg">6dp</dimen>
+    <dimen name="elevation_xl">8dp</dimen>
+    <dimen name="elevation_xxl">12dp</dimen>
+
+    <!-- Component-specific elevation -->
+    <dimen name="card_elevation">2dp</dimen>
+    <dimen name="fab_elevation">6dp</dimen>
+    <dimen name="toolbar_elevation">4dp</dimen>
+    <dimen name="bottom_bar_elevation">8dp</dimen>
+
+    <!-- ===================== COMPONENT SIZES ===================== -->
+    
+    <!-- Toolbar/AppBar -->
+    <dimen name="toolbar_height">56dp</dimen>
+    <dimen name="toolbar_height_extended">128dp</dimen>
+
+    <!-- Bottom bars -->
+    <dimen name="bottom_bar_height">80dp</dimen>
+    <dimen name="bottom_app_bar_height">80dp</dimen>
+
+    <!-- Buttons -->
+    <dimen name="button_height">40dp</dimen>
+    <dimen name="button_height_large">48dp</dimen>
+    <dimen name="button_min_width">64dp</dimen>
+    <dimen name="button_padding_horizontal">24dp</dimen>
+
+    <!-- FAB -->
+    <dimen name="fab_size">56dp</dimen>
+    <dimen name="fab_size_small">40dp</dimen>
+    <dimen name="fab_size_large">96dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
+
+    <!-- Image picker -->
+    <dimen name="image_preview_min_height">200dp</dimen>
+    <dimen name="image_preview_max_height">300dp</dimen>
+
+    <!-- List items -->
+    <dimen name="list_item_height_single">48dp</dimen>
+    <dimen name="list_item_height_two_line">64dp</dimen>
+    <dimen name="list_item_height_three_line">88dp</dimen>
+    <dimen name="list_item_padding_horizontal">16dp</dimen>
+    <dimen name="list_item_padding_vertical">12dp</dimen>
+
+    <!-- Dividers -->
+    <dimen name="divider_height">1dp</dimen>
+    <dimen name="divider_inset">16dp</dimen>
+
+    <!-- ===================== TEXT SIZES ===================== -->
+    <!-- Following Material Type Scale -->
+    
+    <dimen name="text_size_display_large">57sp</dimen>
+    <dimen name="text_size_display_medium">45sp</dimen>
+    <dimen name="text_size_display_small">36sp</dimen>
+    
+    <dimen name="text_size_headline_large">32sp</dimen>
+    <dimen name="text_size_headline_medium">28sp</dimen>
+    <dimen name="text_size_headline_small">24sp</dimen>
+    
+    <dimen name="text_size_title_large">22sp</dimen>
+    <dimen name="text_size_title_medium">16sp</dimen>
+    <dimen name="text_size_title_small">14sp</dimen>
+    
+    <dimen name="text_size_body_large">16sp</dimen>
+    <dimen name="text_size_body_medium">14sp</dimen>
+    <dimen name="text_size_body_small">12sp</dimen>
+    
+    <dimen name="text_size_label_large">14sp</dimen>
+    <dimen name="text_size_label_medium">12sp</dimen>
+    <dimen name="text_size_label_small">11sp</dimen>
+
+    <!-- Log viewer specific -->
+    <dimen name="log_text_size">12sp</dimen>
+
+    <!-- ===================== SCREEN MARGINS ===================== -->
+    <!-- Content padding from screen edges -->
+    
+    <dimen name="screen_margin_horizontal">16dp</dimen>
+    <dimen name="screen_margin_vertical">16dp</dimen>
+    <dimen name="content_max_width">840dp</dimen>
+
+    <!-- ===================== DIALOG DIMENSIONS ===================== -->
+    
+    <dimen name="dialog_min_width">280dp</dimen>
+    <dimen name="dialog_max_width">560dp</dimen>
+    <dimen name="dialog_padding">24dp</dimen>
+
+    <!-- ===================== BOTTOM SHEET ===================== -->
+    
+    <dimen name="bottom_sheet_peek_height">256dp</dimen>
+    <dimen name="bottom_sheet_handle_width">32dp</dimen>
+    <dimen name="bottom_sheet_handle_height">4dp</dimen>
+    <dimen name="bottom_sheet_handle_margin">16dp</dimen>
+
+</resources>
