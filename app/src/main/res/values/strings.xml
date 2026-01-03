@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Camera Interceptor</string>
+    <string name="app_version">1.0.0</string>
     <string name="notification_title">Camera Intercepted</string>
     <string name="notification_text">A camera request was intercepted. Tap to select an image.</string>
     <string name="select_from_gallery">Select from Gallery</string>
@@ -10,6 +11,39 @@
     <string name="error_selecting_image">Error selecting image</string>
     <string name="no_gallery_app">No gallery app found</string>
     <string name="permission_required">Storage permission required</string>
+    
+    <!-- Preference Categories -->
+    <string name="pref_category_general">General Settings</string>
+    <string name="pref_category_apps">App Selection</string>
+    <string name="pref_category_logging">Logging</string>
+    <string name="pref_category_about">About</string>
+    
+    <!-- General Preferences -->
+    <string name="pref_select_image_title">Select Injection Image</string>
+    <string name="pref_select_image_summary">Choose the image to be injected into camera previews/captures</string>
+    <string name="pref_enable_module_title">Enable Camera Interceptor</string>
+    <string name="pref_enable_module_summary">Enable or disable the module functionality</string>
+    <string name="pref_show_notifications_title">Show Notifications</string>
+    <string name="pref_show_notifications_summary">Show a notification when the camera is intercepted</string>
+    <string name="pref_use_custom_picker_title">Use Custom Image Picker</string>
+    <string name="pref_use_custom_picker_summary">Use the custom dialog for selecting images instead of the system gallery</string>
+    
+    <!-- App Selection Preferences -->
+    <string name="pref_select_apps_title">Select Apps to Hook</string>
+    <string name="pref_select_apps_summary">Choose which apps the interceptor should affect</string>
+    
+    <!-- Logging Preferences -->
+    <string name="pref_enable_logging_title">Enable Logging</string>
+    <string name="pref_enable_logging_summary">Write debug logs to a file (useful for troubleshooting)</string>
+    <string name="pref_view_logs_title">View Logs</string>
+    <string name="pref_view_logs_summary">View the debug logs</string>
+    <string name="pref_clear_logs_title">Clear Logs</string>
+    <string name="pref_clear_logs_summary">Delete all log files</string>
+    
+    <!-- About Preferences -->
+    <string name="pref_version_title">Version</string>
+    <string name="pref_help_title">Help</string>
+    <string name="pref_help_summary">Documentation and instructions</string>
     
     <!-- Array for LSPosed scope -->
 

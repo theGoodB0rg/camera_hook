@@ -2,41 +2,55 @@
 package com.camerainterceptor.ui;
 
 import android.Manifest;
-import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
-import android.preference.PreferenceFragment;
-import android.preference.PreferenceManager;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.preference.Preference;
+import androidx.preference.PreferenceFragmentCompat;
+import androidx.preference.PreferenceManager;
 
 import com.camerainterceptor.R;
 import com.camerainterceptor.utils.Logger;
+import com.google.android.material.appbar.MaterialToolbar;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Settings activity for the Camera Interceptor module
+ * Updated to use AndroidX Preferences and Material Design toolbar
  */
-public class SettingsActivity extends Activity {
+public class SettingsActivity extends AppCompatActivity {
     private static final String TAG = "SettingsActivity";
     private static final int REQUEST_PERMISSIONS = 100;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_settings);
 
         try {
+            // Set up toolbar
+            MaterialToolbar toolbar = findViewById(R.id.toolbar);
+            setSupportActionBar(toolbar);
+
             // Initialize default preferences if needed
             initDefaultPreferences();
 
-            // Set up the settings UI
-            getFragmentManager().beginTransaction()
-                    .replace(android.R.id.content, new SettingsFragment())
-                    .commit();
+            // Fragment is loaded via FragmentContainerView in layout XML
+            // Only add fragment if this is a fresh start (not a config change)
+            if (savedInstanceState == null) {
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.settings_container, new SettingsFragment())
+                        .commit();
+            }
 
             // Request necessary permissions
             requestRequiredPermissions();
@@ -100,7 +114,8 @@ public class SettingsActivity extends Activity {
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == REQUEST_PERMISSIONS) {
             boolean allGranted = true;
 
@@ -119,18 +134,16 @@ public class SettingsActivity extends Activity {
     }
 
     /**
-     * Settings fragment to display preferences
+     * Settings fragment to display preferences using AndroidX PreferenceFragmentCompat
      */
-    public static class SettingsFragment extends PreferenceFragment {
+    public static class SettingsFragment extends PreferenceFragmentCompat {
         @Override
-        public void onCreate(Bundle savedInstanceState) {
-            super.onCreate(savedInstanceState);
-
+        public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
             // Load preferences from XML
-            addPreferencesFromResource(R.xml.preferences);
+            setPreferencesFromResource(R.xml.preferences, rootKey);
 
             // Handle Image Selection Click
-            android.preference.Preference selectImage = findPreference("select_image");
+            Preference selectImage = findPreference("select_image");
             if (selectImage != null) {
                 selectImage.setOnPreferenceClickListener(preference -> {
                     android.content.Intent intent = new android.content.Intent(getActivity(),
@@ -141,7 +154,7 @@ public class SettingsActivity extends Activity {
             }
 
             // Handle App Selection Click
-            android.preference.Preference selectApps = findPreference("select_apps");
+            Preference selectApps = findPreference("select_apps");
             if (selectApps != null) {
                 selectApps.setOnPreferenceClickListener(preference -> {
                     android.content.Intent intent = new android.content.Intent(getActivity(),
@@ -152,7 +165,7 @@ public class SettingsActivity extends Activity {
             }
 
             // Handle View Logs Click
-            android.preference.Preference viewLogs = findPreference("view_logs");
+            Preference viewLogs = findPreference("view_logs");
             if (viewLogs != null) {
                 viewLogs.setOnPreferenceClickListener(preference -> {
                     android.content.Intent intent = new android.content.Intent(getActivity(),

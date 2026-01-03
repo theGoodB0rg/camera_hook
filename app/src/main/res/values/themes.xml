@@ -57,6 +57,9 @@
         <item name="shapeAppearanceSmallComponent">@style/ShapeAppearance.CameraInterceptor.SmallComponent</item>
         <item name="shapeAppearanceMediumComponent">@style/ShapeAppearance.CameraInterceptor.MediumComponent</item>
         <item name="shapeAppearanceLargeComponent">@style/ShapeAppearance.CameraInterceptor.LargeComponent</item>
+
+        <!-- Preference styling -->
+        <item name="preferenceTheme">@style/PreferenceThemeOverlay.CameraInterceptor</item>
     </style>
 
     <!-- Theme overlay for dialogs -->

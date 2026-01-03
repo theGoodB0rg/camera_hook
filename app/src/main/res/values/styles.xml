@@ -299,6 +299,39 @@
 
     <style name="PreferenceThemeOverlay.CameraInterceptor" parent="PreferenceThemeOverlay.v14.Material">
         <item name="android:tint">?attr/colorPrimary</item>
+        <item name="preferenceFragmentCompatStyle">@style/Widget.CameraInterceptor.PreferenceFragment</item>
+        <item name="preferenceCategoryStyle">@style/Widget.CameraInterceptor.Preference.Category</item>
+        <item name="preferenceStyle">@style/Widget.CameraInterceptor.Preference</item>
+        <item name="switchPreferenceCompatStyle">@style/Widget.CameraInterceptor.Preference.SwitchPreferenceCompat</item>
+    </style>
+
+    <!-- Preference Fragment Style -->
+    <style name="Widget.CameraInterceptor.PreferenceFragment" parent="@style/PreferenceFragment.Material">
+        <item name="android:divider">@null</item>
+        <item name="android:dividerHeight">0dp</item>
+    </style>
+
+    <!-- Preference Category Header Style -->
+    <style name="Widget.CameraInterceptor.Preference.Category" parent="Preference.Category.Material">
+        <item name="android:layout">@layout/preference_category</item>
+        <item name="allowDividerAbove">false</item>
+        <item name="allowDividerBelow">false</item>
+    </style>
+
+    <!-- Base Preference Style -->
+    <style name="Widget.CameraInterceptor.Preference" parent="Preference.Material">
+        <item name="android:layout">@layout/preference_item</item>
+        <item name="allowDividerAbove">false</item>
+        <item name="allowDividerBelow">false</item>
+        <item name="iconSpaceReserved">true</item>
+    </style>
+
+    <!-- Switch Preference Style -->
+    <style name="Widget.CameraInterceptor.Preference.SwitchPreferenceCompat" parent="Preference.SwitchPreferenceCompat.Material">
+        <item name="android:layout">@layout/preference_item</item>
+        <item name="allowDividerAbove">false</item>
+        <item name="allowDividerBelow">false</item>
+        <item name="iconSpaceReserved">true</item>
     </style>
 
     <!-- ===================== EMPTY STATE STYLE ===================== -->

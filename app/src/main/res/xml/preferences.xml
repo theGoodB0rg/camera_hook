@@ -1,64 +1,100 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <PreferenceCategory android:title="General Settings">
+    <PreferenceCategory 
+        android:title="@string/pref_category_general"
+        app:iconSpaceReserved="false">
+        
         <Preference
             android:key="select_image"
-            android:title="Select Injection Image"
-            android:summary="Choose the image to be injected into camera previews/captures" />
+            android:title="@string/pref_select_image_title"
+            android:summary="@string/pref_select_image_summary"
+            android:icon="@drawable/ic_image"
+            app:iconSpaceReserved="true" />
 
-        <SwitchPreference
+        <SwitchPreferenceCompat
             android:key="enable_module"
-            android:title="Enable Camera Interceptor"
-            android:summary="Enable or disable the module functionality"
-            android:defaultValue="true" />
+            android:title="@string/pref_enable_module_title"
+            android:summary="@string/pref_enable_module_summary"
+            android:defaultValue="true"
+            android:icon="@drawable/ic_power"
+            app:iconSpaceReserved="true" />
         
-        <SwitchPreference
+        <SwitchPreferenceCompat
             android:key="show_notifications"
-            android:title="Show Notifications"
-            android:summary="Show a notification when the camera is intercepted"
-            android:defaultValue="true" />
+            android:title="@string/pref_show_notifications_title"
+            android:summary="@string/pref_show_notifications_summary"
+            android:defaultValue="true"
+            android:icon="@drawable/ic_notifications"
+            app:iconSpaceReserved="true" />
         
-        <SwitchPreference
+        <SwitchPreferenceCompat
             android:key="use_custom_picker"
-            android:title="Use Custom Image Picker"
-            android:summary="Use the custom dialog for selecting images instead of the system gallery"
-            android:defaultValue="false" />
+            android:title="@string/pref_use_custom_picker_title"
+            android:summary="@string/pref_use_custom_picker_summary"
+            android:defaultValue="false"
+            android:icon="@drawable/ic_picker"
+            app:iconSpaceReserved="true" />
     </PreferenceCategory>
 
-    <Preference
-        android:key="select_apps"
-        android:title="Select Apps to Hook"
-        android:summary="Choose which apps the interceptor should affect" />
+    <PreferenceCategory 
+        android:title="@string/pref_category_apps"
+        app:iconSpaceReserved="false">
+        
+        <Preference
+            android:key="select_apps"
+            android:title="@string/pref_select_apps_title"
+            android:summary="@string/pref_select_apps_summary"
+            android:icon="@drawable/ic_apps"
+            app:iconSpaceReserved="true" />
+    </PreferenceCategory>
     
-    <PreferenceCategory android:title="Logging">
-        <SwitchPreference
+    <PreferenceCategory 
+        android:title="@string/pref_category_logging"
+        app:iconSpaceReserved="false">
+        
+        <SwitchPreferenceCompat
             android:key="enable_logging"
-            android:title="Enable Logging"
-            android:summary="Write debug logs to a file (useful for troubleshooting)"
-            android:defaultValue="true" />
+            android:title="@string/pref_enable_logging_title"
+            android:summary="@string/pref_enable_logging_summary"
+            android:defaultValue="true"
+            android:icon="@drawable/ic_debug"
+            app:iconSpaceReserved="true" />
         
         <Preference
             android:key="view_logs"
-            android:title="View Logs"
-            android:summary="View the debug logs" />
+            android:title="@string/pref_view_logs_title"
+            android:summary="@string/pref_view_logs_summary"
+            android:icon="@drawable/ic_logs"
+            app:iconSpaceReserved="true" />
         
         <Preference
             android:key="clear_logs"
-            android:title="Clear Logs"
-            android:summary="Delete all log files" />
+            android:title="@string/pref_clear_logs_title"
+            android:summary="@string/pref_clear_logs_summary"
+            android:icon="@drawable/ic_clear"
+            app:iconSpaceReserved="true" />
     </PreferenceCategory>
     
-    <PreferenceCategory android:title="About">
+    <PreferenceCategory 
+        android:title="@string/pref_category_about"
+        app:iconSpaceReserved="false">
+        
         <Preference
             android:key="version"
-            android:title="Version"
-            android:summary="1.0.0" />
+            android:title="@string/pref_version_title"
+            android:summary="@string/app_version"
+            android:icon="@drawable/ic_info"
+            app:iconSpaceReserved="true"
+            android:selectable="false" />
         
         <Preference
             android:key="help"
-            android:title="Help"
-            android:summary="Documentation and instructions" />
+            android:title="@string/pref_help_title"
+            android:summary="@string/pref_help_summary"
+            android:icon="@drawable/ic_help"
+            app:iconSpaceReserved="true" />
     </PreferenceCategory>
 
 </PreferenceScreen>

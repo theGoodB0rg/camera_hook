@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout 
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:minHeight="@dimen/list_item_height_two_line"
+    android:gravity="center_vertical"
+    android:paddingStart="@dimen/spacing_base"
+    android:paddingEnd="@dimen/spacing_base"
+    android:paddingTop="@dimen/spacing_sm"
+    android:paddingBottom="@dimen/spacing_sm"
+    android:background="?attr/selectableItemBackground"
+    android:orientation="horizontal">
+
+    <!-- Icon Frame -->
+    <FrameLayout
+        android:id="@+id/icon_frame"
+        android:layout_width="@dimen/icon_size_lg"
+        android:layout_height="@dimen/icon_size_lg"
+        android:layout_marginEnd="@dimen/spacing_base"
+        android:gravity="center">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@android:id/icon"
+            android:layout_width="@dimen/icon_size_md"
+            android:layout_height="@dimen/icon_size_md"
+            android:layout_gravity="center"
+            tools:src="@drawable/ic_image" />
+
+    </FrameLayout>
+
+    <!-- Text Container -->
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:layout_marginEnd="@dimen/spacing_base">
+
+        <TextView
+            android:id="@android:id/title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/TextAppearance.CameraInterceptor.BodyLarge"
+            android:textColor="?attr/colorOnSurface"
+            android:ellipsize="marquee"
+            android:singleLine="true"
+            tools:text="Preference Title" />
+
+        <TextView
+            android:id="@android:id/summary"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/TextAppearance.CameraInterceptor.BodyMedium"
+            android:textColor="?attr/colorOnSurfaceVariant"
+            android:maxLines="3"
+            tools:text="This is a summary of the preference explaining what it does." />
+
+    </LinearLayout>
+
+    <!-- Widget Frame (for switches, checkboxes, etc.) -->
+    <FrameLayout
+        android:id="@android:id/widget_frame"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical" />
+
+</LinearLayout>
