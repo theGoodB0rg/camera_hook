@@ -140,6 +140,16 @@ public class HookDispatcher {
         prefs.reload();
         return isPackageAllowedInPrefs(packageName);
     }
+    
+    /**
+     * Check if profiling/debug mode is enabled.
+     * When enabled, hooks log call stacks without injecting images.
+     */
+    public boolean isProfilingEnabled() {
+        if (prefs == null) return false;
+        prefs.reload();
+        return prefs.getBoolean("profiling_enabled", false);
+    }
 
     private boolean isPackageAllowedInPrefs(String packageName) {
         if (prefs == null)

@@ -33,9 +33,11 @@ public class AppSelectionActivity extends Activity {
     private AppAdapter adapter;
     private List<AppInfo> appList = new ArrayList<>();
     private Set<String> allowedApps = new HashSet<>();
+    private Set<String> profilingApps = new HashSet<>();
 
     public static final String SHARED_PREFS_NAME = "CameraInterceptorPrefs";
     public static final String PREF_ALLOWED_APPS = "allowed_apps";
+    public static final String PREF_PROFILING_APPS = "profiling_apps";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,8 +47,7 @@ public class AppSelectionActivity extends Activity {
         listView = findViewById(R.id.list_apps);
         Button saveButton = findViewById(R.id.button_save);
 
-        // Ensure multiple selection mode is enabled even if XML is altered
-        listView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
+        listView.setChoiceMode(ListView.CHOICE_MODE_NONE);
 
         loadPreferences();
 
@@ -58,18 +59,30 @@ public class AppSelectionActivity extends Activity {
     private void loadPreferences() {
         SharedPreferences prefs = getSharedPreferences(SHARED_PREFS_NAME, Context.MODE_PRIVATE);
         allowedApps = new HashSet<>(prefs.getStringSet(PREF_ALLOWED_APPS, new HashSet<>()));
+        profilingApps = new HashSet<>(prefs.getStringSet(PREF_PROFILING_APPS, new HashSet<>()));
     }
 
     private void savePreferences() {
-        Set<String> selectedApps = new HashSet<>();
+        Set<String> injectApps = new HashSet<>();
+        Set<String> profileApps = new HashSet<>();
         for (AppInfo info : appList) {
-            if (info.selected) {
-                selectedApps.add(info.packageName);
+            switch (info.mode) {
+                case INJECT:
+                    injectApps.add(info.packageName);
+                    break;
+                case PROFILE:
+                    profileApps.add(info.packageName);
+                    break;
+                default:
+                    break;
             }
         }
 
         SharedPreferences prefs = getSharedPreferences(SHARED_PREFS_NAME, Context.MODE_PRIVATE);
-        prefs.edit().putStringSet(PREF_ALLOWED_APPS, selectedApps).apply();
+        prefs.edit()
+                .putStringSet(PREF_ALLOWED_APPS, injectApps)
+                .putStringSet(PREF_PROFILING_APPS, profileApps)
+                .apply();
 
         // Make prefs readable by Xposed module
         makePrefsReadable();
@@ -102,13 +115,17 @@ public class AppSelectionActivity extends Activity {
             List<AppInfo> results = new ArrayList<>();
 
             for (ApplicationInfo packageInfo : packages) {
-                // Filter out system apps? Or let user decide? For now, show all but prioritize
-                // user apps.
                 AppInfo info = new AppInfo();
                 info.name = packageInfo.loadLabel(pm).toString();
                 info.packageName = packageInfo.packageName;
                 info.icon = packageInfo.loadIcon(pm);
-                info.selected = allowedApps.contains(info.packageName);
+                if (profilingApps.contains(info.packageName)) {
+                    info.mode = Mode.PROFILE;
+                } else if (allowedApps.contains(info.packageName)) {
+                    info.mode = Mode.INJECT;
+                } else {
+                    info.mode = Mode.OFF;
+                }
                 results.add(info);
             }
 
@@ -124,8 +141,8 @@ public class AppSelectionActivity extends Activity {
 
             listView.setOnItemClickListener((parent, view, position, id) -> {
                 AppInfo info = appList.get(position);
-                info.selected = !info.selected;
-                listView.setItemChecked(position, info.selected);
+                info.mode = info.mode.next();
+                adapter.notifyDataSetChanged();
             });
         }
     }
@@ -134,7 +151,7 @@ public class AppSelectionActivity extends Activity {
         String name;
         String packageName;
         Drawable icon;
-        boolean selected;
+        Mode mode = Mode.OFF;
     }
 
     private class AppAdapter extends ArrayAdapter<AppInfo> {
@@ -146,22 +163,43 @@ public class AppSelectionActivity extends Activity {
         public View getView(int position, View convertView, ViewGroup parent) {
             if (convertView == null) {
                 convertView = LayoutInflater.from(getContext())
-                        .inflate(android.R.layout.simple_list_item_multiple_choice, parent, false);
+                        .inflate(R.layout.list_item_app_mode, parent, false);
             }
-
-            // Note: simple_list_item_multiple_choice uses a CheckedTextView
-            // But we want to show icon and name. Let's use a custom layout if possible,
-            // but for simplicity in a task environment, I'll stick to a slightly better way
-            // or just name.
-            // Actually, let's just use a simple one for now.
-
             AppInfo info = getItem(position);
-            TextView text = (TextView) convertView.findViewById(android.R.id.text1);
-            text.setText(info.name + "\n" + info.packageName);
+            ImageView iconView = convertView.findViewById(R.id.app_icon);
+            TextView title = convertView.findViewById(R.id.app_title);
+            TextView subtitle = convertView.findViewById(R.id.app_subtitle);
+            TextView modeView = convertView.findViewById(R.id.app_mode);
 
-            listView.setItemChecked(position, info.selected);
+            iconView.setImageDrawable(info.icon);
+            title.setText(info.name);
+            subtitle.setText(info.packageName);
+            modeView.setText("Mode: " + info.mode.label);
 
             return convertView;
+        }
+    }
+
+    private enum Mode {
+        OFF("Off"),
+        INJECT("Inject"),
+        PROFILE("Profile");
+
+        final String label;
+
+        Mode(String label) {
+            this.label = label;
+        }
+
+        Mode next() {
+            switch (this) {
+                case OFF:
+                    return INJECT;
+                case INJECT:
+                    return PROFILE;
+                default:
+                    return OFF;
+            }
         }
     }
 }

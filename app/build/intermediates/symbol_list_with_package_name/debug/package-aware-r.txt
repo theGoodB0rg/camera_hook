@@ -801,6 +801,10 @@ id alertTitle
 id all
 id always
 id androidx_window_activity_scope
+id app_icon
+id app_mode
+id app_subtitle
+id app_title
 id async
 id beginning
 id blocking
@@ -1008,6 +1012,7 @@ layout activity_picker
 layout custom_dialog
 layout expand_button
 layout image_frame
+layout list_item_app_mode
 layout notification_action
 layout notification_action_tombstone
 layout notification_template_custom_big

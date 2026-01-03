@@ -63,9 +63,6 @@ public class FileOutputHook {
             
             // Hook Bitmap.compress which many apps use
             hookBitmapCompress();
-            
-            // Hook generic OutputStream.write for wrapped streams
-            hookOutputStreamWrite();
 
             Logger.i(TAG, "File output hooks initialized successfully");
         } catch (Throwable t) {
@@ -219,46 +216,6 @@ public class FileOutputHook {
         }
     }
     
-    private void hookOutputStreamWrite() {
-        try {
-            // Hook OutputStream.write(byte[], int, int) to catch bulk writes
-            XposedBridge.hookAllMethods(OutputStream.class, "write", new XC_MethodHook() {
-                @Override
-                protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
-                    if (Boolean.TRUE.equals(isIntercepting.get())) return;
-                    if (HookDispatcher.isCurrentlyLoadingImage()) return;
-                    
-                    // Only process if we have a pending image URI
-                    Uri pending = pendingImageUri.get();
-                    if (pending == null) return;
-                    
-                    // Check if this is a byte array write with JPEG signature
-                    if (param.args.length >= 1 && param.args[0] instanceof byte[]) {
-                        byte[] data = (byte[]) param.args[0];
-                        if (data != null && data.length > 100 && isJpegData(data)) {
-                            Logger.i(TAG, "Detected JPEG write to pending URI: " + pending);
-                            
-                            if (dispatcher.isInjectionEnabled()) {
-                                byte[] injectedData = dispatcher.getPreSelectedImageBytes();
-                                if (injectedData != null && injectedData.length > 0) {
-                                    param.args[0] = injectedData;
-                                    if (param.args.length >= 3) {
-                                        param.args[1] = 0; // offset
-                                        param.args[2] = injectedData.length; // length
-                                    }
-                                    Logger.i(TAG, "SUCCESS! Replaced JPEG data via OutputStream.write (" + injectedData.length + " bytes)");
-                                    pendingImageUri.remove(); // Clear after injection
-                                }
-                            }
-                        }
-                    }
-                }
-            });
-        } catch (Throwable t) {
-            Logger.e(TAG, "Failed to hook OutputStream.write: " + t.getMessage());
-        }
-    }
-
     private void hookBitmapCompress() {
         try {
             // Hook Bitmap.compress - this is commonly used to save camera images

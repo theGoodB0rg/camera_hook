@@ -71,6 +71,10 @@ public class CameraxHook {
                     XposedBridge.hookMethod(takePictureCallbackMethod, new XC_MethodHook() {
                         @Override
                         protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
+                            if (dispatcher.isProfilingEnabled()) {
+                                Logger.i(TAG, "[PROFILE] CameraX takePicture(Callback) stack=" + stackSummary());
+                                return;
+                            }
                             if (dispatcher.isInjectionEnabled()) {
                                 Logger.i(TAG,
                                         "CameraX ImageCapture.takePicture(Callback) detected - relying on Camera2 ImageReader hook");
@@ -95,6 +99,10 @@ public class CameraxHook {
                     XposedBridge.hookMethod(takePictureSavedMethod, new XC_MethodHook() {
                         @Override
                         protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
+                            if (dispatcher.isProfilingEnabled()) {
+                                Logger.i(TAG, "[PROFILE] CameraX takePicture(OutputFileOptions) stack=" + stackSummary());
+                                return;
+                            }
                             if (dispatcher.isInjectionEnabled()) {
                                 Logger.i(TAG,
                                         "CameraX ImageCapture.takePicture(OutputFileOptions) detected - relying on Camera2 ImageReader hook");
@@ -106,5 +114,22 @@ public class CameraxHook {
         } catch (Throwable t) {
             Logger.e(TAG, "Failed to hook ImageCapture: " + t.getMessage());
         }
+    }
+
+    private String stackSummary() {
+        StringBuilder sb = new StringBuilder();
+        StackTraceElement[] stack = Thread.currentThread().getStackTrace();
+        int count = 0;
+        for (StackTraceElement el : stack) {
+            String cls = el.getClassName();
+            if (cls.startsWith("java.lang.Thread") || cls.contains("CameraxHook")) {
+                continue;
+            }
+            if (count > 6) break;
+            if (sb.length() > 0) sb.append(" | ");
+            sb.append(el.getClassName()).append("#").append(el.getMethodName()).append(":").append(el.getLineNumber());
+            count++;
+        }
+        return sb.toString();
     }
 }

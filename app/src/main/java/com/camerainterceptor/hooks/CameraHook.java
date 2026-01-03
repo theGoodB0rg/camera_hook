@@ -64,6 +64,11 @@ public class CameraHook {
                         return;
                     }
 
+                    if (dispatcher.isProfilingEnabled()) {
+                        Logger.i(TAG, "[PROFILE] Camera.takePicture invoked. stack=" + buildStack());
+                        return; // allow normal capture
+                    }
+
                     if (!dispatcher.isInjectionEnabled()) {
                         Logger.d(TAG, "Injection disabled or no image available");
                         return;
@@ -111,5 +116,22 @@ public class CameraHook {
             Logger.e(TAG, "Failed to hook Camera.takePicture: " + t.getMessage());
             Logger.logStackTrace(TAG, t);
         }
+    }
+
+    private String buildStack() {
+        StringBuilder sb = new StringBuilder();
+        StackTraceElement[] stack = Thread.currentThread().getStackTrace();
+        int count = 0;
+        for (StackTraceElement el : stack) {
+            String cls = el.getClassName();
+            if (cls.startsWith("java.lang.Thread") || cls.contains("CameraHook")) {
+                continue;
+            }
+            if (count > 6) break;
+            if (sb.length() > 0) sb.append(" | ");
+            sb.append(el.getClassName()).append("#").append(el.getMethodName()).append(":").append(el.getLineNumber());
+            count++;
+        }
+        return sb.toString();
     }
 }
