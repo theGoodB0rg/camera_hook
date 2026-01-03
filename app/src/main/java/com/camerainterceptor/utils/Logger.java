@@ -15,6 +15,8 @@ import java.util.Locale;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.atomic.AtomicLong;
 
 import de.robv.android.xposed.XposedBridge;
 
@@ -29,6 +31,14 @@ public class Logger {
     private static final String LOG_FILE_DIR = "CameraInterceptor";
     private static final String LOG_FILE_NAME = "camera_interceptor_log.txt";
     private static final int MAX_LOG_FILE_SIZE = 5 * 1024 * 1024; // 5MB
+    
+    // Debug mode - can be toggled at runtime
+    private static final AtomicBoolean debugModeEnabled = new AtomicBoolean(true);
+    
+    // Statistics tracking
+    private static final AtomicLong totalHooksTriggered = new AtomicLong(0);
+    private static final AtomicLong successfulInjections = new AtomicLong(0);
+    private static final AtomicLong failedInjections = new AtomicLong(0);
     
     private static final ThreadPoolExecutor logExecutor = new ThreadPoolExecutor(
             1, 1, 30, TimeUnit.SECONDS, new LinkedBlockingQueue<>());
@@ -181,5 +191,136 @@ public class Logger {
             default:
                 return "UNKNOWN";
         }
+    }
+    
+    // ==================== Debug Mode Control ====================
+    
+    /**
+     * Enable or disable debug mode (verbose logging)
+     */
+    public static void setDebugMode(boolean enabled) {
+        debugModeEnabled.set(enabled);
+        i("Logger", "Debug mode " + (enabled ? "ENABLED" : "DISABLED"));
+    }
+    
+    /**
+     * Check if debug mode is enabled
+     */
+    public static boolean isDebugMode() {
+        return debugModeEnabled.get();
+    }
+    
+    // ==================== Hook-Specific Logging ====================
+    
+    /**
+     * Log a hook trigger event with detailed context
+     */
+    public static void logHookTriggered(String hookName, String targetClass, String targetMethod, 
+            String packageName, String additionalInfo) {
+        totalHooksTriggered.incrementAndGet();
+        
+        StringBuilder sb = new StringBuilder();
+        sb.append("[HOOK] ").append(hookName);
+        sb.append(" | Target: ").append(targetClass).append(".").append(targetMethod);
+        sb.append(" | Package: ").append(packageName);
+        if (additionalInfo != null && !additionalInfo.isEmpty()) {
+            sb.append(" | ").append(additionalInfo);
+        }
+        
+        i("HookEvent", sb.toString());
+    }
+    
+    /**
+     * Log a successful image injection
+     */
+    public static void logInjectionSuccess(String hookName, String filePath, long originalSize, long injectedSize) {
+        successfulInjections.incrementAndGet();
+        
+        StringBuilder sb = new StringBuilder();
+        sb.append("[SUCCESS] Injection via ").append(hookName);
+        if (filePath != null) {
+            sb.append(" | File: ").append(filePath);
+        }
+        sb.append(" | Original: ").append(formatSize(originalSize));
+        sb.append(" -> Injected: ").append(formatSize(injectedSize));
+        
+        i("Injection", sb.toString());
+    }
+    
+    /**
+     * Log a failed image injection
+     */
+    public static void logInjectionFailure(String hookName, String reason, Throwable error) {
+        failedInjections.incrementAndGet();
+        
+        StringBuilder sb = new StringBuilder();
+        sb.append("[FAILED] Injection via ").append(hookName);
+        sb.append(" | Reason: ").append(reason);
+        if (error != null) {
+            sb.append(" | Error: ").append(error.getMessage());
+        }
+        
+        e("Injection", sb.toString());
+        if (error != null && isDebugMode()) {
+            logStackTrace("Injection", error);
+        }
+    }
+    
+    /**
+     * Log statistics summary
+     */
+    public static void logStats() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("[STATS] Hooks triggered: ").append(totalHooksTriggered.get());
+        sb.append(" | Successful injections: ").append(successfulInjections.get());
+        sb.append(" | Failed injections: ").append(failedInjections.get());
+        
+        long total = successfulInjections.get() + failedInjections.get();
+        if (total > 0) {
+            double successRate = (successfulInjections.get() * 100.0) / total;
+            sb.append(" | Success rate: ").append(String.format(Locale.US, "%.1f%%", successRate));
+        }
+        
+        i("Stats", sb.toString());
+    }
+    
+    /**
+     * Reset statistics counters
+     */
+    public static void resetStats() {
+        totalHooksTriggered.set(0);
+        successfulInjections.set(0);
+        failedInjections.set(0);
+        i("Stats", "Statistics reset");
+    }
+    
+    /**
+     * Get total hooks triggered count
+     */
+    public static long getTotalHooksTriggered() {
+        return totalHooksTriggered.get();
+    }
+    
+    /**
+     * Get successful injections count
+     */
+    public static long getSuccessfulInjections() {
+        return successfulInjections.get();
+    }
+    
+    /**
+     * Get failed injections count
+     */
+    public static long getFailedInjections() {
+        return failedInjections.get();
+    }
+    
+    /**
+     * Format byte size to human-readable string
+     */
+    private static String formatSize(long bytes) {
+        if (bytes < 1024) return bytes + " B";
+        if (bytes < 1024 * 1024) return String.format(Locale.US, "%.1f KB", bytes / 1024.0);
+        return String.format(Locale.US, "%.2f MB", bytes / (1024.0 * 1024.0));
     }
 }

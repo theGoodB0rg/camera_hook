@@ -1,0 +1,52 @@
+# Android build outputs
+*.apk
+*.aar
+*.ap_
+*.aab
+
+# Gradle
+.gradle/
+build/
+app/build/
+**/build/
+
+# Local configuration
+local.properties
+*.local
+
+# IDE
+.idea/
+*.iml
+.vscode/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/
+
+# Dependencies
+node_modules/
+
+# Project specific - keep source, ignore generated
+bin/
+out/
+*.class
+*.dex
+*.jar
+!libs/*.jar
+
+# Test files
+*.mp4
+*.avi
+*.mov
+config.local.*
+temp/
+cache/
+
+logs/

@@ -1,10 +1,24 @@
 R_DEF: Internal format may change without notice
 local
 array xposed_scope
+id app_icon
+id app_mode
+id app_subtitle
+id app_title
 id button_cancel
+id button_clear
 id button_gallery
+id button_refresh
+id button_save
+id image_preview
+id list_apps
+id scroll_view
 id text_info
+id text_logs
+layout activity_app_selection
+layout activity_log_viewer
 layout activity_picker
+layout list_item_app_mode
 string app_name
 string camera_intercepted
 string cancel

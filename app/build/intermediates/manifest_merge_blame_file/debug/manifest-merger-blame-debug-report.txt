@@ -32,7 +32,7 @@
 19-->[androidx.core:core:1.9.0] C:\Users\HP\.gradle\caches\8.13\transforms\c73943ff4e63ef72223759efab1edf43\transformed\core-1.9.0\AndroidManifest.xml:26:22-94
 20
 21    <application
-21-->C:\Users\HP\Desktop\My files\CameraInterceptor\app\src\main\AndroidManifest.xml:9:5-46:19
+21-->C:\Users\HP\Desktop\My files\CameraInterceptor\app\src\main\AndroidManifest.xml:9:5-58:19
 22        android:allowBackup="true"
 22-->C:\Users\HP\Desktop\My files\CameraInterceptor\app\src\main\AndroidManifest.xml:13:9-35
 23        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
@@ -73,66 +73,86 @@
 44            android:theme="@style/Theme.AppCompat.Dialog" />
 44-->C:\Users\HP\Desktop\My files\CameraInterceptor\app\src\main\AndroidManifest.xml:30:13-58
 45
-46        <!-- LSPosed module metadata -->
-47        <meta-data
-47-->C:\Users\HP\Desktop\My files\CameraInterceptor\app\src\main\AndroidManifest.xml:33:9-35:36
-48            android:name="xposedmodule"
-48-->C:\Users\HP\Desktop\My files\CameraInterceptor\app\src\main\AndroidManifest.xml:34:13-40
-49            android:value="true" />
-49-->C:\Users\HP\Desktop\My files\CameraInterceptor\app\src\main\AndroidManifest.xml:35:13-33
-50        <meta-data
-50-->C:\Users\HP\Desktop\My files\CameraInterceptor\app\src\main\AndroidManifest.xml:36:9-38:96
-51            android:name="xposeddescription"
-51-->C:\Users\HP\Desktop\My files\CameraInterceptor\app\src\main\AndroidManifest.xml:37:13-45
-52            android:value="Intercepts camera requests and replaces them with gallery images" />
-52-->C:\Users\HP\Desktop\My files\CameraInterceptor\app\src\main\AndroidManifest.xml:38:13-93
-53        <meta-data
-53-->C:\Users\HP\Desktop\My files\CameraInterceptor\app\src\main\AndroidManifest.xml:39:9-41:34
-54            android:name="xposedminversion"
-54-->C:\Users\HP\Desktop\My files\CameraInterceptor\app\src\main\AndroidManifest.xml:40:13-44
-55            android:value="93" />
-55-->C:\Users\HP\Desktop\My files\CameraInterceptor\app\src\main\AndroidManifest.xml:41:13-31
-56        <meta-data
-56-->C:\Users\HP\Desktop\My files\CameraInterceptor\app\src\main\AndroidManifest.xml:42:9-44:54
-57            android:name="xposedscope"
-57-->C:\Users\HP\Desktop\My files\CameraInterceptor\app\src\main\AndroidManifest.xml:43:13-39
-58            android:resource="@array/xposed_scope" />
-58-->C:\Users\HP\Desktop\My files\CameraInterceptor\app\src\main\AndroidManifest.xml:44:13-51
-59
-60        <provider
-60-->[androidx.emoji2:emoji2:1.2.0] C:\Users\HP\.gradle\caches\8.13\transforms\d9c80605e5460b29d03222a064215b84\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:24:9-32:20
-61            android:name="androidx.startup.InitializationProvider"
-61-->[androidx.emoji2:emoji2:1.2.0] C:\Users\HP\.gradle\caches\8.13\transforms\d9c80605e5460b29d03222a064215b84\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:25:13-67
-62            android:authorities="com.camerainterceptor.androidx-startup"
-62-->[androidx.emoji2:emoji2:1.2.0] C:\Users\HP\.gradle\caches\8.13\transforms\d9c80605e5460b29d03222a064215b84\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:26:13-68
-63            android:exported="false" >
-63-->[androidx.emoji2:emoji2:1.2.0] C:\Users\HP\.gradle\caches\8.13\transforms\d9c80605e5460b29d03222a064215b84\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:27:13-37
-64            <meta-data
-64-->[androidx.emoji2:emoji2:1.2.0] C:\Users\HP\.gradle\caches\8.13\transforms\d9c80605e5460b29d03222a064215b84\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:29:13-31:52
-65                android:name="androidx.emoji2.text.EmojiCompatInitializer"
-65-->[androidx.emoji2:emoji2:1.2.0] C:\Users\HP\.gradle\caches\8.13\transforms\d9c80605e5460b29d03222a064215b84\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:30:17-75
-66                android:value="androidx.startup" />
-66-->[androidx.emoji2:emoji2:1.2.0] C:\Users\HP\.gradle\caches\8.13\transforms\d9c80605e5460b29d03222a064215b84\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:31:17-49
-67            <meta-data
-67-->[androidx.lifecycle:lifecycle-process:2.4.1] C:\Users\HP\.gradle\caches\8.13\transforms\75975ab75c01fa41d50a00d0439c9701\transformed\jetified-lifecycle-process-2.4.1\AndroidManifest.xml:31:13-33:52
-68                android:name="androidx.lifecycle.ProcessLifecycleInitializer"
-68-->[androidx.lifecycle:lifecycle-process:2.4.1] C:\Users\HP\.gradle\caches\8.13\transforms\75975ab75c01fa41d50a00d0439c9701\transformed\jetified-lifecycle-process-2.4.1\AndroidManifest.xml:32:17-78
-69                android:value="androidx.startup" />
-69-->[androidx.lifecycle:lifecycle-process:2.4.1] C:\Users\HP\.gradle\caches\8.13\transforms\75975ab75c01fa41d50a00d0439c9701\transformed\jetified-lifecycle-process-2.4.1\AndroidManifest.xml:33:17-49
-70        </provider>
+46        <!-- App selection activity -->
+47        <activity
+47-->C:\Users\HP\Desktop\My files\CameraInterceptor\app\src\main\AndroidManifest.xml:33:9-36:43
+48            android:name="com.camerainterceptor.ui.AppSelectionActivity"
+48-->C:\Users\HP\Desktop\My files\CameraInterceptor\app\src\main\AndroidManifest.xml:34:13-52
+49            android:exported="false"
+49-->C:\Users\HP\Desktop\My files\CameraInterceptor\app\src\main\AndroidManifest.xml:35:13-37
+50            android:label="Select Apps" />
+50-->C:\Users\HP\Desktop\My files\CameraInterceptor\app\src\main\AndroidManifest.xml:36:13-40
+51
+52        <!-- Log viewer activity -->
+53        <activity
+53-->C:\Users\HP\Desktop\My files\CameraInterceptor\app\src\main\AndroidManifest.xml:39:9-42:36
+54            android:name="com.camerainterceptor.ui.LogViewerActivity"
+54-->C:\Users\HP\Desktop\My files\CameraInterceptor\app\src\main\AndroidManifest.xml:40:13-49
+55            android:exported="false"
+55-->C:\Users\HP\Desktop\My files\CameraInterceptor\app\src\main\AndroidManifest.xml:41:13-37
+56            android:label="Logs" />
+56-->C:\Users\HP\Desktop\My files\CameraInterceptor\app\src\main\AndroidManifest.xml:42:13-33
+57
+58        <!-- LSPosed module metadata -->
+59        <meta-data
+59-->C:\Users\HP\Desktop\My files\CameraInterceptor\app\src\main\AndroidManifest.xml:45:9-47:36
+60            android:name="xposedmodule"
+60-->C:\Users\HP\Desktop\My files\CameraInterceptor\app\src\main\AndroidManifest.xml:46:13-40
+61            android:value="true" />
+61-->C:\Users\HP\Desktop\My files\CameraInterceptor\app\src\main\AndroidManifest.xml:47:13-33
+62        <meta-data
+62-->C:\Users\HP\Desktop\My files\CameraInterceptor\app\src\main\AndroidManifest.xml:48:9-50:96
+63            android:name="xposeddescription"
+63-->C:\Users\HP\Desktop\My files\CameraInterceptor\app\src\main\AndroidManifest.xml:49:13-45
+64            android:value="Intercepts camera requests and replaces them with gallery images" />
+64-->C:\Users\HP\Desktop\My files\CameraInterceptor\app\src\main\AndroidManifest.xml:50:13-93
+65        <meta-data
+65-->C:\Users\HP\Desktop\My files\CameraInterceptor\app\src\main\AndroidManifest.xml:51:9-53:34
+66            android:name="xposedminversion"
+66-->C:\Users\HP\Desktop\My files\CameraInterceptor\app\src\main\AndroidManifest.xml:52:13-44
+67            android:value="93" />
+67-->C:\Users\HP\Desktop\My files\CameraInterceptor\app\src\main\AndroidManifest.xml:53:13-31
+68        <meta-data
+68-->C:\Users\HP\Desktop\My files\CameraInterceptor\app\src\main\AndroidManifest.xml:54:9-56:54
+69            android:name="xposedscope"
+69-->C:\Users\HP\Desktop\My files\CameraInterceptor\app\src\main\AndroidManifest.xml:55:13-39
+70            android:resource="@array/xposed_scope" />
+70-->C:\Users\HP\Desktop\My files\CameraInterceptor\app\src\main\AndroidManifest.xml:56:13-51
 71
-72        <uses-library
-72-->[androidx.window:window:1.0.0] C:\Users\HP\.gradle\caches\8.13\transforms\7922f0e5bcd8952bed8ef4222024b251\transformed\jetified-window-1.0.0\AndroidManifest.xml:25:9-27:40
-73            android:name="androidx.window.extensions"
-73-->[androidx.window:window:1.0.0] C:\Users\HP\.gradle\caches\8.13\transforms\7922f0e5bcd8952bed8ef4222024b251\transformed\jetified-window-1.0.0\AndroidManifest.xml:26:13-54
-74            android:required="false" />
-74-->[androidx.window:window:1.0.0] C:\Users\HP\.gradle\caches\8.13\transforms\7922f0e5bcd8952bed8ef4222024b251\transformed\jetified-window-1.0.0\AndroidManifest.xml:27:13-37
-75        <uses-library
-75-->[androidx.window:window:1.0.0] C:\Users\HP\.gradle\caches\8.13\transforms\7922f0e5bcd8952bed8ef4222024b251\transformed\jetified-window-1.0.0\AndroidManifest.xml:28:9-30:40
-76            android:name="androidx.window.sidecar"
-76-->[androidx.window:window:1.0.0] C:\Users\HP\.gradle\caches\8.13\transforms\7922f0e5bcd8952bed8ef4222024b251\transformed\jetified-window-1.0.0\AndroidManifest.xml:29:13-51
-77            android:required="false" />
-77-->[androidx.window:window:1.0.0] C:\Users\HP\.gradle\caches\8.13\transforms\7922f0e5bcd8952bed8ef4222024b251\transformed\jetified-window-1.0.0\AndroidManifest.xml:30:13-37
-78    </application>
-79
-80</manifest>
+72        <provider
+72-->[androidx.emoji2:emoji2:1.2.0] C:\Users\HP\.gradle\caches\8.13\transforms\d9c80605e5460b29d03222a064215b84\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:24:9-32:20
+73            android:name="androidx.startup.InitializationProvider"
+73-->[androidx.emoji2:emoji2:1.2.0] C:\Users\HP\.gradle\caches\8.13\transforms\d9c80605e5460b29d03222a064215b84\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:25:13-67
+74            android:authorities="com.camerainterceptor.androidx-startup"
+74-->[androidx.emoji2:emoji2:1.2.0] C:\Users\HP\.gradle\caches\8.13\transforms\d9c80605e5460b29d03222a064215b84\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:26:13-68
+75            android:exported="false" >
+75-->[androidx.emoji2:emoji2:1.2.0] C:\Users\HP\.gradle\caches\8.13\transforms\d9c80605e5460b29d03222a064215b84\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:27:13-37
+76            <meta-data
+76-->[androidx.emoji2:emoji2:1.2.0] C:\Users\HP\.gradle\caches\8.13\transforms\d9c80605e5460b29d03222a064215b84\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:29:13-31:52
+77                android:name="androidx.emoji2.text.EmojiCompatInitializer"
+77-->[androidx.emoji2:emoji2:1.2.0] C:\Users\HP\.gradle\caches\8.13\transforms\d9c80605e5460b29d03222a064215b84\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:30:17-75
+78                android:value="androidx.startup" />
+78-->[androidx.emoji2:emoji2:1.2.0] C:\Users\HP\.gradle\caches\8.13\transforms\d9c80605e5460b29d03222a064215b84\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:31:17-49
+79            <meta-data
+79-->[androidx.lifecycle:lifecycle-process:2.4.1] C:\Users\HP\.gradle\caches\8.13\transforms\75975ab75c01fa41d50a00d0439c9701\transformed\jetified-lifecycle-process-2.4.1\AndroidManifest.xml:31:13-33:52
+80                android:name="androidx.lifecycle.ProcessLifecycleInitializer"
+80-->[androidx.lifecycle:lifecycle-process:2.4.1] C:\Users\HP\.gradle\caches\8.13\transforms\75975ab75c01fa41d50a00d0439c9701\transformed\jetified-lifecycle-process-2.4.1\AndroidManifest.xml:32:17-78
+81                android:value="androidx.startup" />
+81-->[androidx.lifecycle:lifecycle-process:2.4.1] C:\Users\HP\.gradle\caches\8.13\transforms\75975ab75c01fa41d50a00d0439c9701\transformed\jetified-lifecycle-process-2.4.1\AndroidManifest.xml:33:17-49
+82        </provider>
+83
+84        <uses-library
+84-->[androidx.window:window:1.0.0] C:\Users\HP\.gradle\caches\8.13\transforms\7922f0e5bcd8952bed8ef4222024b251\transformed\jetified-window-1.0.0\AndroidManifest.xml:25:9-27:40
+85            android:name="androidx.window.extensions"
+85-->[androidx.window:window:1.0.0] C:\Users\HP\.gradle\caches\8.13\transforms\7922f0e5bcd8952bed8ef4222024b251\transformed\jetified-window-1.0.0\AndroidManifest.xml:26:13-54
+86            android:required="false" />
+86-->[androidx.window:window:1.0.0] C:\Users\HP\.gradle\caches\8.13\transforms\7922f0e5bcd8952bed8ef4222024b251\transformed\jetified-window-1.0.0\AndroidManifest.xml:27:13-37
+87        <uses-library
+87-->[androidx.window:window:1.0.0] C:\Users\HP\.gradle\caches\8.13\transforms\7922f0e5bcd8952bed8ef4222024b251\transformed\jetified-window-1.0.0\AndroidManifest.xml:28:9-30:40
+88            android:name="androidx.window.sidecar"
+88-->[androidx.window:window:1.0.0] C:\Users\HP\.gradle\caches\8.13\transforms\7922f0e5bcd8952bed8ef4222024b251\transformed\jetified-window-1.0.0\AndroidManifest.xml:29:13-51
+89            android:required="false" />
+89-->[androidx.window:window:1.0.0] C:\Users\HP\.gradle\caches\8.13\transforms\7922f0e5bcd8952bed8ef4222024b251\transformed\jetified-window-1.0.0\AndroidManifest.xml:30:13-37
+90    </application>
+91
+92</manifest>

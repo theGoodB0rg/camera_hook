@@ -1,10 +1,22 @@
 [
     {
-        "merged": "com.camerainterceptor.app-merged_res-31:/xml_preferences.xml.flat",
-        "source": "com.camerainterceptor.app-main-33:/xml/preferences.xml"
+        "merged": "C:\\Users\\HP\\.gradle\\daemon\\8.13\\com.camerainterceptor.app-merged_res-31:\\layout_activity_picker.xml.flat",
+        "source": "C:\\Users\\HP\\.gradle\\daemon\\8.13\\com.camerainterceptor.app-main-33:\\layout\\activity_picker.xml"
     },
     {
-        "merged": "com.camerainterceptor.app-merged_res-31:/layout_activity_picker.xml.flat",
-        "source": "com.camerainterceptor.app-main-33:/layout/activity_picker.xml"
+        "merged": "C:\\Users\\HP\\.gradle\\daemon\\8.13\\com.camerainterceptor.app-merged_res-31:\\xml_preferences.xml.flat",
+        "source": "C:\\Users\\HP\\.gradle\\daemon\\8.13\\com.camerainterceptor.app-main-33:\\xml\\preferences.xml"
+    },
+    {
+        "merged": "C:\\Users\\HP\\.gradle\\daemon\\8.13\\com.camerainterceptor.app-merged_res-31:\\layout_activity_log_viewer.xml.flat",
+        "source": "C:\\Users\\HP\\.gradle\\daemon\\8.13\\com.camerainterceptor.app-main-33:\\layout\\activity_log_viewer.xml"
+    },
+    {
+        "merged": "C:\\Users\\HP\\.gradle\\daemon\\8.13\\com.camerainterceptor.app-merged_res-31:\\layout_activity_app_selection.xml.flat",
+        "source": "C:\\Users\\HP\\.gradle\\daemon\\8.13\\com.camerainterceptor.app-main-33:\\layout\\activity_app_selection.xml"
+    },
+    {
+        "merged": "com.camerainterceptor.app-merged_res-31:/layout_list_item_app_mode.xml.flat",
+        "source": "com.camerainterceptor.app-main-33:/layout/list_item_app_mode.xml"
     }
 ]

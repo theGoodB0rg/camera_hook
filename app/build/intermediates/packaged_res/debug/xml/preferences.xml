@@ -2,6 +2,11 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
     <PreferenceCategory android:title="General Settings">
+        <Preference
+            android:key="select_image"
+            android:title="Select Injection Image"
+            android:summary="Choose the image to be injected into camera previews/captures" />
+
         <SwitchPreference
             android:key="enable_module"
             android:title="Enable Camera Interceptor"
@@ -20,6 +25,11 @@
             android:summary="Use the custom dialog for selecting images instead of the system gallery"
             android:defaultValue="false" />
     </PreferenceCategory>
+
+    <Preference
+        android:key="select_apps"
+        android:title="Select Apps to Hook"
+        android:summary="Choose which apps the interceptor should affect" />
     
     <PreferenceCategory android:title="Logging">
         <SwitchPreference

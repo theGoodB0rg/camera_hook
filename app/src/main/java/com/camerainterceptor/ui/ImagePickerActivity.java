@@ -4,17 +4,22 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.view.View;
 
 import com.camerainterceptor.R;
 import com.camerainterceptor.utils.Logger;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -25,6 +30,14 @@ public class ImagePickerActivity extends Activity {
     public static final String SHARED_PREFS_NAME = "CameraInterceptorPrefs";
     public static final String PREF_IMAGE_PATH = "injected_image_path";
     public static final String PREF_ENABLED = "interceptor_enabled";
+    
+    // World-readable paths - try multiple locations
+    private static final String EXTERNAL_IMAGE_DIR = "/sdcard/.camerainterceptor";
+    private static final String EXTERNAL_IMAGE_NAME = "injected_image.jpg";
+    // /data/local/tmp is world-readable on rooted/emulators
+    private static final String TMP_IMAGE_PATH = "/data/local/tmp/camerainterceptor_image.jpg";
+
+    private ImageView imagePreview;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +46,9 @@ public class ImagePickerActivity extends Activity {
 
         TextView infoTextView = findViewById(R.id.text_info);
         infoTextView.setText("Select an image to be injected into camera apps.");
+
+        imagePreview = findViewById(R.id.image_preview);
+        loadSavedPreview();
 
         Button galleryButton = findViewById(R.id.button_gallery);
         galleryButton.setText("Select Image");
@@ -52,7 +68,33 @@ public class ImagePickerActivity extends Activity {
         // Use standard mode first, we will try to make file readable explicitly
         SharedPreferences prefs = getSharedPreferences(SHARED_PREFS_NAME, Context.MODE_PRIVATE);
         prefs.edit().remove(PREF_IMAGE_PATH).apply();
+        SharedPreferences dpPrefs = getDeviceProtectedPrefs();
+        if (dpPrefs != null) {
+            dpPrefs.edit().remove(PREF_IMAGE_PATH).apply();
+        }
         makePrefsReadable();
+
+        // Remove external storage file
+        File externalFile = new File(EXTERNAL_IMAGE_DIR, EXTERNAL_IMAGE_NAME);
+        if (externalFile.exists()) {
+            //noinspection ResultOfMethodCallIgnored
+            externalFile.delete();
+        }
+
+        // Remove the internal stored file if it exists
+        File destFile = new File(getFilesDir(), "injected_image.jpg");
+        if (destFile.exists()) {
+            //noinspection ResultOfMethodCallIgnored
+            destFile.delete();
+        }
+
+        File dpFile = getDeviceProtectedFile();
+        if (dpFile != null && dpFile.exists()) {
+            //noinspection ResultOfMethodCallIgnored
+            dpFile.delete();
+        }
+
+        hidePreview();
         Toast.makeText(this, "Injection disabled", Toast.LENGTH_SHORT).show();
     }
 
@@ -68,23 +110,95 @@ public class ImagePickerActivity extends Activity {
 
     private void saveImageLocally(Uri uri) {
         try {
-            InputStream inputStream = getContentResolver().openInputStream(uri);
-            if (inputStream == null) {
-                Toast.makeText(this, "Failed to open image", Toast.LENGTH_SHORT).show();
+            // Primary: Save to external storage that all apps can access
+            File externalDir = new File(EXTERNAL_IMAGE_DIR);
+            if (!externalDir.exists()) {
+                externalDir.mkdirs();
+            }
+            File destFile = new File(externalDir, EXTERNAL_IMAGE_NAME);
+            
+            // Also keep a copy in internal storage as backup
+            File internalFile = new File(getFilesDir(), "injected_image.jpg");
+            File dpFile = getDeviceProtectedFile();
+
+            // IMPORTANT: Always convert to JPEG regardless of input format
+            // Camera apps expect JPEG data, so PNG/WEBP/etc must be converted
+            Bitmap bitmap = null;
+            try (InputStream inputStream = getContentResolver().openInputStream(uri)) {
+                if (inputStream == null) {
+                    Toast.makeText(this, "Failed to open image", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                bitmap = BitmapFactory.decodeStream(inputStream);
+            }
+            
+            if (bitmap == null) {
+                Toast.makeText(this, "Failed to decode image", Toast.LENGTH_SHORT).show();
                 return;
             }
-
-            File destFile = new File(getFilesDir(), "injected_image.jpg");
-            OutputStream outputStream = new FileOutputStream(destFile);
-
-            byte[] buffer = new byte[4096];
-            int bytesRead;
-            while ((bytesRead = inputStream.read(buffer)) != -1) {
-                outputStream.write(buffer, 0, bytesRead);
+            
+            // Save as JPEG with high quality
+            try (FileOutputStream outputStream = new FileOutputStream(destFile)) {
+                boolean success = bitmap.compress(Bitmap.CompressFormat.JPEG, 95, outputStream);
+                if (!success) {
+                    Toast.makeText(this, "Failed to save image as JPEG", Toast.LENGTH_SHORT).show();
+                    bitmap.recycle();
+                    return;
+                }
+            }
+            
+            Logger.i(TAG, "Converted and saved image as JPEG: " + bitmap.getWidth() + "x" + bitmap.getHeight());
+            bitmap.recycle();
+            
+            // Make external file world-readable
+            destFile.setReadable(true, false);
+            externalDir.setReadable(true, false);
+            externalDir.setExecutable(true, false);
+            
+            Logger.i(TAG, "Saved image to external storage: " + destFile.getAbsolutePath());
+            
+            // Also copy to /data/local/tmp which is world-readable on rooted devices
+            try {
+                File tmpFile = new File(TMP_IMAGE_PATH);
+                try (InputStream tmpIn = new FileInputStream(destFile);
+                        OutputStream tmpOut = new FileOutputStream(tmpFile)) {
+                    byte[] buf = new byte[4096];
+                    int len;
+                    while ((len = tmpIn.read(buf)) != -1) {
+                        tmpOut.write(buf, 0, len);
+                    }
+                }
+                tmpFile.setReadable(true, false);
+                Logger.i(TAG, "Saved image to tmp: " + TMP_IMAGE_PATH);
+            } catch (Exception tmpErr) {
+                Logger.w(TAG, "Could not copy to /data/local/tmp: " + tmpErr.getMessage());
             }
 
-            inputStream.close();
-            outputStream.close();
+            // Copy to internal storage as well
+            try (InputStream in2 = new FileInputStream(destFile);
+                    OutputStream out2 = new FileOutputStream(internalFile)) {
+                byte[] buffer = new byte[4096];
+                int bytesRead;
+                while ((bytesRead = in2.read(buffer)) != -1) {
+                    out2.write(buffer, 0, bytesRead);
+                }
+            } catch (Exception copyErr) {
+                Logger.w(TAG, "Failed to copy to internal storage: " + copyErr.getMessage());
+            }
+
+            // Also copy to device-protected storage
+            if (dpFile != null) {
+                try (InputStream in2 = new FileInputStream(destFile);
+                        OutputStream out2 = new FileOutputStream(dpFile)) {
+                    byte[] buffer = new byte[4096];
+                    int bytesRead;
+                    while ((bytesRead = in2.read(buffer)) != -1) {
+                        out2.write(buffer, 0, bytesRead);
+                    }
+                } catch (Exception copyErr) {
+                    Logger.w(TAG, "Failed to copy image to DP storage: " + copyErr.getMessage());
+                }
+            }
 
             // Critical: make file readable by other apps (the Xposed module running in
             // target app)
@@ -92,14 +206,38 @@ public class ImagePickerActivity extends Activity {
             // content provider
             destFile.setReadable(true, false);
 
-            // Save path to SharedPreferences
+            // Make the directory readable/executable so other apps can access the file
+            File filesDir = destFile.getParentFile();
+            if (filesDir != null) {
+                filesDir.setExecutable(true, false);
+                filesDir.setReadable(true, false);
+            }
+
+            if (dpFile != null) {
+                dpFile.setReadable(true, false);
+                File dpParent = dpFile.getParentFile();
+                if (dpParent != null) {
+                    dpParent.setExecutable(true, false);
+                    dpParent.setReadable(true, false);
+                }
+            }
+
+            // Save path to SharedPreferences - use external path as primary
             SharedPreferences prefs = getSharedPreferences(SHARED_PREFS_NAME, Context.MODE_PRIVATE);
             prefs.edit().putString(PREF_IMAGE_PATH, destFile.getAbsolutePath()).apply();
 
+            SharedPreferences dpPrefs = getDeviceProtectedPrefs();
+            if (dpPrefs != null) {
+                // Also save external path to device-protected prefs
+                dpPrefs.edit().putString(PREF_IMAGE_PATH, destFile.getAbsolutePath()).apply();
+            }
+
             makePrefsReadable();
 
+            showPreview(destFile);
+
             Toast.makeText(this, "Image saved & ready for injection!", Toast.LENGTH_LONG).show();
-            Logger.i(TAG, "Saved injected image to: " + destFile.getAbsolutePath());
+            Logger.i(TAG, "Saved injected image to external storage: " + destFile.getAbsolutePath());
 
         } catch (Exception e) {
             Logger.e(TAG, "Error saving image: " + e.getMessage());
@@ -108,16 +246,122 @@ public class ImagePickerActivity extends Activity {
         }
     }
 
+    private void loadSavedPreview() {
+        SharedPreferences prefs = getSharedPreferences(SHARED_PREFS_NAME, Context.MODE_PRIVATE);
+        String existingPath = prefs.getString(PREF_IMAGE_PATH, null);
+        if (existingPath == null) {
+            SharedPreferences dpPrefs = getDeviceProtectedPrefs();
+            if (dpPrefs != null) {
+                existingPath = dpPrefs.getString(PREF_IMAGE_PATH, null);
+            }
+        }
+        if (existingPath == null) {
+            hidePreview();
+            return;
+        }
+
+        File file = new File(existingPath);
+        showPreview(file);
+    }
+
+    private void hidePreview() {
+        if (imagePreview != null) {
+            imagePreview.setImageDrawable(null);
+            imagePreview.setVisibility(View.GONE);
+        }
+    }
+
+    private void showPreview(File imageFile) {
+        if (imagePreview == null) {
+            return;
+        }
+
+        if (imageFile == null || !imageFile.exists()) {
+            hidePreview();
+            return;
+        }
+
+        Bitmap bitmap = decodeScaledBitmap(imageFile);
+        if (bitmap != null) {
+            imagePreview.setImageBitmap(bitmap);
+            imagePreview.setVisibility(View.VISIBLE);
+        } else {
+            hidePreview();
+        }
+    }
+
+    private Bitmap decodeScaledBitmap(File imageFile) {
+        try {
+            BitmapFactory.Options bounds = new BitmapFactory.Options();
+            bounds.inJustDecodeBounds = true;
+            BitmapFactory.decodeFile(imageFile.getAbsolutePath(), bounds);
+
+            int maxSize = 800;
+            int sampleSize = 1;
+            while ((bounds.outHeight / sampleSize) > maxSize || (bounds.outWidth / sampleSize) > maxSize) {
+                sampleSize *= 2;
+            }
+
+            BitmapFactory.Options opts = new BitmapFactory.Options();
+            opts.inSampleSize = sampleSize;
+            return BitmapFactory.decodeFile(imageFile.getAbsolutePath(), opts);
+        } catch (Exception e) {
+            Logger.w(TAG, "Failed to decode preview: " + e.getMessage());
+            return null;
+        }
+    }
+
     @SuppressWarnings({ "ResultOfMethodCallIgnored", "deprecation" })
     private void makePrefsReadable() {
         try {
             File prefsDir = new File(getApplicationInfo().dataDir, "shared_prefs");
+            if (prefsDir.exists()) {
+                prefsDir.setExecutable(true, false);
+                prefsDir.setReadable(true, false);
+            }
+
             File prefsFile = new File(prefsDir, SHARED_PREFS_NAME + ".xml");
             if (prefsFile.exists()) {
                 prefsFile.setReadable(true, false);
             }
+
+            // Device-protected storage (used by XSharedPreferences on newer Android)
+            Context dp = getDeviceProtectedContext();
+            if (dp != null) {
+                File dpPrefsDir = new File(dp.getDataDir(), "shared_prefs");
+                if (dpPrefsDir.exists()) {
+                    dpPrefsDir.setExecutable(true, false);
+                    dpPrefsDir.setReadable(true, false);
+                }
+
+                File dpPrefsFile = new File(dpPrefsDir, SHARED_PREFS_NAME + ".xml");
+                if (dpPrefsFile.exists()) {
+                    dpPrefsFile.setReadable(true, false);
+                }
+            }
         } catch (Exception e) {
             Logger.w(TAG, "Failed to make prefs readable: " + e.getMessage());
         }
+    }
+
+    private Context getDeviceProtectedContext() {
+        try {
+            return getApplicationContext().createDeviceProtectedStorageContext();
+        } catch (Exception e) {
+            Logger.w(TAG, "Device protected context unavailable: " + e.getMessage());
+            return null;
+        }
+    }
+
+    private SharedPreferences getDeviceProtectedPrefs() {
+        Context dp = getDeviceProtectedContext();
+        if (dp == null) return null;
+        return dp.getSharedPreferences(SHARED_PREFS_NAME, Context.MODE_PRIVATE);
+    }
+
+    private File getDeviceProtectedFile() {
+        Context dp = getDeviceProtectedContext();
+        if (dp == null) return null;
+        return new File(dp.getFilesDir(), "injected_image.jpg");
     }
 }
