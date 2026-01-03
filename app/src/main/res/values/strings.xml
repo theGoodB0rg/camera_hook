@@ -63,6 +63,25 @@
     <string name="image_picker_error_general">Error: %1$s</string>
     <string name="image_picker_preview_description">Selected image preview</string>
     
+    <!-- App Selection Screen -->
+    <string name="app_selection_title">Select Apps</string>
+    <string name="action_search">Search</string>
+    <string name="action_save">Save</string>
+    <string name="search_apps_hint">Search apps…</string>
+    <string name="filter_all">All</string>
+    <string name="filter_user_apps">User Apps</string>
+    <string name="filter_system_apps">System Apps</string>
+    <string name="filter_enabled">Enabled</string>
+    <string name="empty_apps_title">No apps found</string>
+    <string name="empty_apps_subtitle">Try adjusting your search or filters</string>
+    <string name="error_loading_apps">Error loading apps</string>
+    <string name="settings_saved">Settings saved</string>
+    <string name="app_icon_description">App icon</string>
+    <string name="badge_system">System</string>
+    <string name="mode_off">Off</string>
+    <string name="mode_inject">Inject</string>
+    <string name="mode_profile">Profile</string>
+    
     <!-- Array for LSPosed scope -->
 
 </resources>
