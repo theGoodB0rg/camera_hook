@@ -9,6 +9,7 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,7 +29,6 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.google.android.material.button.MaterialButton;
-import com.google.android.material.imageview.ShapeableImageView;
 import com.google.android.material.progressindicator.CircularProgressIndicator;
 
 import java.io.File;
@@ -53,7 +53,7 @@ public class ImagePickerFragment extends BottomSheetDialogFragment {
     private static final String TMP_IMAGE_PATH = "/data/local/tmp/camerainterceptor_image.jpg";
 
     // Views
-    private ShapeableImageView imagePreview;
+    private ImageView imagePreview;
     private FrameLayout placeholderContainer;
     private MaterialButton selectButton;
     private MaterialButton clearButton;
@@ -100,6 +100,7 @@ public class ImagePickerFragment extends BottomSheetDialogFragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        Log.d("ImagePickerDebug", "onViewCreated called");
         
         // Initialize views
         imagePreview = view.findViewById(R.id.image_preview);
@@ -108,13 +109,20 @@ public class ImagePickerFragment extends BottomSheetDialogFragment {
         clearButton = view.findViewById(R.id.button_clear);
         progressIndicator = view.findViewById(R.id.progress_indicator);
         statusText = view.findViewById(R.id.status_text);
+        
+        Log.d("ImagePickerDebug", "imagePreview is " + (imagePreview == null ? "NULL" : "found"));
+        Log.d("ImagePickerDebug", "placeholderContainer is " + (placeholderContainer == null ? "NULL" : "found"));
 
         // Set up button click listeners
         selectButton.setOnClickListener(v -> openGallery());
         clearButton.setOnClickListener(v -> clearSelection());
 
-        // Load existing preview
-        loadSavedPreview();
+        // Load existing preview AFTER view is laid out (fixes 0x0 dimensions issue)
+        view.post(() -> {
+            Log.d("ImagePickerDebug", "post(): View is now laid out, loading preview");
+            Log.d("ImagePickerDebug", "post(): imagePreview dimensions = " + imagePreview.getWidth() + "x" + imagePreview.getHeight());
+            loadSavedPreview();
+        });
 
         // Configure bottom sheet behavior
         setupBottomSheetBehavior();
@@ -349,32 +357,77 @@ public class ImagePickerFragment extends BottomSheetDialogFragment {
 
     private void showPreview(File imageFile) {
         if (imageFile == null || !imageFile.exists()) {
+            Log.w("ImagePickerDebug", "showPreview: File is null or doesn't exist");
             showPlaceholder();
             return;
         }
 
+        Log.i("ImagePickerDebug", "showPreview: Loading preview from " + imageFile.getAbsolutePath());
         Bitmap bitmap = decodeScaledBitmap(imageFile);
         if (bitmap != null) {
+            Log.i("ImagePickerDebug", "showPreview: Bitmap loaded successfully - " + bitmap.getWidth() + "x" + bitmap.getHeight());
+            Log.i("ImagePickerDebug", "showPreview: imagePreview is " + (imagePreview != null ? "NOT NULL" : "NULL"));
+            Log.i("ImagePickerDebug", "showPreview: placeholderContainer is " + (placeholderContainer != null ? "NOT NULL" : "NULL"));
             if (imagePreview != null) {
+                Log.i("ImagePickerDebug", "showPreview: Setting bitmap to imagePreview");
+                Log.i("ImagePickerDebug", "showPreview: imagePreview class = " + imagePreview.getClass().getName());
+                Log.i("ImagePickerDebug", "showPreview: imagePreview parent = " + (imagePreview.getParent() != null ? imagePreview.getParent().getClass().getName() : "NULL"));
+                Log.i("ImagePickerDebug", "showPreview: imagePreview width = " + imagePreview.getWidth() + ", height = " + imagePreview.getHeight());
+                // Clear any previous image first
+                imagePreview.setImageDrawable(null);
+                // Ensure no tint or background is interfering
+                imagePreview.setBackground(null);
+                imagePreview.setImageTintList(null);
+                imagePreview.setColorFilter(null);
+                
                 imagePreview.setImageBitmap(bitmap);
+                // Verify the drawable was set
+                android.graphics.drawable.Drawable drawable = imagePreview.getDrawable();
+                Log.i("ImagePickerDebug", "showPreview: After setImageBitmap, drawable = " + (drawable != null ? drawable.getClass().getName() : "NULL"));
+                if (drawable != null) {
+                    Log.i("ImagePickerDebug", "showPreview: drawable bounds = " + drawable.getBounds());
+                    Log.i("ImagePickerDebug", "showPreview: drawable intrinsic = " + drawable.getIntrinsicWidth() + "x" + drawable.getIntrinsicHeight());
+                }
+                Log.i("ImagePickerDebug", "showPreview: Setting imagePreview VISIBLE");
                 imagePreview.setVisibility(View.VISIBLE);
+                Log.i("ImagePickerDebug", "showPreview: imagePreview visibility is now " + imagePreview.getVisibility());
+                // Force layout refresh
+                imagePreview.invalidate();
+                imagePreview.requestLayout();
+                // Also bring to front just in case
+                imagePreview.bringToFront();
+                Log.i("ImagePickerDebug", "showPreview: Called bringToFront()");
+            } else {
+                Log.e("ImagePickerDebug", "showPreview: imagePreview is NULL! Cannot display bitmap");
             }
             if (placeholderContainer != null) {
+                Log.i("ImagePickerDebug", "showPreview: Setting placeholderContainer GONE");
                 placeholderContainer.setVisibility(View.GONE);
+                Log.i("ImagePickerDebug", "showPreview: placeholderContainer visibility is now " + placeholderContainer.getVisibility());
             }
             if (clearButton != null) {
                 clearButton.setEnabled(true);
             }
         } else {
+            Log.w("ImagePickerDebug", "showPreview: Failed to decode bitmap");
             showPlaceholder();
         }
     }
 
     private Bitmap decodeScaledBitmap(File imageFile) {
         try {
+            Logger.d(TAG, "decodeScaledBitmap: File size = " + imageFile.length() + " bytes");
+            
             BitmapFactory.Options bounds = new BitmapFactory.Options();
             bounds.inJustDecodeBounds = true;
             BitmapFactory.decodeFile(imageFile.getAbsolutePath(), bounds);
+            
+            Logger.d(TAG, "decodeScaledBitmap: Original size = " + bounds.outWidth + "x" + bounds.outHeight);
+            
+            if (bounds.outWidth <= 0 || bounds.outHeight <= 0) {
+                Logger.w(TAG, "decodeScaledBitmap: Invalid image dimensions");
+                return null;
+            }
 
             int maxSize = 800;
             int sampleSize = 1;
@@ -382,9 +435,18 @@ public class ImagePickerFragment extends BottomSheetDialogFragment {
                 sampleSize *= 2;
             }
 
+            Logger.d(TAG, "decodeScaledBitmap: Using sample size = " + sampleSize);
+            
             BitmapFactory.Options opts = new BitmapFactory.Options();
             opts.inSampleSize = sampleSize;
-            return BitmapFactory.decodeFile(imageFile.getAbsolutePath(), opts);
+            opts.inPreferredConfig = Bitmap.Config.ARGB_8888;
+            Bitmap result = BitmapFactory.decodeFile(imageFile.getAbsolutePath(), opts);
+            
+            if (result == null) {
+                Logger.w(TAG, "decodeScaledBitmap: BitmapFactory.decodeFile returned null");
+            }
+            
+            return result;
         } catch (Exception e) {
             Logger.w(TAG, "Failed to decode preview: " + e.getMessage());
             return null;
