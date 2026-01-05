@@ -51,29 +51,18 @@
             app:cardElevation="0dp"
             app:strokeWidth="1dp"
             app:strokeColor="?attr/colorOutlineVariant"
-            app:cardBackgroundColor="?attr/colorSurfaceVariant">
+            app:cardBackgroundColor="@android:color/transparent">
 
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <!-- Image Preview -->
-                <com.google.android.material.imageview.ShapeableImageView
-                    android:id="@+id/image_preview"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/image_picker_preview_height"
-                    android:scaleType="centerCrop"
-                    android:visibility="gone"
-                    android:contentDescription="@string/image_picker_preview_description"
-                    app:shapeAppearance="@style/ShapeAppearance.CameraInterceptor.ImagePreview"
-                    tools:visibility="visible"
-                    tools:src="@drawable/ic_image" />
-
-                <!-- Placeholder Container -->
+                <!-- Placeholder Container (rendered first, behind image) -->
                 <FrameLayout
                     android:id="@+id/placeholder_container"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/image_picker_preview_height"
+                    android:background="@android:color/transparent"
                     android:visibility="visible"
                     tools:visibility="gone">
 
@@ -103,6 +92,19 @@
                     </LinearLayout>
 
                 </FrameLayout>
+
+                <!-- Image Preview (rendered last, on top) -->
+                <ImageView
+                    android:id="@+id/image_preview"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/image_picker_preview_height"
+                    android:scaleType="centerCrop"
+                    android:visibility="gone"
+                    android:background="@android:color/transparent"
+                    app:tint="@null"
+                    android:contentDescription="@string/image_picker_preview_description"
+                    tools:visibility="visible"
+                    tools:src="@drawable/ic_image" />
 
                 <!-- Loading Indicator -->
                 <com.google.android.material.progressindicator.CircularProgressIndicator
