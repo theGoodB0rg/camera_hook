@@ -1,0 +1,247 @@
+[
+{
+  "directory": "C:/Users/HP/Desktop/My files/CameraInterceptor/app/.cxx/Debug/1c1s64o4/arm64-v8a",
+  "command": "C:\\android_sdk\\ndk\\25.1.8937393\\toolchains\\llvm\\prebuilt\\windows-x86_64\\bin\\clang++.exe --target=aarch64-none-linux-android26 --sysroot=C:/android_sdk/ndk/25.1.8937393/toolchains/llvm/prebuilt/windows-x86_64/sysroot -Dimage_processor_EXPORTS -I\"C:/Users/HP/Desktop/My files/CameraInterceptor/app/src/main/cpp/libyuv/include\" -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -Wformat -Werror=format-security  -std=c++17 -fno-limit-debug-info  -fPIC -o CMakeFiles\\image_processor.dir\\image_processor.cpp.o -c \"C:\\Users\\HP\\Desktop\\My files\\CameraInterceptor\\app\\src\\main\\cpp\\image_processor.cpp\"",
+  "file": "C:\\Users\\HP\\Desktop\\My files\\CameraInterceptor\\app\\src\\main\\cpp\\image_processor.cpp"
+},
+{
+  "directory": "C:/Users/HP/Desktop/My files/CameraInterceptor/app/.cxx/Debug/1c1s64o4/arm64-v8a",
+  "command": "C:\\android_sdk\\ndk\\25.1.8937393\\toolchains\\llvm\\prebuilt\\windows-x86_64\\bin\\clang++.exe --target=aarch64-none-linux-android26 --sysroot=C:/android_sdk/ndk/25.1.8937393/toolchains/llvm/prebuilt/windows-x86_64/sysroot -DLIBYUV_DISABLE_SME -I\"C:/Users/HP/Desktop/My files/CameraInterceptor/app/src/main/cpp/libyuv/include\" -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -Wformat -Werror=format-security  -std=c++17 -fno-limit-debug-info  -fPIC -o libyuv\\CMakeFiles\\yuv_common_objects.dir\\source\\compare.cc.o -c \"C:\\Users\\HP\\Desktop\\My files\\CameraInterceptor\\app\\src\\main\\cpp\\libyuv\\source\\compare.cc\"",
+  "file": "C:\\Users\\HP\\Desktop\\My files\\CameraInterceptor\\app\\src\\main\\cpp\\libyuv\\source\\compare.cc"
+},
+{
+  "directory": "C:/Users/HP/Desktop/My files/CameraInterceptor/app/.cxx/Debug/1c1s64o4/arm64-v8a",
+  "command": "C:\\android_sdk\\ndk\\25.1.8937393\\toolchains\\llvm\\prebuilt\\windows-x86_64\\bin\\clang++.exe --target=aarch64-none-linux-android26 --sysroot=C:/android_sdk/ndk/25.1.8937393/toolchains/llvm/prebuilt/windows-x86_64/sysroot -DLIBYUV_DISABLE_SME -I\"C:/Users/HP/Desktop/My files/CameraInterceptor/app/src/main/cpp/libyuv/include\" -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -Wformat -Werror=format-security  -std=c++17 -fno-limit-debug-info  -fPIC -o libyuv\\CMakeFiles\\yuv_common_objects.dir\\source\\compare_common.cc.o -c \"C:\\Users\\HP\\Desktop\\My files\\CameraInterceptor\\app\\src\\main\\cpp\\libyuv\\source\\compare_common.cc\"",
+  "file": "C:\\Users\\HP\\Desktop\\My files\\CameraInterceptor\\app\\src\\main\\cpp\\libyuv\\source\\compare_common.cc"
+},
+{
+  "directory": "C:/Users/HP/Desktop/My files/CameraInterceptor/app/.cxx/Debug/1c1s64o4/arm64-v8a",
+  "command": "C:\\android_sdk\\ndk\\25.1.8937393\\toolchains\\llvm\\prebuilt\\windows-x86_64\\bin\\clang++.exe --target=aarch64-none-linux-android26 --sysroot=C:/android_sdk/ndk/25.1.8937393/toolchains/llvm/prebuilt/windows-x86_64/sysroot -DLIBYUV_DISABLE_SME -I\"C:/Users/HP/Desktop/My files/CameraInterceptor/app/src/main/cpp/libyuv/include\" -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -Wformat -Werror=format-security  -std=c++17 -fno-limit-debug-info  -fPIC -o libyuv\\CMakeFiles\\yuv_common_objects.dir\\source\\compare_gcc.cc.o -c \"C:\\Users\\HP\\Desktop\\My files\\CameraInterceptor\\app\\src\\main\\cpp\\libyuv\\source\\compare_gcc.cc\"",
+  "file": "C:\\Users\\HP\\Desktop\\My files\\CameraInterceptor\\app\\src\\main\\cpp\\libyuv\\source\\compare_gcc.cc"
+},
+{
+  "directory": "C:/Users/HP/Desktop/My files/CameraInterceptor/app/.cxx/Debug/1c1s64o4/arm64-v8a",
+  "command": "C:\\android_sdk\\ndk\\25.1.8937393\\toolchains\\llvm\\prebuilt\\windows-x86_64\\bin\\clang++.exe --target=aarch64-none-linux-android26 --sysroot=C:/android_sdk/ndk/25.1.8937393/toolchains/llvm/prebuilt/windows-x86_64/sysroot -DLIBYUV_DISABLE_SME -I\"C:/Users/HP/Desktop/My files/CameraInterceptor/app/src/main/cpp/libyuv/include\" -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -Wformat -Werror=format-security  -std=c++17 -fno-limit-debug-info  -fPIC -o libyuv\\CMakeFiles\\yuv_common_objects.dir\\source\\compare_win.cc.o -c \"C:\\Users\\HP\\Desktop\\My files\\CameraInterceptor\\app\\src\\main\\cpp\\libyuv\\source\\compare_win.cc\"",
+  "file": "C:\\Users\\HP\\Desktop\\My files\\CameraInterceptor\\app\\src\\main\\cpp\\libyuv\\source\\compare_win.cc"
+},
+{
+  "directory": "C:/Users/HP/Desktop/My files/CameraInterceptor/app/.cxx/Debug/1c1s64o4/arm64-v8a",
+  "command": "C:\\android_sdk\\ndk\\25.1.8937393\\toolchains\\llvm\\prebuilt\\windows-x86_64\\bin\\clang++.exe --target=aarch64-none-linux-android26 --sysroot=C:/android_sdk/ndk/25.1.8937393/toolchains/llvm/prebuilt/windows-x86_64/sysroot -DLIBYUV_DISABLE_SME -I\"C:/Users/HP/Desktop/My files/CameraInterceptor/app/src/main/cpp/libyuv/include\" -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -Wformat -Werror=format-security  -std=c++17 -fno-limit-debug-info  -fPIC -o libyuv\\CMakeFiles\\yuv_common_objects.dir\\source\\convert_argb.cc.o -c \"C:\\Users\\HP\\Desktop\\My files\\CameraInterceptor\\app\\src\\main\\cpp\\libyuv\\source\\convert_argb.cc\"",
+  "file": "C:\\Users\\HP\\Desktop\\My files\\CameraInterceptor\\app\\src\\main\\cpp\\libyuv\\source\\convert_argb.cc"
+},
+{
+  "directory": "C:/Users/HP/Desktop/My files/CameraInterceptor/app/.cxx/Debug/1c1s64o4/arm64-v8a",
+  "command": "C:\\android_sdk\\ndk\\25.1.8937393\\toolchains\\llvm\\prebuilt\\windows-x86_64\\bin\\clang++.exe --target=aarch64-none-linux-android26 --sysroot=C:/android_sdk/ndk/25.1.8937393/toolchains/llvm/prebuilt/windows-x86_64/sysroot -DLIBYUV_DISABLE_SME -I\"C:/Users/HP/Desktop/My files/CameraInterceptor/app/src/main/cpp/libyuv/include\" -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -Wformat -Werror=format-security  -std=c++17 -fno-limit-debug-info  -fPIC -o libyuv\\CMakeFiles\\yuv_common_objects.dir\\source\\convert.cc.o -c \"C:\\Users\\HP\\Desktop\\My files\\CameraInterceptor\\app\\src\\main\\cpp\\libyuv\\source\\convert.cc\"",
+  "file": "C:\\Users\\HP\\Desktop\\My files\\CameraInterceptor\\app\\src\\main\\cpp\\libyuv\\source\\convert.cc"
+},
+{
+  "directory": "C:/Users/HP/Desktop/My files/CameraInterceptor/app/.cxx/Debug/1c1s64o4/arm64-v8a",
+  "command": "C:\\android_sdk\\ndk\\25.1.8937393\\toolchains\\llvm\\prebuilt\\windows-x86_64\\bin\\clang++.exe --target=aarch64-none-linux-android26 --sysroot=C:/android_sdk/ndk/25.1.8937393/toolchains/llvm/prebuilt/windows-x86_64/sysroot -DLIBYUV_DISABLE_SME -I\"C:/Users/HP/Desktop/My files/CameraInterceptor/app/src/main/cpp/libyuv/include\" -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -Wformat -Werror=format-security  -std=c++17 -fno-limit-debug-info  -fPIC -o libyuv\\CMakeFiles\\yuv_common_objects.dir\\source\\convert_from_argb.cc.o -c \"C:\\Users\\HP\\Desktop\\My files\\CameraInterceptor\\app\\src\\main\\cpp\\libyuv\\source\\convert_from_argb.cc\"",
+  "file": "C:\\Users\\HP\\Desktop\\My files\\CameraInterceptor\\app\\src\\main\\cpp\\libyuv\\source\\convert_from_argb.cc"
+},
+{
+  "directory": "C:/Users/HP/Desktop/My files/CameraInterceptor/app/.cxx/Debug/1c1s64o4/arm64-v8a",
+  "command": "C:\\android_sdk\\ndk\\25.1.8937393\\toolchains\\llvm\\prebuilt\\windows-x86_64\\bin\\clang++.exe --target=aarch64-none-linux-android26 --sysroot=C:/android_sdk/ndk/25.1.8937393/toolchains/llvm/prebuilt/windows-x86_64/sysroot -DLIBYUV_DISABLE_SME -I\"C:/Users/HP/Desktop/My files/CameraInterceptor/app/src/main/cpp/libyuv/include\" -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -Wformat -Werror=format-security  -std=c++17 -fno-limit-debug-info  -fPIC -o libyuv\\CMakeFiles\\yuv_common_objects.dir\\source\\convert_from.cc.o -c \"C:\\Users\\HP\\Desktop\\My files\\CameraInterceptor\\app\\src\\main\\cpp\\libyuv\\source\\convert_from.cc\"",
+  "file": "C:\\Users\\HP\\Desktop\\My files\\CameraInterceptor\\app\\src\\main\\cpp\\libyuv\\source\\convert_from.cc"
+},
+{
+  "directory": "C:/Users/HP/Desktop/My files/CameraInterceptor/app/.cxx/Debug/1c1s64o4/arm64-v8a",
+  "command": "C:\\android_sdk\\ndk\\25.1.8937393\\toolchains\\llvm\\prebuilt\\windows-x86_64\\bin\\clang++.exe --target=aarch64-none-linux-android26 --sysroot=C:/android_sdk/ndk/25.1.8937393/toolchains/llvm/prebuilt/windows-x86_64/sysroot -DLIBYUV_DISABLE_SME -I\"C:/Users/HP/Desktop/My files/CameraInterceptor/app/src/main/cpp/libyuv/include\" -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -Wformat -Werror=format-security  -std=c++17 -fno-limit-debug-info  -fPIC -o libyuv\\CMakeFiles\\yuv_common_objects.dir\\source\\convert_jpeg.cc.o -c \"C:\\Users\\HP\\Desktop\\My files\\CameraInterceptor\\app\\src\\main\\cpp\\libyuv\\source\\convert_jpeg.cc\"",
+  "file": "C:\\Users\\HP\\Desktop\\My files\\CameraInterceptor\\app\\src\\main\\cpp\\libyuv\\source\\convert_jpeg.cc"
+},
+{
+  "directory": "C:/Users/HP/Desktop/My files/CameraInterceptor/app/.cxx/Debug/1c1s64o4/arm64-v8a",
+  "command": "C:\\android_sdk\\ndk\\25.1.8937393\\toolchains\\llvm\\prebuilt\\windows-x86_64\\bin\\clang++.exe --target=aarch64-none-linux-android26 --sysroot=C:/android_sdk/ndk/25.1.8937393/toolchains/llvm/prebuilt/windows-x86_64/sysroot -DLIBYUV_DISABLE_SME -I\"C:/Users/HP/Desktop/My files/CameraInterceptor/app/src/main/cpp/libyuv/include\" -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -Wformat -Werror=format-security  -std=c++17 -fno-limit-debug-info  -fPIC -o libyuv\\CMakeFiles\\yuv_common_objects.dir\\source\\convert_to_argb.cc.o -c \"C:\\Users\\HP\\Desktop\\My files\\CameraInterceptor\\app\\src\\main\\cpp\\libyuv\\source\\convert_to_argb.cc\"",
+  "file": "C:\\Users\\HP\\Desktop\\My files\\CameraInterceptor\\app\\src\\main\\cpp\\libyuv\\source\\convert_to_argb.cc"
+},
+{
+  "directory": "C:/Users/HP/Desktop/My files/CameraInterceptor/app/.cxx/Debug/1c1s64o4/arm64-v8a",
+  "command": "C:\\android_sdk\\ndk\\25.1.8937393\\toolchains\\llvm\\prebuilt\\windows-x86_64\\bin\\clang++.exe --target=aarch64-none-linux-android26 --sysroot=C:/android_sdk/ndk/25.1.8937393/toolchains/llvm/prebuilt/windows-x86_64/sysroot -DLIBYUV_DISABLE_SME -I\"C:/Users/HP/Desktop/My files/CameraInterceptor/app/src/main/cpp/libyuv/include\" -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -Wformat -Werror=format-security  -std=c++17 -fno-limit-debug-info  -fPIC -o libyuv\\CMakeFiles\\yuv_common_objects.dir\\source\\convert_to_i420.cc.o -c \"C:\\Users\\HP\\Desktop\\My files\\CameraInterceptor\\app\\src\\main\\cpp\\libyuv\\source\\convert_to_i420.cc\"",
+  "file": "C:\\Users\\HP\\Desktop\\My files\\CameraInterceptor\\app\\src\\main\\cpp\\libyuv\\source\\convert_to_i420.cc"
+},
+{
+  "directory": "C:/Users/HP/Desktop/My files/CameraInterceptor/app/.cxx/Debug/1c1s64o4/arm64-v8a",
+  "command": "C:\\android_sdk\\ndk\\25.1.8937393\\toolchains\\llvm\\prebuilt\\windows-x86_64\\bin\\clang++.exe --target=aarch64-none-linux-android26 --sysroot=C:/android_sdk/ndk/25.1.8937393/toolchains/llvm/prebuilt/windows-x86_64/sysroot -DLIBYUV_DISABLE_SME -I\"C:/Users/HP/Desktop/My files/CameraInterceptor/app/src/main/cpp/libyuv/include\" -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -Wformat -Werror=format-security  -std=c++17 -fno-limit-debug-info  -fPIC -o libyuv\\CMakeFiles\\yuv_common_objects.dir\\source\\cpu_id.cc.o -c \"C:\\Users\\HP\\Desktop\\My files\\CameraInterceptor\\app\\src\\main\\cpp\\libyuv\\source\\cpu_id.cc\"",
+  "file": "C:\\Users\\HP\\Desktop\\My files\\CameraInterceptor\\app\\src\\main\\cpp\\libyuv\\source\\cpu_id.cc"
+},
+{
+  "directory": "C:/Users/HP/Desktop/My files/CameraInterceptor/app/.cxx/Debug/1c1s64o4/arm64-v8a",
+  "command": "C:\\android_sdk\\ndk\\25.1.8937393\\toolchains\\llvm\\prebuilt\\windows-x86_64\\bin\\clang++.exe --target=aarch64-none-linux-android26 --sysroot=C:/android_sdk/ndk/25.1.8937393/toolchains/llvm/prebuilt/windows-x86_64/sysroot -DLIBYUV_DISABLE_SME -I\"C:/Users/HP/Desktop/My files/CameraInterceptor/app/src/main/cpp/libyuv/include\" -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -Wformat -Werror=format-security  -std=c++17 -fno-limit-debug-info  -fPIC -o libyuv\\CMakeFiles\\yuv_common_objects.dir\\source\\mjpeg_decoder.cc.o -c \"C:\\Users\\HP\\Desktop\\My files\\CameraInterceptor\\app\\src\\main\\cpp\\libyuv\\source\\mjpeg_decoder.cc\"",
+  "file": "C:\\Users\\HP\\Desktop\\My files\\CameraInterceptor\\app\\src\\main\\cpp\\libyuv\\source\\mjpeg_decoder.cc"
+},
+{
+  "directory": "C:/Users/HP/Desktop/My files/CameraInterceptor/app/.cxx/Debug/1c1s64o4/arm64-v8a",
+  "command": "C:\\android_sdk\\ndk\\25.1.8937393\\toolchains\\llvm\\prebuilt\\windows-x86_64\\bin\\clang++.exe --target=aarch64-none-linux-android26 --sysroot=C:/android_sdk/ndk/25.1.8937393/toolchains/llvm/prebuilt/windows-x86_64/sysroot -DLIBYUV_DISABLE_SME -I\"C:/Users/HP/Desktop/My files/CameraInterceptor/app/src/main/cpp/libyuv/include\" -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -Wformat -Werror=format-security  -std=c++17 -fno-limit-debug-info  -fPIC -o libyuv\\CMakeFiles\\yuv_common_objects.dir\\source\\mjpeg_validate.cc.o -c \"C:\\Users\\HP\\Desktop\\My files\\CameraInterceptor\\app\\src\\main\\cpp\\libyuv\\source\\mjpeg_validate.cc\"",
+  "file": "C:\\Users\\HP\\Desktop\\My files\\CameraInterceptor\\app\\src\\main\\cpp\\libyuv\\source\\mjpeg_validate.cc"
+},
+{
+  "directory": "C:/Users/HP/Desktop/My files/CameraInterceptor/app/.cxx/Debug/1c1s64o4/arm64-v8a",
+  "command": "C:\\android_sdk\\ndk\\25.1.8937393\\toolchains\\llvm\\prebuilt\\windows-x86_64\\bin\\clang++.exe --target=aarch64-none-linux-android26 --sysroot=C:/android_sdk/ndk/25.1.8937393/toolchains/llvm/prebuilt/windows-x86_64/sysroot -DLIBYUV_DISABLE_SME -I\"C:/Users/HP/Desktop/My files/CameraInterceptor/app/src/main/cpp/libyuv/include\" -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -Wformat -Werror=format-security  -std=c++17 -fno-limit-debug-info  -fPIC -o libyuv\\CMakeFiles\\yuv_common_objects.dir\\source\\planar_functions.cc.o -c \"C:\\Users\\HP\\Desktop\\My files\\CameraInterceptor\\app\\src\\main\\cpp\\libyuv\\source\\planar_functions.cc\"",
+  "file": "C:\\Users\\HP\\Desktop\\My files\\CameraInterceptor\\app\\src\\main\\cpp\\libyuv\\source\\planar_functions.cc"
+},
+{
+  "directory": "C:/Users/HP/Desktop/My files/CameraInterceptor/app/.cxx/Debug/1c1s64o4/arm64-v8a",
+  "command": "C:\\android_sdk\\ndk\\25.1.8937393\\toolchains\\llvm\\prebuilt\\windows-x86_64\\bin\\clang++.exe --target=aarch64-none-linux-android26 --sysroot=C:/android_sdk/ndk/25.1.8937393/toolchains/llvm/prebuilt/windows-x86_64/sysroot -DLIBYUV_DISABLE_SME -I\"C:/Users/HP/Desktop/My files/CameraInterceptor/app/src/main/cpp/libyuv/include\" -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -Wformat -Werror=format-security  -std=c++17 -fno-limit-debug-info  -fPIC -o libyuv\\CMakeFiles\\yuv_common_objects.dir\\source\\rotate_any.cc.o -c \"C:\\Users\\HP\\Desktop\\My files\\CameraInterceptor\\app\\src\\main\\cpp\\libyuv\\source\\rotate_any.cc\"",
+  "file": "C:\\Users\\HP\\Desktop\\My files\\CameraInterceptor\\app\\src\\main\\cpp\\libyuv\\source\\rotate_any.cc"
+},
+{
+  "directory": "C:/Users/HP/Desktop/My files/CameraInterceptor/app/.cxx/Debug/1c1s64o4/arm64-v8a",
+  "command": "C:\\android_sdk\\ndk\\25.1.8937393\\toolchains\\llvm\\prebuilt\\windows-x86_64\\bin\\clang++.exe --target=aarch64-none-linux-android26 --sysroot=C:/android_sdk/ndk/25.1.8937393/toolchains/llvm/prebuilt/windows-x86_64/sysroot -DLIBYUV_DISABLE_SME -I\"C:/Users/HP/Desktop/My files/CameraInterceptor/app/src/main/cpp/libyuv/include\" -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -Wformat -Werror=format-security  -std=c++17 -fno-limit-debug-info  -fPIC -o libyuv\\CMakeFiles\\yuv_common_objects.dir\\source\\rotate_argb.cc.o -c \"C:\\Users\\HP\\Desktop\\My files\\CameraInterceptor\\app\\src\\main\\cpp\\libyuv\\source\\rotate_argb.cc\"",
+  "file": "C:\\Users\\HP\\Desktop\\My files\\CameraInterceptor\\app\\src\\main\\cpp\\libyuv\\source\\rotate_argb.cc"
+},
+{
+  "directory": "C:/Users/HP/Desktop/My files/CameraInterceptor/app/.cxx/Debug/1c1s64o4/arm64-v8a",
+  "command": "C:\\android_sdk\\ndk\\25.1.8937393\\toolchains\\llvm\\prebuilt\\windows-x86_64\\bin\\clang++.exe --target=aarch64-none-linux-android26 --sysroot=C:/android_sdk/ndk/25.1.8937393/toolchains/llvm/prebuilt/windows-x86_64/sysroot -DLIBYUV_DISABLE_SME -I\"C:/Users/HP/Desktop/My files/CameraInterceptor/app/src/main/cpp/libyuv/include\" -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -Wformat -Werror=format-security  -std=c++17 -fno-limit-debug-info  -fPIC -o libyuv\\CMakeFiles\\yuv_common_objects.dir\\source\\rotate.cc.o -c \"C:\\Users\\HP\\Desktop\\My files\\CameraInterceptor\\app\\src\\main\\cpp\\libyuv\\source\\rotate.cc\"",
+  "file": "C:\\Users\\HP\\Desktop\\My files\\CameraInterceptor\\app\\src\\main\\cpp\\libyuv\\source\\rotate.cc"
+},
+{
+  "directory": "C:/Users/HP/Desktop/My files/CameraInterceptor/app/.cxx/Debug/1c1s64o4/arm64-v8a",
+  "command": "C:\\android_sdk\\ndk\\25.1.8937393\\toolchains\\llvm\\prebuilt\\windows-x86_64\\bin\\clang++.exe --target=aarch64-none-linux-android26 --sysroot=C:/android_sdk/ndk/25.1.8937393/toolchains/llvm/prebuilt/windows-x86_64/sysroot -DLIBYUV_DISABLE_SME -I\"C:/Users/HP/Desktop/My files/CameraInterceptor/app/src/main/cpp/libyuv/include\" -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -Wformat -Werror=format-security  -std=c++17 -fno-limit-debug-info  -fPIC -o libyuv\\CMakeFiles\\yuv_common_objects.dir\\source\\rotate_common.cc.o -c \"C:\\Users\\HP\\Desktop\\My files\\CameraInterceptor\\app\\src\\main\\cpp\\libyuv\\source\\rotate_common.cc\"",
+  "file": "C:\\Users\\HP\\Desktop\\My files\\CameraInterceptor\\app\\src\\main\\cpp\\libyuv\\source\\rotate_common.cc"
+},
+{
+  "directory": "C:/Users/HP/Desktop/My files/CameraInterceptor/app/.cxx/Debug/1c1s64o4/arm64-v8a",
+  "command": "C:\\android_sdk\\ndk\\25.1.8937393\\toolchains\\llvm\\prebuilt\\windows-x86_64\\bin\\clang++.exe --target=aarch64-none-linux-android26 --sysroot=C:/android_sdk/ndk/25.1.8937393/toolchains/llvm/prebuilt/windows-x86_64/sysroot -DLIBYUV_DISABLE_SME -I\"C:/Users/HP/Desktop/My files/CameraInterceptor/app/src/main/cpp/libyuv/include\" -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -Wformat -Werror=format-security  -std=c++17 -fno-limit-debug-info  -fPIC -o libyuv\\CMakeFiles\\yuv_common_objects.dir\\source\\rotate_gcc.cc.o -c \"C:\\Users\\HP\\Desktop\\My files\\CameraInterceptor\\app\\src\\main\\cpp\\libyuv\\source\\rotate_gcc.cc\"",
+  "file": "C:\\Users\\HP\\Desktop\\My files\\CameraInterceptor\\app\\src\\main\\cpp\\libyuv\\source\\rotate_gcc.cc"
+},
+{
+  "directory": "C:/Users/HP/Desktop/My files/CameraInterceptor/app/.cxx/Debug/1c1s64o4/arm64-v8a",
+  "command": "C:\\android_sdk\\ndk\\25.1.8937393\\toolchains\\llvm\\prebuilt\\windows-x86_64\\bin\\clang++.exe --target=aarch64-none-linux-android26 --sysroot=C:/android_sdk/ndk/25.1.8937393/toolchains/llvm/prebuilt/windows-x86_64/sysroot -DLIBYUV_DISABLE_SME -I\"C:/Users/HP/Desktop/My files/CameraInterceptor/app/src/main/cpp/libyuv/include\" -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -Wformat -Werror=format-security  -std=c++17 -fno-limit-debug-info  -fPIC -o libyuv\\CMakeFiles\\yuv_common_objects.dir\\source\\rotate_lsx.cc.o -c \"C:\\Users\\HP\\Desktop\\My files\\CameraInterceptor\\app\\src\\main\\cpp\\libyuv\\source\\rotate_lsx.cc\"",
+  "file": "C:\\Users\\HP\\Desktop\\My files\\CameraInterceptor\\app\\src\\main\\cpp\\libyuv\\source\\rotate_lsx.cc"
+},
+{
+  "directory": "C:/Users/HP/Desktop/My files/CameraInterceptor/app/.cxx/Debug/1c1s64o4/arm64-v8a",
+  "command": "C:\\android_sdk\\ndk\\25.1.8937393\\toolchains\\llvm\\prebuilt\\windows-x86_64\\bin\\clang++.exe --target=aarch64-none-linux-android26 --sysroot=C:/android_sdk/ndk/25.1.8937393/toolchains/llvm/prebuilt/windows-x86_64/sysroot -DLIBYUV_DISABLE_SME -I\"C:/Users/HP/Desktop/My files/CameraInterceptor/app/src/main/cpp/libyuv/include\" -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -Wformat -Werror=format-security  -std=c++17 -fno-limit-debug-info  -fPIC -o libyuv\\CMakeFiles\\yuv_common_objects.dir\\source\\rotate_win.cc.o -c \"C:\\Users\\HP\\Desktop\\My files\\CameraInterceptor\\app\\src\\main\\cpp\\libyuv\\source\\rotate_win.cc\"",
+  "file": "C:\\Users\\HP\\Desktop\\My files\\CameraInterceptor\\app\\src\\main\\cpp\\libyuv\\source\\rotate_win.cc"
+},
+{
+  "directory": "C:/Users/HP/Desktop/My files/CameraInterceptor/app/.cxx/Debug/1c1s64o4/arm64-v8a",
+  "command": "C:\\android_sdk\\ndk\\25.1.8937393\\toolchains\\llvm\\prebuilt\\windows-x86_64\\bin\\clang++.exe --target=aarch64-none-linux-android26 --sysroot=C:/android_sdk/ndk/25.1.8937393/toolchains/llvm/prebuilt/windows-x86_64/sysroot -DLIBYUV_DISABLE_SME -I\"C:/Users/HP/Desktop/My files/CameraInterceptor/app/src/main/cpp/libyuv/include\" -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -Wformat -Werror=format-security  -std=c++17 -fno-limit-debug-info  -fPIC -o libyuv\\CMakeFiles\\yuv_common_objects.dir\\source\\row_any.cc.o -c \"C:\\Users\\HP\\Desktop\\My files\\CameraInterceptor\\app\\src\\main\\cpp\\libyuv\\source\\row_any.cc\"",
+  "file": "C:\\Users\\HP\\Desktop\\My files\\CameraInterceptor\\app\\src\\main\\cpp\\libyuv\\source\\row_any.cc"
+},
+{
+  "directory": "C:/Users/HP/Desktop/My files/CameraInterceptor/app/.cxx/Debug/1c1s64o4/arm64-v8a",
+  "command": "C:\\android_sdk\\ndk\\25.1.8937393\\toolchains\\llvm\\prebuilt\\windows-x86_64\\bin\\clang++.exe --target=aarch64-none-linux-android26 --sysroot=C:/android_sdk/ndk/25.1.8937393/toolchains/llvm/prebuilt/windows-x86_64/sysroot -DLIBYUV_DISABLE_SME -I\"C:/Users/HP/Desktop/My files/CameraInterceptor/app/src/main/cpp/libyuv/include\" -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -Wformat -Werror=format-security  -std=c++17 -fno-limit-debug-info  -fPIC -o libyuv\\CMakeFiles\\yuv_common_objects.dir\\source\\row_common.cc.o -c \"C:\\Users\\HP\\Desktop\\My files\\CameraInterceptor\\app\\src\\main\\cpp\\libyuv\\source\\row_common.cc\"",
+  "file": "C:\\Users\\HP\\Desktop\\My files\\CameraInterceptor\\app\\src\\main\\cpp\\libyuv\\source\\row_common.cc"
+},
+{
+  "directory": "C:/Users/HP/Desktop/My files/CameraInterceptor/app/.cxx/Debug/1c1s64o4/arm64-v8a",
+  "command": "C:\\android_sdk\\ndk\\25.1.8937393\\toolchains\\llvm\\prebuilt\\windows-x86_64\\bin\\clang++.exe --target=aarch64-none-linux-android26 --sysroot=C:/android_sdk/ndk/25.1.8937393/toolchains/llvm/prebuilt/windows-x86_64/sysroot -DLIBYUV_DISABLE_SME -I\"C:/Users/HP/Desktop/My files/CameraInterceptor/app/src/main/cpp/libyuv/include\" -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -Wformat -Werror=format-security  -std=c++17 -fno-limit-debug-info  -fPIC -o libyuv\\CMakeFiles\\yuv_common_objects.dir\\source\\row_gcc.cc.o -c \"C:\\Users\\HP\\Desktop\\My files\\CameraInterceptor\\app\\src\\main\\cpp\\libyuv\\source\\row_gcc.cc\"",
+  "file": "C:\\Users\\HP\\Desktop\\My files\\CameraInterceptor\\app\\src\\main\\cpp\\libyuv\\source\\row_gcc.cc"
+},
+{
+  "directory": "C:/Users/HP/Desktop/My files/CameraInterceptor/app/.cxx/Debug/1c1s64o4/arm64-v8a",
+  "command": "C:\\android_sdk\\ndk\\25.1.8937393\\toolchains\\llvm\\prebuilt\\windows-x86_64\\bin\\clang++.exe --target=aarch64-none-linux-android26 --sysroot=C:/android_sdk/ndk/25.1.8937393/toolchains/llvm/prebuilt/windows-x86_64/sysroot -DLIBYUV_DISABLE_SME -I\"C:/Users/HP/Desktop/My files/CameraInterceptor/app/src/main/cpp/libyuv/include\" -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -Wformat -Werror=format-security  -std=c++17 -fno-limit-debug-info  -fPIC -o libyuv\\CMakeFiles\\yuv_common_objects.dir\\source\\row_lasx.cc.o -c \"C:\\Users\\HP\\Desktop\\My files\\CameraInterceptor\\app\\src\\main\\cpp\\libyuv\\source\\row_lasx.cc\"",
+  "file": "C:\\Users\\HP\\Desktop\\My files\\CameraInterceptor\\app\\src\\main\\cpp\\libyuv\\source\\row_lasx.cc"
+},
+{
+  "directory": "C:/Users/HP/Desktop/My files/CameraInterceptor/app/.cxx/Debug/1c1s64o4/arm64-v8a",
+  "command": "C:\\android_sdk\\ndk\\25.1.8937393\\toolchains\\llvm\\prebuilt\\windows-x86_64\\bin\\clang++.exe --target=aarch64-none-linux-android26 --sysroot=C:/android_sdk/ndk/25.1.8937393/toolchains/llvm/prebuilt/windows-x86_64/sysroot -DLIBYUV_DISABLE_SME -I\"C:/Users/HP/Desktop/My files/CameraInterceptor/app/src/main/cpp/libyuv/include\" -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -Wformat -Werror=format-security  -std=c++17 -fno-limit-debug-info  -fPIC -o libyuv\\CMakeFiles\\yuv_common_objects.dir\\source\\row_lsx.cc.o -c \"C:\\Users\\HP\\Desktop\\My files\\CameraInterceptor\\app\\src\\main\\cpp\\libyuv\\source\\row_lsx.cc\"",
+  "file": "C:\\Users\\HP\\Desktop\\My files\\CameraInterceptor\\app\\src\\main\\cpp\\libyuv\\source\\row_lsx.cc"
+},
+{
+  "directory": "C:/Users/HP/Desktop/My files/CameraInterceptor/app/.cxx/Debug/1c1s64o4/arm64-v8a",
+  "command": "C:\\android_sdk\\ndk\\25.1.8937393\\toolchains\\llvm\\prebuilt\\windows-x86_64\\bin\\clang++.exe --target=aarch64-none-linux-android26 --sysroot=C:/android_sdk/ndk/25.1.8937393/toolchains/llvm/prebuilt/windows-x86_64/sysroot -DLIBYUV_DISABLE_SME -I\"C:/Users/HP/Desktop/My files/CameraInterceptor/app/src/main/cpp/libyuv/include\" -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -Wformat -Werror=format-security  -std=c++17 -fno-limit-debug-info  -fPIC -o libyuv\\CMakeFiles\\yuv_common_objects.dir\\source\\row_rvv.cc.o -c \"C:\\Users\\HP\\Desktop\\My files\\CameraInterceptor\\app\\src\\main\\cpp\\libyuv\\source\\row_rvv.cc\"",
+  "file": "C:\\Users\\HP\\Desktop\\My files\\CameraInterceptor\\app\\src\\main\\cpp\\libyuv\\source\\row_rvv.cc"
+},
+{
+  "directory": "C:/Users/HP/Desktop/My files/CameraInterceptor/app/.cxx/Debug/1c1s64o4/arm64-v8a",
+  "command": "C:\\android_sdk\\ndk\\25.1.8937393\\toolchains\\llvm\\prebuilt\\windows-x86_64\\bin\\clang++.exe --target=aarch64-none-linux-android26 --sysroot=C:/android_sdk/ndk/25.1.8937393/toolchains/llvm/prebuilt/windows-x86_64/sysroot -DLIBYUV_DISABLE_SME -I\"C:/Users/HP/Desktop/My files/CameraInterceptor/app/src/main/cpp/libyuv/include\" -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -Wformat -Werror=format-security  -std=c++17 -fno-limit-debug-info  -fPIC -o libyuv\\CMakeFiles\\yuv_common_objects.dir\\source\\row_win.cc.o -c \"C:\\Users\\HP\\Desktop\\My files\\CameraInterceptor\\app\\src\\main\\cpp\\libyuv\\source\\row_win.cc\"",
+  "file": "C:\\Users\\HP\\Desktop\\My files\\CameraInterceptor\\app\\src\\main\\cpp\\libyuv\\source\\row_win.cc"
+},
+{
+  "directory": "C:/Users/HP/Desktop/My files/CameraInterceptor/app/.cxx/Debug/1c1s64o4/arm64-v8a",
+  "command": "C:\\android_sdk\\ndk\\25.1.8937393\\toolchains\\llvm\\prebuilt\\windows-x86_64\\bin\\clang++.exe --target=aarch64-none-linux-android26 --sysroot=C:/android_sdk/ndk/25.1.8937393/toolchains/llvm/prebuilt/windows-x86_64/sysroot -DLIBYUV_DISABLE_SME -I\"C:/Users/HP/Desktop/My files/CameraInterceptor/app/src/main/cpp/libyuv/include\" -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -Wformat -Werror=format-security  -std=c++17 -fno-limit-debug-info  -fPIC -o libyuv\\CMakeFiles\\yuv_common_objects.dir\\source\\scale_any.cc.o -c \"C:\\Users\\HP\\Desktop\\My files\\CameraInterceptor\\app\\src\\main\\cpp\\libyuv\\source\\scale_any.cc\"",
+  "file": "C:\\Users\\HP\\Desktop\\My files\\CameraInterceptor\\app\\src\\main\\cpp\\libyuv\\source\\scale_any.cc"
+},
+{
+  "directory": "C:/Users/HP/Desktop/My files/CameraInterceptor/app/.cxx/Debug/1c1s64o4/arm64-v8a",
+  "command": "C:\\android_sdk\\ndk\\25.1.8937393\\toolchains\\llvm\\prebuilt\\windows-x86_64\\bin\\clang++.exe --target=aarch64-none-linux-android26 --sysroot=C:/android_sdk/ndk/25.1.8937393/toolchains/llvm/prebuilt/windows-x86_64/sysroot -DLIBYUV_DISABLE_SME -I\"C:/Users/HP/Desktop/My files/CameraInterceptor/app/src/main/cpp/libyuv/include\" -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -Wformat -Werror=format-security  -std=c++17 -fno-limit-debug-info  -fPIC -o libyuv\\CMakeFiles\\yuv_common_objects.dir\\source\\scale_argb.cc.o -c \"C:\\Users\\HP\\Desktop\\My files\\CameraInterceptor\\app\\src\\main\\cpp\\libyuv\\source\\scale_argb.cc\"",
+  "file": "C:\\Users\\HP\\Desktop\\My files\\CameraInterceptor\\app\\src\\main\\cpp\\libyuv\\source\\scale_argb.cc"
+},
+{
+  "directory": "C:/Users/HP/Desktop/My files/CameraInterceptor/app/.cxx/Debug/1c1s64o4/arm64-v8a",
+  "command": "C:\\android_sdk\\ndk\\25.1.8937393\\toolchains\\llvm\\prebuilt\\windows-x86_64\\bin\\clang++.exe --target=aarch64-none-linux-android26 --sysroot=C:/android_sdk/ndk/25.1.8937393/toolchains/llvm/prebuilt/windows-x86_64/sysroot -DLIBYUV_DISABLE_SME -I\"C:/Users/HP/Desktop/My files/CameraInterceptor/app/src/main/cpp/libyuv/include\" -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -Wformat -Werror=format-security  -std=c++17 -fno-limit-debug-info  -fPIC -o libyuv\\CMakeFiles\\yuv_common_objects.dir\\source\\scale.cc.o -c \"C:\\Users\\HP\\Desktop\\My files\\CameraInterceptor\\app\\src\\main\\cpp\\libyuv\\source\\scale.cc\"",
+  "file": "C:\\Users\\HP\\Desktop\\My files\\CameraInterceptor\\app\\src\\main\\cpp\\libyuv\\source\\scale.cc"
+},
+{
+  "directory": "C:/Users/HP/Desktop/My files/CameraInterceptor/app/.cxx/Debug/1c1s64o4/arm64-v8a",
+  "command": "C:\\android_sdk\\ndk\\25.1.8937393\\toolchains\\llvm\\prebuilt\\windows-x86_64\\bin\\clang++.exe --target=aarch64-none-linux-android26 --sysroot=C:/android_sdk/ndk/25.1.8937393/toolchains/llvm/prebuilt/windows-x86_64/sysroot -DLIBYUV_DISABLE_SME -I\"C:/Users/HP/Desktop/My files/CameraInterceptor/app/src/main/cpp/libyuv/include\" -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -Wformat -Werror=format-security  -std=c++17 -fno-limit-debug-info  -fPIC -o libyuv\\CMakeFiles\\yuv_common_objects.dir\\source\\scale_common.cc.o -c \"C:\\Users\\HP\\Desktop\\My files\\CameraInterceptor\\app\\src\\main\\cpp\\libyuv\\source\\scale_common.cc\"",
+  "file": "C:\\Users\\HP\\Desktop\\My files\\CameraInterceptor\\app\\src\\main\\cpp\\libyuv\\source\\scale_common.cc"
+},
+{
+  "directory": "C:/Users/HP/Desktop/My files/CameraInterceptor/app/.cxx/Debug/1c1s64o4/arm64-v8a",
+  "command": "C:\\android_sdk\\ndk\\25.1.8937393\\toolchains\\llvm\\prebuilt\\windows-x86_64\\bin\\clang++.exe --target=aarch64-none-linux-android26 --sysroot=C:/android_sdk/ndk/25.1.8937393/toolchains/llvm/prebuilt/windows-x86_64/sysroot -DLIBYUV_DISABLE_SME -I\"C:/Users/HP/Desktop/My files/CameraInterceptor/app/src/main/cpp/libyuv/include\" -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -Wformat -Werror=format-security  -std=c++17 -fno-limit-debug-info  -fPIC -o libyuv\\CMakeFiles\\yuv_common_objects.dir\\source\\scale_gcc.cc.o -c \"C:\\Users\\HP\\Desktop\\My files\\CameraInterceptor\\app\\src\\main\\cpp\\libyuv\\source\\scale_gcc.cc\"",
+  "file": "C:\\Users\\HP\\Desktop\\My files\\CameraInterceptor\\app\\src\\main\\cpp\\libyuv\\source\\scale_gcc.cc"
+},
+{
+  "directory": "C:/Users/HP/Desktop/My files/CameraInterceptor/app/.cxx/Debug/1c1s64o4/arm64-v8a",
+  "command": "C:\\android_sdk\\ndk\\25.1.8937393\\toolchains\\llvm\\prebuilt\\windows-x86_64\\bin\\clang++.exe --target=aarch64-none-linux-android26 --sysroot=C:/android_sdk/ndk/25.1.8937393/toolchains/llvm/prebuilt/windows-x86_64/sysroot -DLIBYUV_DISABLE_SME -I\"C:/Users/HP/Desktop/My files/CameraInterceptor/app/src/main/cpp/libyuv/include\" -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -Wformat -Werror=format-security  -std=c++17 -fno-limit-debug-info  -fPIC -o libyuv\\CMakeFiles\\yuv_common_objects.dir\\source\\scale_lsx.cc.o -c \"C:\\Users\\HP\\Desktop\\My files\\CameraInterceptor\\app\\src\\main\\cpp\\libyuv\\source\\scale_lsx.cc\"",
+  "file": "C:\\Users\\HP\\Desktop\\My files\\CameraInterceptor\\app\\src\\main\\cpp\\libyuv\\source\\scale_lsx.cc"
+},
+{
+  "directory": "C:/Users/HP/Desktop/My files/CameraInterceptor/app/.cxx/Debug/1c1s64o4/arm64-v8a",
+  "command": "C:\\android_sdk\\ndk\\25.1.8937393\\toolchains\\llvm\\prebuilt\\windows-x86_64\\bin\\clang++.exe --target=aarch64-none-linux-android26 --sysroot=C:/android_sdk/ndk/25.1.8937393/toolchains/llvm/prebuilt/windows-x86_64/sysroot -DLIBYUV_DISABLE_SME -I\"C:/Users/HP/Desktop/My files/CameraInterceptor/app/src/main/cpp/libyuv/include\" -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -Wformat -Werror=format-security  -std=c++17 -fno-limit-debug-info  -fPIC -o libyuv\\CMakeFiles\\yuv_common_objects.dir\\source\\scale_rgb.cc.o -c \"C:\\Users\\HP\\Desktop\\My files\\CameraInterceptor\\app\\src\\main\\cpp\\libyuv\\source\\scale_rgb.cc\"",
+  "file": "C:\\Users\\HP\\Desktop\\My files\\CameraInterceptor\\app\\src\\main\\cpp\\libyuv\\source\\scale_rgb.cc"
+},
+{
+  "directory": "C:/Users/HP/Desktop/My files/CameraInterceptor/app/.cxx/Debug/1c1s64o4/arm64-v8a",
+  "command": "C:\\android_sdk\\ndk\\25.1.8937393\\toolchains\\llvm\\prebuilt\\windows-x86_64\\bin\\clang++.exe --target=aarch64-none-linux-android26 --sysroot=C:/android_sdk/ndk/25.1.8937393/toolchains/llvm/prebuilt/windows-x86_64/sysroot -DLIBYUV_DISABLE_SME -I\"C:/Users/HP/Desktop/My files/CameraInterceptor/app/src/main/cpp/libyuv/include\" -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -Wformat -Werror=format-security  -std=c++17 -fno-limit-debug-info  -fPIC -o libyuv\\CMakeFiles\\yuv_common_objects.dir\\source\\scale_rvv.cc.o -c \"C:\\Users\\HP\\Desktop\\My files\\CameraInterceptor\\app\\src\\main\\cpp\\libyuv\\source\\scale_rvv.cc\"",
+  "file": "C:\\Users\\HP\\Desktop\\My files\\CameraInterceptor\\app\\src\\main\\cpp\\libyuv\\source\\scale_rvv.cc"
+},
+{
+  "directory": "C:/Users/HP/Desktop/My files/CameraInterceptor/app/.cxx/Debug/1c1s64o4/arm64-v8a",
+  "command": "C:\\android_sdk\\ndk\\25.1.8937393\\toolchains\\llvm\\prebuilt\\windows-x86_64\\bin\\clang++.exe --target=aarch64-none-linux-android26 --sysroot=C:/android_sdk/ndk/25.1.8937393/toolchains/llvm/prebuilt/windows-x86_64/sysroot -DLIBYUV_DISABLE_SME -I\"C:/Users/HP/Desktop/My files/CameraInterceptor/app/src/main/cpp/libyuv/include\" -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -Wformat -Werror=format-security  -std=c++17 -fno-limit-debug-info  -fPIC -o libyuv\\CMakeFiles\\yuv_common_objects.dir\\source\\scale_uv.cc.o -c \"C:\\Users\\HP\\Desktop\\My files\\CameraInterceptor\\app\\src\\main\\cpp\\libyuv\\source\\scale_uv.cc\"",
+  "file": "C:\\Users\\HP\\Desktop\\My files\\CameraInterceptor\\app\\src\\main\\cpp\\libyuv\\source\\scale_uv.cc"
+},
+{
+  "directory": "C:/Users/HP/Desktop/My files/CameraInterceptor/app/.cxx/Debug/1c1s64o4/arm64-v8a",
+  "command": "C:\\android_sdk\\ndk\\25.1.8937393\\toolchains\\llvm\\prebuilt\\windows-x86_64\\bin\\clang++.exe --target=aarch64-none-linux-android26 --sysroot=C:/android_sdk/ndk/25.1.8937393/toolchains/llvm/prebuilt/windows-x86_64/sysroot -DLIBYUV_DISABLE_SME -I\"C:/Users/HP/Desktop/My files/CameraInterceptor/app/src/main/cpp/libyuv/include\" -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -Wformat -Werror=format-security  -std=c++17 -fno-limit-debug-info  -fPIC -o libyuv\\CMakeFiles\\yuv_common_objects.dir\\source\\scale_win.cc.o -c \"C:\\Users\\HP\\Desktop\\My files\\CameraInterceptor\\app\\src\\main\\cpp\\libyuv\\source\\scale_win.cc\"",
+  "file": "C:\\Users\\HP\\Desktop\\My files\\CameraInterceptor\\app\\src\\main\\cpp\\libyuv\\source\\scale_win.cc"
+},
+{
+  "directory": "C:/Users/HP/Desktop/My files/CameraInterceptor/app/.cxx/Debug/1c1s64o4/arm64-v8a",
+  "command": "C:\\android_sdk\\ndk\\25.1.8937393\\toolchains\\llvm\\prebuilt\\windows-x86_64\\bin\\clang++.exe --target=aarch64-none-linux-android26 --sysroot=C:/android_sdk/ndk/25.1.8937393/toolchains/llvm/prebuilt/windows-x86_64/sysroot -DLIBYUV_DISABLE_SME -I\"C:/Users/HP/Desktop/My files/CameraInterceptor/app/src/main/cpp/libyuv/include\" -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -Wformat -Werror=format-security  -std=c++17 -fno-limit-debug-info  -fPIC -o libyuv\\CMakeFiles\\yuv_common_objects.dir\\source\\video_common.cc.o -c \"C:\\Users\\HP\\Desktop\\My files\\CameraInterceptor\\app\\src\\main\\cpp\\libyuv\\source\\video_common.cc\"",
+  "file": "C:\\Users\\HP\\Desktop\\My files\\CameraInterceptor\\app\\src\\main\\cpp\\libyuv\\source\\video_common.cc"
+},
+{
+  "directory": "C:/Users/HP/Desktop/My files/CameraInterceptor/app/.cxx/Debug/1c1s64o4/arm64-v8a",
+  "command": "C:\\android_sdk\\ndk\\25.1.8937393\\toolchains\\llvm\\prebuilt\\windows-x86_64\\bin\\clang++.exe --target=aarch64-none-linux-android26 --sysroot=C:/android_sdk/ndk/25.1.8937393/toolchains/llvm/prebuilt/windows-x86_64/sysroot -DLIBYUV_DISABLE_SME -I\"C:/Users/HP/Desktop/My files/CameraInterceptor/app/src/main/cpp/libyuv/include\" -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -Wformat -Werror=format-security  -std=c++17 -fno-limit-debug-info  -fPIC -march=armv8.2-a+dotprod+i8mm -o libyuv\\CMakeFiles\\yuv_neon64.dir\\source\\compare_neon64.cc.o -c \"C:\\Users\\HP\\Desktop\\My files\\CameraInterceptor\\app\\src\\main\\cpp\\libyuv\\source\\compare_neon64.cc\"",
+  "file": "C:\\Users\\HP\\Desktop\\My files\\CameraInterceptor\\app\\src\\main\\cpp\\libyuv\\source\\compare_neon64.cc"
+},
+{
+  "directory": "C:/Users/HP/Desktop/My files/CameraInterceptor/app/.cxx/Debug/1c1s64o4/arm64-v8a",
+  "command": "C:\\android_sdk\\ndk\\25.1.8937393\\toolchains\\llvm\\prebuilt\\windows-x86_64\\bin\\clang++.exe --target=aarch64-none-linux-android26 --sysroot=C:/android_sdk/ndk/25.1.8937393/toolchains/llvm/prebuilt/windows-x86_64/sysroot -DLIBYUV_DISABLE_SME -I\"C:/Users/HP/Desktop/My files/CameraInterceptor/app/src/main/cpp/libyuv/include\" -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -Wformat -Werror=format-security  -std=c++17 -fno-limit-debug-info  -fPIC -march=armv8.2-a+dotprod+i8mm -o libyuv\\CMakeFiles\\yuv_neon64.dir\\source\\rotate_neon64.cc.o -c \"C:\\Users\\HP\\Desktop\\My files\\CameraInterceptor\\app\\src\\main\\cpp\\libyuv\\source\\rotate_neon64.cc\"",
+  "file": "C:\\Users\\HP\\Desktop\\My files\\CameraInterceptor\\app\\src\\main\\cpp\\libyuv\\source\\rotate_neon64.cc"
+},
+{
+  "directory": "C:/Users/HP/Desktop/My files/CameraInterceptor/app/.cxx/Debug/1c1s64o4/arm64-v8a",
+  "command": "C:\\android_sdk\\ndk\\25.1.8937393\\toolchains\\llvm\\prebuilt\\windows-x86_64\\bin\\clang++.exe --target=aarch64-none-linux-android26 --sysroot=C:/android_sdk/ndk/25.1.8937393/toolchains/llvm/prebuilt/windows-x86_64/sysroot -DLIBYUV_DISABLE_SME -I\"C:/Users/HP/Desktop/My files/CameraInterceptor/app/src/main/cpp/libyuv/include\" -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -Wformat -Werror=format-security  -std=c++17 -fno-limit-debug-info  -fPIC -march=armv8.2-a+dotprod+i8mm -o libyuv\\CMakeFiles\\yuv_neon64.dir\\source\\row_neon64.cc.o -c \"C:\\Users\\HP\\Desktop\\My files\\CameraInterceptor\\app\\src\\main\\cpp\\libyuv\\source\\row_neon64.cc\"",
+  "file": "C:\\Users\\HP\\Desktop\\My files\\CameraInterceptor\\app\\src\\main\\cpp\\libyuv\\source\\row_neon64.cc"
+},
+{
+  "directory": "C:/Users/HP/Desktop/My files/CameraInterceptor/app/.cxx/Debug/1c1s64o4/arm64-v8a",
+  "command": "C:\\android_sdk\\ndk\\25.1.8937393\\toolchains\\llvm\\prebuilt\\windows-x86_64\\bin\\clang++.exe --target=aarch64-none-linux-android26 --sysroot=C:/android_sdk/ndk/25.1.8937393/toolchains/llvm/prebuilt/windows-x86_64/sysroot -DLIBYUV_DISABLE_SME -I\"C:/Users/HP/Desktop/My files/CameraInterceptor/app/src/main/cpp/libyuv/include\" -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -Wformat -Werror=format-security  -std=c++17 -fno-limit-debug-info  -fPIC -march=armv8.2-a+dotprod+i8mm -o libyuv\\CMakeFiles\\yuv_neon64.dir\\source\\scale_neon64.cc.o -c \"C:\\Users\\HP\\Desktop\\My files\\CameraInterceptor\\app\\src\\main\\cpp\\libyuv\\source\\scale_neon64.cc\"",
+  "file": "C:\\Users\\HP\\Desktop\\My files\\CameraInterceptor\\app\\src\\main\\cpp\\libyuv\\source\\scale_neon64.cc"
+},
+{
+  "directory": "C:/Users/HP/Desktop/My files/CameraInterceptor/app/.cxx/Debug/1c1s64o4/arm64-v8a",
+  "command": "C:\\android_sdk\\ndk\\25.1.8937393\\toolchains\\llvm\\prebuilt\\windows-x86_64\\bin\\clang++.exe --target=aarch64-none-linux-android26 --sysroot=C:/android_sdk/ndk/25.1.8937393/toolchains/llvm/prebuilt/windows-x86_64/sysroot -DLIBYUV_DISABLE_SME -I\"C:/Users/HP/Desktop/My files/CameraInterceptor/app/src/main/cpp/libyuv/include\" -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -Wformat -Werror=format-security  -std=c++17 -fno-limit-debug-info  -fPIC -march=armv8.5-a+i8mm+sve2 -o libyuv\\CMakeFiles\\yuv_sve.dir\\source\\row_sve.cc.o -c \"C:\\Users\\HP\\Desktop\\My files\\CameraInterceptor\\app\\src\\main\\cpp\\libyuv\\source\\row_sve.cc\"",
+  "file": "C:\\Users\\HP\\Desktop\\My files\\CameraInterceptor\\app\\src\\main\\cpp\\libyuv\\source\\row_sve.cc"
+},
+{
+  "directory": "C:/Users/HP/Desktop/My files/CameraInterceptor/app/.cxx/Debug/1c1s64o4/arm64-v8a",
+  "command": "C:\\android_sdk\\ndk\\25.1.8937393\\toolchains\\llvm\\prebuilt\\windows-x86_64\\bin\\clang.exe --target=aarch64-none-linux-android26 --sysroot=C:/android_sdk/ndk/25.1.8937393/toolchains/llvm/prebuilt/windows-x86_64/sysroot -DLIBYUV_DISABLE_SME -I\"C:/Users/HP/Desktop/My files/CameraInterceptor/app/src/main/cpp/libyuv/include\" -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -Wformat -Werror=format-security  -fno-limit-debug-info  -fPIE -o libyuv\\CMakeFiles\\cpuid.dir\\util\\cpuid.c.o -c \"C:\\Users\\HP\\Desktop\\My files\\CameraInterceptor\\app\\src\\main\\cpp\\libyuv\\util\\cpuid.c\"",
+  "file": "C:\\Users\\HP\\Desktop\\My files\\CameraInterceptor\\app\\src\\main\\cpp\\libyuv\\util\\cpuid.c"
+},
+{
+  "directory": "C:/Users/HP/Desktop/My files/CameraInterceptor/app/.cxx/Debug/1c1s64o4/arm64-v8a",
+  "command": "C:\\android_sdk\\ndk\\25.1.8937393\\toolchains\\llvm\\prebuilt\\windows-x86_64\\bin\\clang++.exe --target=aarch64-none-linux-android26 --sysroot=C:/android_sdk/ndk/25.1.8937393/toolchains/llvm/prebuilt/windows-x86_64/sysroot -DLIBYUV_DISABLE_SME -I\"C:/Users/HP/Desktop/My files/CameraInterceptor/app/src/main/cpp/libyuv/include\" -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -Wformat -Werror=format-security  -std=c++17 -fno-limit-debug-info  -fPIE -o libyuv\\CMakeFiles\\yuvconvert.dir\\util\\yuvconvert.cc.o -c \"C:\\Users\\HP\\Desktop\\My files\\CameraInterceptor\\app\\src\\main\\cpp\\libyuv\\util\\yuvconvert.cc\"",
+  "file": "C:\\Users\\HP\\Desktop\\My files\\CameraInterceptor\\app\\src\\main\\cpp\\libyuv\\util\\yuvconvert.cc"
+},
+{
+  "directory": "C:/Users/HP/Desktop/My files/CameraInterceptor/app/.cxx/Debug/1c1s64o4/arm64-v8a",
+  "command": "C:\\android_sdk\\ndk\\25.1.8937393\\toolchains\\llvm\\prebuilt\\windows-x86_64\\bin\\clang.exe --target=aarch64-none-linux-android26 --sysroot=C:/android_sdk/ndk/25.1.8937393/toolchains/llvm/prebuilt/windows-x86_64/sysroot -DLIBYUV_DISABLE_SME -I\"C:/Users/HP/Desktop/My files/CameraInterceptor/app/src/main/cpp/libyuv/include\" -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -Wformat -Werror=format-security  -fno-limit-debug-info  -fPIE -o libyuv\\CMakeFiles\\yuvconstants.dir\\util\\yuvconstants.c.o -c \"C:\\Users\\HP\\Desktop\\My files\\CameraInterceptor\\app\\src\\main\\cpp\\libyuv\\util\\yuvconstants.c\"",
+  "file": "C:\\Users\\HP\\Desktop\\My files\\CameraInterceptor\\app\\src\\main\\cpp\\libyuv\\util\\yuvconstants.c"
+}
+]

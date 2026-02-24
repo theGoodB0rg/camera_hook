@@ -1,0 +1,82 @@
+{
+  "buildFiles": [
+    "C:\\Users\\HP\\Desktop\\My files\\CameraInterceptor\\app\\src\\main\\cpp\\CMakeLists.txt",
+    "C:\\Users\\HP\\Desktop\\My files\\CameraInterceptor\\app\\src\\main\\cpp\\libyuv\\CM_linux_packages.cmake",
+    "C:\\Users\\HP\\Desktop\\My files\\CameraInterceptor\\app\\src\\main\\cpp\\libyuv\\CMakeLists.txt"
+  ],
+  "cleanCommandsComponents": [
+    [
+      "C:\\android_sdk\\cmake\\3.22.1\\bin\\ninja.exe",
+      "-C",
+      "C:\\Users\\HP\\Desktop\\My files\\CameraInterceptor\\app\\.cxx\\Debug\\1c1s64o4\\x86_64",
+      "clean"
+    ]
+  ],
+  "buildTargetsCommandComponents": [
+    "C:\\android_sdk\\cmake\\3.22.1\\bin\\ninja.exe",
+    "-C",
+    "C:\\Users\\HP\\Desktop\\My files\\CameraInterceptor\\app\\.cxx\\Debug\\1c1s64o4\\x86_64",
+    "{LIST_OF_TARGETS_TO_BUILD}"
+  ],
+  "libraries": {
+    "cpuid::@65971e152f36faa1b30f": {
+      "toolchain": "toolchain",
+      "abi": "x86_64",
+      "artifactName": "cpuid",
+      "output": "C:\\Users\\HP\\Desktop\\My files\\CameraInterceptor\\app\\build\\intermediates\\cxx\\Debug\\1c1s64o4\\obj\\x86_64\\cpuid",
+      "runtimeFiles": []
+    },
+    "image_processor::@6890427a1f51a3e7e1df": {
+      "toolchain": "toolchain",
+      "abi": "x86_64",
+      "artifactName": "image_processor",
+      "output": "C:\\Users\\HP\\Desktop\\My files\\CameraInterceptor\\app\\build\\intermediates\\cxx\\Debug\\1c1s64o4\\obj\\x86_64\\libimage_processor.so",
+      "runtimeFiles": []
+    },
+    "yuv::@65971e152f36faa1b30f": {
+      "toolchain": "toolchain",
+      "abi": "x86_64",
+      "artifactName": "yuv",
+      "output": "C:\\Users\\HP\\Desktop\\My files\\CameraInterceptor\\app\\.cxx\\Debug\\1c1s64o4\\x86_64\\libyuv\\libyuv.a"
+    },
+    "yuv_common_objects::@65971e152f36faa1b30f": {
+      "toolchain": "toolchain",
+      "abi": "x86_64",
+      "artifactName": "yuv_common_objects"
+    },
+    "yuv_shared::@65971e152f36faa1b30f": {
+      "toolchain": "toolchain",
+      "abi": "x86_64",
+      "artifactName": "yuv_shared",
+      "output": "C:\\Users\\HP\\Desktop\\My files\\CameraInterceptor\\app\\build\\intermediates\\cxx\\Debug\\1c1s64o4\\obj\\x86_64\\libyuv.so",
+      "runtimeFiles": []
+    },
+    "yuvconstants::@65971e152f36faa1b30f": {
+      "toolchain": "toolchain",
+      "abi": "x86_64",
+      "artifactName": "yuvconstants",
+      "output": "C:\\Users\\HP\\Desktop\\My files\\CameraInterceptor\\app\\build\\intermediates\\cxx\\Debug\\1c1s64o4\\obj\\x86_64\\yuvconstants",
+      "runtimeFiles": []
+    },
+    "yuvconvert::@65971e152f36faa1b30f": {
+      "toolchain": "toolchain",
+      "abi": "x86_64",
+      "artifactName": "yuvconvert",
+      "output": "C:\\Users\\HP\\Desktop\\My files\\CameraInterceptor\\app\\build\\intermediates\\cxx\\Debug\\1c1s64o4\\obj\\x86_64\\yuvconvert",
+      "runtimeFiles": []
+    }
+  },
+  "toolchains": {
+    "toolchain": {
+      "cCompilerExecutable": "C:\\android_sdk\\ndk\\25.1.8937393\\toolchains\\llvm\\prebuilt\\windows-x86_64\\bin\\clang.exe",
+      "cppCompilerExecutable": "C:\\android_sdk\\ndk\\25.1.8937393\\toolchains\\llvm\\prebuilt\\windows-x86_64\\bin\\clang++.exe"
+    }
+  },
+  "cFileExtensions": [
+    "c"
+  ],
+  "cppFileExtensions": [
+    "cpp",
+    "cc"
+  ]
+}

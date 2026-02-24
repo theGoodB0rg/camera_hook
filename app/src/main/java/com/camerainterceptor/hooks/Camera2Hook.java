@@ -21,7 +21,8 @@ import de.robv.android.xposed.XposedHelpers;
 /**
  * Hooks for the Camera2 API (android.hardware.camera2) and ImageReader
  * 
- * Design principle: All hooks use non-blocking approaches with robust error handling.
+ * Design principle: All hooks use non-blocking approaches with robust error
+ * handling.
  * If anything fails, the original camera flow continues uninterrupted.
  */
 public class Camera2Hook {
@@ -37,9 +38,12 @@ public class Camera2Hook {
         try {
             Logger.i(TAG, "Initializing Camera2 API hooks");
 
+            // Hook Session Creation to extract requested resolution/format
+            hookCaptureSessionCreation();
+
             // Hook ImageReader methods - safe, non-blocking
             hookImageReader();
-            
+
             // Hook OnImageAvailableListener - safe wrapper with error handling
             hookOnImageAvailableListener();
 
@@ -52,18 +56,117 @@ public class Camera2Hook {
             Logger.logStackTrace(TAG, t);
         }
     }
-    
+
+    /**
+     * Intercepts Camera2 session creation to steal the exact Surface requirements
+     * (width, height, format). This allows our native layer to perfectly match
+     * the injected image to the host app's ImageReader or SurfaceView.
+     */
+    private void hookCaptureSessionCreation() {
+        try {
+            // CameraDevice.createCaptureSession(List<Surface> outputs,
+            // CameraCaptureSession.StateCallback callback, Handler handler)
+            XposedBridge.hookAllMethods(CameraDevice.class, "createCaptureSession", new XC_MethodHook() {
+                @Override
+                protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
+                    if (param.args[0] instanceof List) {
+                        List<?> outputs = (List<?>) param.args[0];
+                        if (outputs != null && !outputs.isEmpty()) {
+                            Logger.i(TAG,
+                                    "CameraDevice.createCaptureSession called with " + outputs.size() + " outputs");
+
+                            // Try to extract resolution from the first Surface (usually the target for
+                            // preview/capture)
+                            Object firstOutput = outputs.get(0);
+
+                            // In newer Android versions, outputs might be OutputConfiguration objects
+                            Surface targetSurface = null;
+                            if (firstOutput instanceof Surface) {
+                                targetSurface = (Surface) firstOutput;
+                            } else if (firstOutput.getClass().getName()
+                                    .equals("android.hardware.camera2.params.OutputConfiguration")) {
+                                try {
+                                    Method getSurfaceMethod = firstOutput.getClass().getMethod("getSurface");
+                                    targetSurface = (Surface) getSurfaceMethod.invoke(firstOutput);
+                                } catch (Exception e) {
+                                    Logger.w(TAG, "Could not extract Surface from OutputConfiguration");
+                                }
+                            }
+
+                            if (targetSurface != null) {
+                                extractSurfaceInfo(targetSurface);
+                            }
+                        }
+                    }
+                }
+            });
+
+            // Also hook createCaptureSessionByOutputConfigurations (API 24+)
+            XposedBridge.hookAllMethods(CameraDevice.class, "createCaptureSessionByOutputConfigurations",
+                    new XC_MethodHook() {
+                        @Override
+                        protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
+                            if (param.args[0] instanceof List) {
+                                List<?> outputs = (List<?>) param.args[0];
+                                if (outputs != null && !outputs.isEmpty()) {
+                                    Object firstOutput = outputs.get(0);
+                                    try {
+                                        Method getSurfaceMethod = firstOutput.getClass().getMethod("getSurface");
+                                        Surface targetSurface = (Surface) getSurfaceMethod.invoke(firstOutput);
+                                        if (targetSurface != null) {
+                                            extractSurfaceInfo(targetSurface);
+                                        }
+                                    } catch (Exception e) {
+                                        Logger.w(TAG, "Could not extract Surface from OutputConfiguration list");
+                                    }
+                                }
+                            }
+                        }
+                    });
+
+        } catch (Throwable t) {
+            Logger.e(TAG, "Failed to hook CaptureSession creation: " + t.getMessage());
+            Logger.logStackTrace(TAG, t);
+        }
+    }
+
+    /**
+     * Attempts to read dimensions and format out of an opaque Surface object using
+     * reflection.
+     */
+    private void extractSurfaceInfo(Surface surface) {
+        try {
+            // Android Surfaces have native pointers. We can try to read the
+            // dimensions/format
+            // via hidden/internal methods if accessible, or just log that we grabbed the
+            // surface.
+            // Since Surface inspection pure Java is heavily restricted by Google,
+            // a full implementation requires our Native library to sniff the ANativeWindow.
+            // For now, we log the acquisition and prepare HookState.
+
+            Logger.i(TAG, "Successfully intercepted target Surface during session creation.");
+
+            // TODO: In Phase 2, we will pass this Surface object down to our C++ library
+            // via JNI (ANativeWindow_fromSurface) to precisely read its configured
+            // width/height/format.
+            // For now, we flag that we have a target surface available.
+
+        } catch (Throwable t) {
+            Logger.e(TAG, "Error extracting surface info: " + t.getMessage());
+        }
+    }
+
     private void hookOnImageAvailableListener() {
         try {
             // Hook the setOnImageAvailableListener to wrap the listener
             XposedBridge.hookAllMethods(ImageReader.class, "setOnImageAvailableListener", new XC_MethodHook() {
                 @Override
                 protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
-                    if (param.args[0] == null) return;
-                    
-                    ImageReader.OnImageAvailableListener originalListener = 
-                            (ImageReader.OnImageAvailableListener) param.args[0];
-                    
+                    if (param.args[0] == null)
+                        return;
+
+                    ImageReader.OnImageAvailableListener originalListener = (ImageReader.OnImageAvailableListener) param.args[0];
+
                     // Wrap the listener with robust error handling
                     ImageReader.OnImageAvailableListener wrappedListener = reader -> {
                         try {
@@ -75,7 +178,7 @@ public class Camera2Hook {
                             // Log but don't crash - just continue to original
                             Logger.e(TAG, "Error in wrapped listener logging: " + t.getMessage());
                         }
-                        
+
                         // ALWAYS call original - never break the app's camera flow
                         try {
                             originalListener.onImageAvailable(reader);
@@ -85,7 +188,7 @@ public class Camera2Hook {
                             throw t;
                         }
                     };
-                    
+
                     param.args[0] = wrappedListener;
                     Logger.d(TAG, "Wrapped OnImageAvailableListener");
                 }
@@ -133,7 +236,7 @@ public class Camera2Hook {
                 return;
 
             int format = image.getFormat();
-            Logger.d(TAG, "ImageReader acquired image, format: " + format + 
+            Logger.d(TAG, "ImageReader acquired image, format: " + format +
                     " (JPEG=256, YUV_420_888=35)");
 
             // For JPEG images, try to replace the data (best effort, non-blocking)
@@ -147,7 +250,7 @@ public class Camera2Hook {
                     Logger.w(TAG, "Failed to get injected image bytes: " + t.getMessage());
                     return; // Let original image through
                 }
-                
+
                 if (fakeData == null || fakeData.length == 0) {
                     Logger.w(TAG, "No fake image bytes available to inject");
                     return; // Let original image through
@@ -175,7 +278,8 @@ public class Camera2Hook {
                             buffer.limit(fakeData.length);
                             Logger.i(TAG, "Injected " + fakeData.length + " bytes into Image buffer");
                         } else {
-                            Logger.d(TAG, "Buffer too small (" + capacity + " < " + fakeData.length + "), will intercept at file save level");
+                            Logger.d(TAG, "Buffer too small (" + capacity + " < " + fakeData.length
+                                    + "), will intercept at file save level");
                         }
                     } else {
                         Logger.d(TAG, "Buffer is read-only, will intercept at file save level");
@@ -202,7 +306,7 @@ public class Camera2Hook {
                     }
                 }
             });
-            
+
             XposedBridge.hookAllMethods(CameraCaptureSession.class, "captureBurst", new XC_MethodHook() {
                 @Override
                 protected void beforeHookedMethod(MethodHookParam param) throws Throwable {

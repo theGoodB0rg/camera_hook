@@ -35,7 +35,7 @@ public class CameraHook {
     private static final String TAG = "CameraHook";
     private static final long INJECTION_TIMEOUT_MS = 2000; // 2 second timeout
     private static final long PREVIEW_RESTART_DELAY_MS = 100; // Small delay before restarting preview
-    
+
     private final HookDispatcher dispatcher;
     private final Handler mainHandler;
 
@@ -48,10 +48,61 @@ public class CameraHook {
     private void initHooks() {
         try {
             Logger.i(TAG, "Initializing Camera API hooks");
+            hookCameraParameters();
             hookTakePicture();
             Logger.i(TAG, "Camera API hooks initialized successfully");
         } catch (Throwable t) {
             Logger.e(TAG, "Failed to initialize Camera API hooks: " + t.getMessage());
+            Logger.logStackTrace(TAG, t);
+        }
+    }
+
+    /**
+     * Intercepts Camera.Parameters configuration to steal the exact resolution
+     * and format the application is requesting. This allows our native layer
+     * to perfectly match the injected image to the host app's expectations.
+     */
+    private void hookCameraParameters() {
+        try {
+            // Hook setPreviewSize
+            XposedHelpers.findAndHookMethod(Camera.Parameters.class, "setPreviewSize",
+                    int.class, int.class, new XC_MethodHook() {
+                        @Override
+                        protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+                            int width = (int) param.args[0];
+                            int height = (int) param.args[1];
+                            Logger.i(TAG, "App configured Preview Size: " + width + "x" + height);
+                            com.camerainterceptor.state.HookState.setTargetResolution(width, height);
+                        }
+                    });
+
+            // Hook setPictureSize
+            XposedHelpers.findAndHookMethod(Camera.Parameters.class, "setPictureSize",
+                    int.class, int.class, new XC_MethodHook() {
+                        @Override
+                        protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+                            int width = (int) param.args[0];
+                            int height = (int) param.args[1];
+                            Logger.i(TAG, "App configured Picture Size: " + width + "x" + height);
+                            // Picture size usually overwrites preview size as the ultimate target for
+                            // takePicture
+                            com.camerainterceptor.state.HookState.setTargetResolution(width, height);
+                        }
+                    });
+
+            // Hook setPreviewFormat
+            XposedHelpers.findAndHookMethod(Camera.Parameters.class, "setPreviewFormat",
+                    int.class, new XC_MethodHook() {
+                        @Override
+                        protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+                            int format = (int) param.args[0];
+                            Logger.i(TAG, "App configured Preview Format: " + format);
+                            com.camerainterceptor.state.HookState.setTargetFormat(format);
+                        }
+                    });
+
+        } catch (Throwable t) {
+            Logger.e(TAG, "Failed to hook Camera.Parameters: " + t.getMessage());
             Logger.logStackTrace(TAG, t);
         }
     }
@@ -138,7 +189,8 @@ public class CameraHook {
                         boolean completed = latch.await(INJECTION_TIMEOUT_MS, TimeUnit.MILLISECONDS);
 
                         if (!completed) {
-                            Logger.w(TAG, "Injection timed out after " + INJECTION_TIMEOUT_MS + "ms, letting original capture proceed");
+                            Logger.w(TAG, "Injection timed out after " + INJECTION_TIMEOUT_MS
+                                    + "ms, letting original capture proceed");
                             return; // Let original takePicture run
                         }
 
@@ -149,12 +201,12 @@ public class CameraHook {
 
                         // SUCCESS - we have valid image data, now block original and inject
                         final byte[] imageData = imageDataRef.get();
-                        
+
                         // Get all callbacks for proper simulation
                         final ShutterCallback shutterCallback = (ShutterCallback) param.args[0];
                         final PictureCallback rawCallback = (PictureCallback) param.args[1];
                         final PictureCallback postviewCallback = (PictureCallback) param.args[2];
-                        
+
                         // Block original method ONLY after we confirm we have valid data
                         param.setResult(null);
                         Logger.i(TAG, "Blocking original capture, injecting " + imageData.length + " bytes");
@@ -172,7 +224,7 @@ public class CameraHook {
                                         Logger.w(TAG, "Shutter callback error (non-fatal): " + t.getMessage());
                                     }
                                 }
-                                
+
                                 // 2. Raw callback (usually null, but call if provided)
                                 if (rawCallback != null) {
                                     try {
@@ -182,7 +234,7 @@ public class CameraHook {
                                         Logger.w(TAG, "Raw callback error (non-fatal): " + t.getMessage());
                                     }
                                 }
-                                
+
                                 // 3. Postview callback (usually null, but call if provided)
                                 if (postviewCallback != null) {
                                     try {
@@ -192,11 +244,11 @@ public class CameraHook {
                                         Logger.w(TAG, "Postview callback error (non-fatal): " + t.getMessage());
                                     }
                                 }
-                                
+
                                 // 4. JPEG callback with injected data (the main one)
                                 jpegCallback.onPictureTaken(imageData, camera);
                                 Logger.i(TAG, "Successfully delivered injected image to app");
-                                
+
                                 // 5. Restart preview after a small delay
                                 // This is CRITICAL - many apps expect preview to restart after capture
                                 // Without this, the shutter button may not re-enable
@@ -209,16 +261,17 @@ public class CameraHook {
                                         Logger.w(TAG, "Preview restart failed (app may handle): " + t.getMessage());
                                     }
                                 }, PREVIEW_RESTART_DELAY_MS);
-                                
+
                             } catch (Throwable t) {
                                 Logger.e(TAG, "Error delivering image to app: " + t.getMessage());
                                 // Try to restart preview even on error
                                 try {
                                     camera.startPreview();
-                                } catch (Throwable ignored) {}
+                                } catch (Throwable ignored) {
+                                }
                             }
                         };
-                        
+
                         // Execute on main thread if not already there
                         if (Looper.myLooper() == Looper.getMainLooper()) {
                             deliverCallbacks.run();
@@ -252,8 +305,10 @@ public class CameraHook {
             if (cls.startsWith("java.lang.Thread") || cls.contains("CameraHook")) {
                 continue;
             }
-            if (count > 6) break;
-            if (sb.length() > 0) sb.append(" | ");
+            if (count > 6)
+                break;
+            if (sb.length() > 0)
+                sb.append(" | ");
             sb.append(el.getClassName()).append("#").append(el.getMethodName()).append(":").append(el.getLineNumber());
             count++;
         }
