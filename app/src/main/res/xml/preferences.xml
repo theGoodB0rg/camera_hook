@@ -28,6 +28,16 @@
             android:defaultValue="true"
             android:icon="@drawable/ic_image"
             app:iconSpaceReserved="true" />
+
+        <ListPreference
+            android:key="injection_mode"
+            android:title="Injection Intensity"
+            android:summary="Choose how deeply to hook the camera system"
+            android:entries="@array/injection_mode_entries"
+            android:entryValues="@array/injection_mode_values"
+            android:defaultValue="0"
+            android:icon="@drawable/ic_picker"
+            app:iconSpaceReserved="true" />
         
         <SwitchPreferenceCompat
             android:key="show_notifications"

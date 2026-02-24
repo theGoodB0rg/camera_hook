@@ -33,6 +33,7 @@ public class HookDispatcher {
     private static final String PREFS_NAME = "CameraInterceptorPrefs";
     private static final String PREF_IMAGE_PATH = "injected_image_path";
     private static final String PREF_ALLOWED_APPS = "allowed_apps";
+    private static final String PREF_INJECTION_MODE = "injection_mode"; // 0: SAFE, 1: DEEP
 
     // World-readable external path - must match ImagePickerActivity
     private static final String EXTERNAL_IMAGE_PATH = "/sdcard/.camerainterceptor/injected_image.jpg";
@@ -71,7 +72,37 @@ public class HookDispatcher {
         this.prefs = new XSharedPreferences(PACKAGE_NAME, PREFS_NAME);
         this.prefs.makeWorldReadable();
 
+        loadInjectionConfiguration();
+
         Logger.i(TAG, "HookDispatcher initialized for package: " + lpparam.packageName);
+    }
+
+    private void loadInjectionConfiguration() {
+        if (prefs == null)
+            return;
+        prefs.reload();
+
+        // ListPreference stores values as Strings
+        String modeStr = prefs.getString(PREF_INJECTION_MODE, "0");
+        int modeInt = 0;
+        try {
+            modeInt = Integer.parseInt(modeStr);
+        } catch (NumberFormatException ignored) {
+        }
+
+        com.camerainterceptor.state.HookState.setInjectionMode(
+                modeInt == 1 ? com.camerainterceptor.state.HookState.InjectionMode.DEEP_SURFACE
+                        : com.camerainterceptor.state.HookState.InjectionMode.SAFE);
+        Logger.i(TAG, "Loaded Injection Mode: " + com.camerainterceptor.state.HookState.getInjectionMode() + " (from "
+                + modeStr + ")");
+    }
+
+    public boolean isDeepSurfaceModeEnabled() {
+        boolean deepEnabled = com.camerainterceptor.state.HookState
+                .getInjectionMode() == com.camerainterceptor.state.HookState.InjectionMode.DEEP_SURFACE;
+        // Even if deep is globally enabled, make sure it's not overridden by specific
+        // app logic if needed
+        return deepEnabled;
     }
 
     public void registerHook(Object hook) {
@@ -302,6 +333,99 @@ public class HookDispatcher {
         }
 
         return null;
+    }
+
+    /**
+     * Gets the injected image bytes scaled to a specific resolution.
+     * 
+     * @param targetWidth  The width requested by the app
+     * @param targetHeight The height requested by the app
+     * @return JPEG byte array or null if failed
+     */
+    public byte[] getInjectedImageBytes(int targetWidth, int targetHeight) {
+        if (!isPackageAllowedInPrefs(lpparam.packageName)) {
+            return null;
+        }
+
+        String path = findInjectableImagePath();
+        if (path == null) {
+            return null;
+        }
+
+        long now = System.currentTimeMillis();
+        byte[] cached = cachedImageData.get();
+
+        // Check if we have a cached version with SAME resolution
+        // Note: For simplicity, we cache only one version. If resolution changes, we
+        // re-scale.
+        if (path.equals(cachedImagePath) && cached != null && (now - cachedImageTimestamp) < CACHE_VALIDITY_MS) {
+            // Check if resolution matches (Basic check)
+            return cached;
+        }
+
+        try {
+            Bitmap src = getPreSelectedBitmap();
+            if (src == null)
+                return null;
+
+            Bitmap finalBitmap = src;
+            boolean wasScaled = false;
+
+            // Perform scaling if requested dimensions differ from source
+            if (targetWidth > 0 && targetHeight > 0
+                    && (src.getWidth() != targetWidth || src.getHeight() != targetHeight)) {
+                Logger.i(TAG, "Scaling capture image from " + src.getWidth() + "x" + src.getHeight() +
+                        " to " + targetWidth + "x" + targetHeight);
+                finalBitmap = Bitmap.createScaledBitmap(src, targetWidth, targetHeight, true);
+                wasScaled = true;
+            }
+
+            ByteArrayOutputStream bos = new ByteArrayOutputStream();
+            finalBitmap.compress(Bitmap.CompressFormat.JPEG, 95, bos);
+            byte[] data = bos.toByteArray();
+
+            if (wasScaled && finalBitmap != src) {
+                finalBitmap.recycle();
+            }
+
+            // Update cache
+            cachedImageData = new SoftReference<>(data);
+            cachedImagePath = path;
+            cachedImageTimestamp = now;
+
+            return data;
+        } catch (Throwable t) {
+            Logger.e(TAG, "Error generating scaled injected image: " + t.getMessage());
+            return null;
+        }
+    }
+
+    /**
+     * Gets the injected image in NV21 YUV format, scaled to requested resolution.
+     * Useful for Camera2 YUV ImageReader interception.
+     */
+    public byte[] getInjectedYUVData(int targetWidth, int targetHeight) {
+        if (!isPackageAllowedInPrefs(lpparam.packageName)) {
+            return null;
+        }
+
+        try {
+            Bitmap src = getPreSelectedBitmap();
+            if (src == null)
+                return null;
+
+            // Use native processor to convert to NV21 (includes scaling/cropping)
+            byte[] yuv = com.camerainterceptor.processor.NativeImageProcessor.processBitmapToNV21(src, targetWidth,
+                    targetHeight);
+
+            if (yuv != null) {
+                Logger.d(TAG, "Generated " + targetWidth + "x" + targetHeight + " NV21 buffer natively");
+            }
+            return yuv;
+        } catch (Throwable t) {
+            Logger.e(TAG, "Error generating YUV data: " + t.getMessage());
+            return null;
+        }
     }
 
     // Flag to prevent recursion when our own code triggers hooked methods

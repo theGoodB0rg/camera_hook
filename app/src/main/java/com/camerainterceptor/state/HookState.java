@@ -9,9 +9,15 @@ import android.graphics.ImageFormat;
  * can correctly format the injected image to match perfectly.
  */
 public class HookState {
+    public enum InjectionMode {
+        SAFE, // Basic method interception (Phase 4)
+        DEEP_SURFACE // Full surface/native hijack (Phase 3)
+    }
+
     private static int targetWidth = -1;
     private static int targetHeight = -1;
     private static int targetFormat = ImageFormat.JPEG; // Default fallback
+    private static InjectionMode currentMode = InjectionMode.SAFE;
 
     public static void setTargetResolution(int width, int height) {
         targetWidth = width;
@@ -20,6 +26,10 @@ public class HookState {
 
     public static void setTargetFormat(int format) {
         targetFormat = format;
+    }
+
+    public static void setInjectionMode(InjectionMode mode) {
+        currentMode = mode;
     }
 
     public static int getTargetWidth() {
@@ -34,6 +44,10 @@ public class HookState {
         return targetFormat;
     }
 
+    public static InjectionMode getInjectionMode() {
+        return currentMode;
+    }
+
     public static boolean hasValidResolution() {
         return targetWidth > 0 && targetHeight > 0;
     }
@@ -42,5 +56,6 @@ public class HookState {
         targetWidth = -1;
         targetHeight = -1;
         targetFormat = ImageFormat.JPEG;
+        currentMode = InjectionMode.SAFE;
     }
 }

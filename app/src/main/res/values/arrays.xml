@@ -3,4 +3,12 @@
     <string-array name="xposed_scope">
         <!-- Empty by default, to be configured in LSPosed Manager -->
     </string-array>
+    <string-array name="injection_mode_entries">
+        <item>Safe Mode (Interception)</item>
+        <item>Deep Hijack (Surface Hijack)</item>
+    </string-array>
+    <string-array name="injection_mode_values">
+        <item>0</item>
+        <item>1</item>
+    </string-array>
 </resources>

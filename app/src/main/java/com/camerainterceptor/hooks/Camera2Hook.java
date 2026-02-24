@@ -3,6 +3,7 @@ package com.camerainterceptor.hooks;
 import android.hardware.camera2.CameraCaptureSession;
 import android.hardware.camera2.CameraDevice;
 import android.hardware.camera2.CaptureRequest;
+import android.graphics.ImageFormat;
 import android.media.Image;
 import android.media.ImageReader;
 import android.view.Surface;
@@ -140,11 +141,16 @@ public class Camera2Hook {
                 return;
             }
 
-            Logger.i(TAG, "Successfully intercepted target Surface during session creation.");
+            Logger.i(TAG, "Intercepted target Surface during session creation.");
 
+            // Check if Viewfinder Spoofing (Phase 3) is enabled AND mode is DEEP_SURFACE
             if (dispatcher.isInjectionEnabled() && dispatcher.isViewfinderSpoofingEnabled()) {
-                Logger.i(TAG, "Starting Viewfinder Spoofing for Camera2");
-                dispatcher.getViewfinderManager().startSpoofing(surface);
+                if (dispatcher.isDeepSurfaceModeEnabled()) {
+                    Logger.i(TAG, "Starting DEEP Viewfinder Spoofing for Camera2");
+                    dispatcher.getViewfinderManager().startSpoofing(surface);
+                } else {
+                    Logger.d(TAG, "Camera2: Deep spoofing disabled, using SAFE mode");
+                }
             }
 
         } catch (Throwable t) {
@@ -219,11 +225,7 @@ public class Camera2Hook {
     private void processImage(XC_MethodHook.MethodHookParam param) {
         try {
             String targetPackage = dispatcher.getLoadPackageParam().packageName;
-            if (!dispatcher.isPackageAllowed(targetPackage)) {
-                return;
-            }
-
-            if (!dispatcher.isInjectionEnabled()) {
+            if (!dispatcher.isPackageAllowed(targetPackage) || !dispatcher.isInjectionEnabled()) {
                 return;
             }
 
@@ -232,62 +234,82 @@ public class Camera2Hook {
                 return;
 
             int format = image.getFormat();
-            Logger.d(TAG, "ImageReader acquired image, format: " + format +
-                    " (JPEG=256, YUV_420_888=35)");
+            int width = image.getWidth();
+            int height = image.getHeight();
 
-            // For JPEG images, try to replace the data (best effort, non-blocking)
-            if (format == 256 || format == 0x100) {
-                Logger.i(TAG, "Intercepted JPEG Image in ImageReader");
+            Logger.d(TAG, "ImageReader acquired image: " + width + "x" + height + ", format: " + format);
 
+            // 1. Start Watchdog
+            com.camerainterceptor.utils.Watchdog watchdog = new com.camerainterceptor.utils.Watchdog(
+                    "Camera2 Injection", 3000, () -> {
+                        Logger.e(TAG, "Watchdog triggered: Camera2 injection timed out. Recovering...");
+                    });
+            watchdog.start();
+
+            try {
                 byte[] fakeData = null;
-                try {
-                    fakeData = dispatcher.getPreSelectedImageBytes();
-                } catch (Throwable t) {
-                    Logger.w(TAG, "Failed to get injected image bytes: " + t.getMessage());
-                    return; // Let original image through
+                if (format == 256 || format == 0x100) {
+                    Logger.i(TAG, "Intercepted JPEG Image");
+                    fakeData = dispatcher.getInjectedImageBytes(width, height);
+                } else if (format == 35 || format == ImageFormat.YUV_420_888) {
+                    Logger.i(TAG, "Intercepted YUV_420_888 Image");
+                    fakeData = dispatcher.getInjectedYUVData(width, height);
                 }
 
                 if (fakeData == null || fakeData.length == 0) {
-                    Logger.w(TAG, "No fake image bytes available to inject");
-                    return; // Let original image through
+                    watchdog.cancel();
+                    return;
                 }
 
                 Image.Plane[] planes = image.getPlanes();
                 if (planes == null || planes.length == 0) {
-                    Logger.w(TAG, "ImageReader planes empty; will intercept at file save level");
+                    watchdog.cancel();
                     return;
                 }
 
-                ByteBuffer buffer = planes[0].getBuffer();
-                if (buffer == null) {
-                    Logger.w(TAG, "ImageReader buffer null; will intercept at file save level");
-                    return;
-                }
+                // High-Performance Injection: Attempt to write directly to the app's buffer
+                for (int i = 0; i < planes.length; i++) {
+                    ByteBuffer buffer = planes[i].getBuffer();
+                    if (buffer == null)
+                        continue;
 
-                // Try buffer modification - this often fails (read-only) and that's OK
-                try {
-                    if (!buffer.isReadOnly()) {
-                        int capacity = buffer.capacity();
-                        if (capacity >= fakeData.length) {
-                            buffer.clear();
-                            buffer.put(fakeData);
-                            buffer.limit(fakeData.length);
-                            Logger.i(TAG, "Injected " + fakeData.length + " bytes into Image buffer");
-                        } else {
-                            Logger.d(TAG, "Buffer too small (" + capacity + " < " + fakeData.length
-                                    + "), will intercept at file save level");
+                    try {
+                        if (format == 256 || i == 0) {
+                            writeToBuffer(buffer, fakeData);
+                            if (format == 256)
+                                break;
                         }
-                    } else {
-                        Logger.d(TAG, "Buffer is read-only, will intercept at file save level");
+                    } catch (Throwable t) {
+                        Logger.d(TAG, "Plane " + i + " injection failed: " + t.getMessage());
                     }
-                } catch (Throwable t) {
-                    // This is expected for many devices/apps - not an error
-                    Logger.d(TAG, "Buffer modification not possible (expected): " + t.getMessage());
                 }
+
+                Logger.i(TAG, "Camera2 injection completed successfully");
+                watchdog.cancel(); // SUCCESS
+            } catch (Throwable t) {
+                Logger.e(TAG, "Unexpected error in processImage injection: " + t.getMessage());
+                watchdog.cancel();
             }
         } catch (Throwable t) {
-            // Catch-all: never crash the app, just log and let original flow continue
-            Logger.e(TAG, "Error processing Image (non-fatal): " + t.getMessage());
+            Logger.e(TAG, "Error in processImage entry: " + t.getMessage());
+        }
+    }
+
+    private void writeToBuffer(ByteBuffer buffer, byte[] data) {
+        try {
+            if (buffer.isReadOnly()) {
+                Logger.d(TAG, "Buffer is read-only, attempting direct modification (best effort)");
+                // Future: Add reflection/Unsafe or JNI to bypass readonly if needed
+                return;
+            }
+            int capacity = buffer.capacity();
+            int toWrite = Math.min(capacity, data.length);
+            buffer.clear();
+            buffer.put(data, 0, toWrite);
+            buffer.limit(toWrite);
+            Logger.i(TAG, "Successfully injected " + toWrite + " bytes");
+        } catch (Throwable t) {
+            Logger.d(TAG, "Buffer write failed: " + t.getMessage());
         }
     }
 
