@@ -136,20 +136,16 @@ public class Camera2Hook {
      */
     private void extractSurfaceInfo(Surface surface) {
         try {
-            // Android Surfaces have native pointers. We can try to read the
-            // dimensions/format
-            // via hidden/internal methods if accessible, or just log that we grabbed the
-            // surface.
-            // Since Surface inspection pure Java is heavily restricted by Google,
-            // a full implementation requires our Native library to sniff the ANativeWindow.
-            // For now, we log the acquisition and prepare HookState.
+            if (surface == null || !surface.isValid()) {
+                return;
+            }
 
             Logger.i(TAG, "Successfully intercepted target Surface during session creation.");
 
-            // TODO: In Phase 2, we will pass this Surface object down to our C++ library
-            // via JNI (ANativeWindow_fromSurface) to precisely read its configured
-            // width/height/format.
-            // For now, we flag that we have a target surface available.
+            if (dispatcher.isInjectionEnabled() && dispatcher.isViewfinderSpoofingEnabled()) {
+                Logger.i(TAG, "Starting Viewfinder Spoofing for Camera2");
+                dispatcher.getViewfinderManager().startSpoofing(surface);
+            }
 
         } catch (Throwable t) {
             Logger.e(TAG, "Error extracting surface info: " + t.getMessage());
@@ -313,6 +309,14 @@ public class Camera2Hook {
                     if (dispatcher.isInjectionEnabled()) {
                         Logger.i(TAG, "Camera2 captureBurst() called");
                     }
+                }
+            });
+
+            XposedBridge.hookAllMethods(CameraCaptureSession.class, "close", new XC_MethodHook() {
+                @Override
+                protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+                    Logger.i(TAG, "CameraCaptureSession.close() - stopping spoofing");
+                    dispatcher.getViewfinderManager().stopSpoofing();
                 }
             });
         } catch (Throwable t) {

@@ -4,6 +4,8 @@
 #include <string.h>
 #include <vector>
 #include <algorithm>
+#include <android/native_window.h>
+#include <android/native_window_jni.h>
 #include "libyuv.h"
 
 #define LOG_TAG "ImageProcessorNative"
@@ -134,4 +136,61 @@ Java_com_camerainterceptor_processor_NativeImageProcessor_processBitmapToRGBA(JN
 
     AndroidBitmap_unlockPixels(env, input_bitmap);
     return result;
+}
+
+extern "C"
+JNIEXPORT jboolean JNICALL
+Java_com_camerainterceptor_processor_NativeImageProcessor_injectFrameToSurface(JNIEnv *env, jclass clazz, jobject source_bitmap, jobject target_surface) {
+    if (source_bitmap == nullptr || target_surface == nullptr) return JNI_FALSE;
+
+    // 1. Get Surface (ANativeWindow)
+    ANativeWindow* window = ANativeWindow_fromSurface(env, target_surface);
+    if (window == nullptr) {
+        LOGE("Failed to get ANativeWindow from Surface");
+        return JNI_FALSE;
+    }
+
+    // 2. Get Bitmap Info
+    AndroidBitmapInfo src_info;
+    void* src_pixels;
+    if (AndroidBitmap_getInfo(env, source_bitmap, &src_info) < 0) {
+        ANativeWindow_release(window);
+        return JNI_FALSE;
+    }
+
+    // 3. Lock Surface for drawing
+    ANativeWindow_Buffer buffer;
+    if (ANativeWindow_lock(window, &buffer, nullptr) < 0) {
+        LOGE("Failed to lock ANativeWindow");
+        ANativeWindow_release(window);
+        return JNI_FALSE;
+    }
+
+    // 4. Lock Bitmap pixels
+    if (AndroidBitmap_lockPixels(env, source_bitmap, &src_pixels) < 0) {
+        ANativeWindow_unlockAndPost(window);
+        ANativeWindow_release(window);
+        return JNI_FALSE;
+    }
+
+    // 5. Center Crop and Scale directly to Surface buffer
+    int crop_x, crop_y, crop_w, crop_h;
+    calculateCenterCrop(src_info.width, src_info.height, buffer.width, buffer.height, crop_x, crop_y, crop_w, crop_h);
+
+    uint8_t* src_ptr = (uint8_t*)src_pixels + (crop_y * src_info.stride) + (crop_x * 4);
+    
+    // Scaling directly into the Surface output buffer
+    // Note: Most Android Surface buffers are RGBA_8888 or RGBX_8888
+    libyuv::ARGBScale(src_ptr, src_info.stride,
+                      crop_w, crop_h,
+                      (uint8_t*)buffer.bits, buffer.stride * 4,
+                      buffer.width, buffer.height,
+                      libyuv::kFilterLinear);
+
+    // 6. Cleanup
+    AndroidBitmap_unlockPixels(env, source_bitmap);
+    ANativeWindow_unlockAndPost(window);
+    ANativeWindow_release(window);
+
+    return JNI_TRUE;
 }

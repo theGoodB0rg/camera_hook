@@ -33,20 +33,21 @@ public class HookDispatcher {
     private static final String PREFS_NAME = "CameraInterceptorPrefs";
     private static final String PREF_IMAGE_PATH = "injected_image_path";
     private static final String PREF_ALLOWED_APPS = "allowed_apps";
-    
+
     // World-readable external path - must match ImagePickerActivity
     private static final String EXTERNAL_IMAGE_PATH = "/sdcard/.camerainterceptor/injected_image.jpg";
-    
+
     // Edge case handling constants
     private static final long MIN_INJECTION_INTERVAL_MS = 100; // Minimum 100ms between injections
     private static final int MAX_IMAGE_SIZE_BYTES = 10 * 1024 * 1024; // 10MB max image size
     private static final long CACHE_VALIDITY_MS = 30000; // Cache valid for 30 seconds
-    
+
     // Rate limiting for rapid captures
     private static final AtomicLong lastInjectionTime = new AtomicLong(0);
-    
+
     // Cached image data with soft reference (allows GC under memory pressure)
     private static SoftReference<byte[]> cachedImageData = new SoftReference<>(null);
+    private static SoftReference<Bitmap> cachedBitmap = new SoftReference<>(null);
     private static long cachedImageTimestamp = 0;
     private static String cachedImagePath = null;
 
@@ -56,6 +57,7 @@ public class HookDispatcher {
     private final Map<String, Object> sharedData;
     private final Handler mainHandler;
     private XSharedPreferences prefs;
+    private com.camerainterceptor.processor.ViewfinderManager viewfinderManager;
 
     public HookDispatcher(Context context, XC_LoadPackage.LoadPackageParam lpparam) {
         this.context = context;
@@ -63,6 +65,7 @@ public class HookDispatcher {
         this.registeredHooks = new ArrayList<>();
         this.sharedData = new HashMap<>();
         this.mainHandler = new Handler(Looper.getMainLooper());
+        this.viewfinderManager = new com.camerainterceptor.processor.ViewfinderManager(this);
 
         // Initialize XSharedPrefs
         this.prefs = new XSharedPreferences(PACKAGE_NAME, PREFS_NAME);
@@ -104,17 +107,17 @@ public class HookDispatcher {
         // Check all possible paths for the injected image
         // /data/local/tmp is first because it's most reliably world-readable
         String[] possiblePaths = new String[] {
-            "/data/local/tmp/camerainterceptor_image.jpg",
-            "/sdcard/.camerainterceptor/injected_image.jpg",
-            "/storage/emulated/0/.camerainterceptor/injected_image.jpg",
-            "/storage/sdcard0/.camerainterceptor/injected_image.jpg",
-            "/mnt/sdcard/.camerainterceptor/injected_image.jpg",
-            "/data/media/0/.camerainterceptor/injected_image.jpg",
-            "/data/user/0/" + PACKAGE_NAME + "/files/injected_image.jpg",
-            "/data/data/" + PACKAGE_NAME + "/files/injected_image.jpg",
-            "/data/user_de/0/" + PACKAGE_NAME + "/files/injected_image.jpg",
+                "/data/local/tmp/camerainterceptor_image.jpg",
+                "/sdcard/.camerainterceptor/injected_image.jpg",
+                "/storage/emulated/0/.camerainterceptor/injected_image.jpg",
+                "/storage/sdcard0/.camerainterceptor/injected_image.jpg",
+                "/mnt/sdcard/.camerainterceptor/injected_image.jpg",
+                "/data/media/0/.camerainterceptor/injected_image.jpg",
+                "/data/user/0/" + PACKAGE_NAME + "/files/injected_image.jpg",
+                "/data/data/" + PACKAGE_NAME + "/files/injected_image.jpg",
+                "/data/user_de/0/" + PACKAGE_NAME + "/files/injected_image.jpg",
         };
-        
+
         for (String p : possiblePaths) {
             File f = new File(p);
             boolean exists = f.exists();
@@ -140,7 +143,7 @@ public class HookDispatcher {
                 }
             }
         }
-        
+
         Logger.d(TAG, "No injected image path configured or file missing (checked all paths)");
         return false;
     }
@@ -155,15 +158,26 @@ public class HookDispatcher {
         prefs.reload();
         return isPackageAllowedInPrefs(packageName);
     }
-    
+
     /**
      * Check if profiling/debug mode is enabled.
      * When enabled, hooks log call stacks without injecting images.
      */
     public boolean isProfilingEnabled() {
-        if (prefs == null) return false;
+        if (prefs == null)
+            return false;
         prefs.reload();
         return prefs.getBoolean("profiling_enabled", false);
+    }
+
+    /**
+     * Check if Viewfinder Spoofing (Phase 3) is enabled in settings.
+     */
+    public boolean isViewfinderSpoofingEnabled() {
+        if (prefs == null)
+            return true; // Default to true if prefs unavailable
+        prefs.reload();
+        return prefs.getBoolean("spoof_viewfinder", true);
     }
 
     private boolean isPackageAllowedInPrefs(String packageName) {
@@ -190,7 +204,7 @@ public class HookDispatcher {
                 }
                 return;
             }
-            
+
             // Use the same path resolution as getPreSelectedImageBytes
             String path = findInjectableImagePath();
 
@@ -205,16 +219,17 @@ public class HookDispatcher {
 
             // Set flag to prevent recursion when reading
             isLoadingImage.set(true);
-            
+
             try {
                 // Read raw bytes from file
                 File file = new File(path);
                 byte[] imageData = new byte[(int) file.length()];
-                
+
                 java.io.FileInputStream fis = new java.io.FileInputStream(file);
                 int bytesRead = 0;
                 int totalRead = 0;
-                while (totalRead < imageData.length && (bytesRead = fis.read(imageData, totalRead, imageData.length - totalRead)) != -1) {
+                while (totalRead < imageData.length
+                        && (bytesRead = fis.read(imageData, totalRead, imageData.length - totalRead)) != -1) {
                     totalRead += bytesRead;
                 }
                 fis.close();
@@ -229,7 +244,7 @@ public class HookDispatcher {
                 metadata.width = opts.outWidth;
                 metadata.height = opts.outHeight;
 
-                Logger.i(TAG, "Successfully loaded image: " + imageData.length + " bytes, " + 
+                Logger.i(TAG, "Successfully loaded image: " + imageData.length + " bytes, " +
                         opts.outWidth + "x" + opts.outHeight);
 
                 if (callback != null) {
@@ -247,24 +262,24 @@ public class HookDispatcher {
             }
         }
     }
-    
+
     /**
      * Find the path to an injectable image, checking all possible locations
      */
     private String findInjectableImagePath() {
         // Check all possible paths
         String[] possiblePaths = new String[] {
-            "/data/local/tmp/camerainterceptor_image.jpg",
-            "/sdcard/.camerainterceptor/injected_image.jpg",
-            "/storage/emulated/0/.camerainterceptor/injected_image.jpg",
-            "/storage/sdcard0/.camerainterceptor/injected_image.jpg",
-            "/mnt/sdcard/.camerainterceptor/injected_image.jpg",
-            "/data/media/0/.camerainterceptor/injected_image.jpg",
-            "/data/user/0/" + PACKAGE_NAME + "/files/injected_image.jpg",
-            "/data/data/" + PACKAGE_NAME + "/files/injected_image.jpg",
-            "/data/user_de/0/" + PACKAGE_NAME + "/files/injected_image.jpg",
+                "/data/local/tmp/camerainterceptor_image.jpg",
+                "/sdcard/.camerainterceptor/injected_image.jpg",
+                "/storage/emulated/0/.camerainterceptor/injected_image.jpg",
+                "/storage/sdcard0/.camerainterceptor/injected_image.jpg",
+                "/mnt/sdcard/.camerainterceptor/injected_image.jpg",
+                "/data/media/0/.camerainterceptor/injected_image.jpg",
+                "/data/user/0/" + PACKAGE_NAME + "/files/injected_image.jpg",
+                "/data/data/" + PACKAGE_NAME + "/files/injected_image.jpg",
+                "/data/user_de/0/" + PACKAGE_NAME + "/files/injected_image.jpg",
         };
-        
+
         for (String p : possiblePaths) {
             File f = new File(p);
             if (f.exists() && f.canRead()) {
@@ -272,7 +287,7 @@ public class HookDispatcher {
                 return p;
             }
         }
-        
+
         // Try prefs as last resort
         if (prefs != null) {
             prefs.reload();
@@ -285,7 +300,7 @@ public class HookDispatcher {
                 }
             }
         }
-        
+
         return null;
     }
 
@@ -296,7 +311,7 @@ public class HookDispatcher {
             return false;
         }
     };
-    
+
     public static boolean isCurrentlyLoadingImage() {
         return Boolean.TRUE.equals(isLoadingImage.get());
     }
@@ -310,12 +325,12 @@ public class HookDispatcher {
         if (!isPackageAllowedInPrefs(lpparam.packageName)) {
             return null;
         }
-        
+
         // Prevent recursion
         if (Boolean.TRUE.equals(isLoadingImage.get())) {
             return null;
         }
-        
+
         // Rate limiting for rapid captures
         long now = System.currentTimeMillis();
         long lastTime = lastInjectionTime.get();
@@ -328,7 +343,7 @@ public class HookDispatcher {
             // If no cache, proceed anyway but log warning
             Logger.w(TAG, "Rate limit triggered but no cache available, proceeding with load");
         }
-        
+
         // Check if we have valid cached data
         String currentPath = findInjectableImagePath();
         if (currentPath != null && currentPath.equals(cachedImagePath)) {
@@ -342,7 +357,7 @@ public class HookDispatcher {
 
         try {
             isLoadingImage.set(true);
-            
+
             if (currentPath == null) {
                 Logger.w(TAG, "getPreSelectedImageBytes: No readable image file found");
                 return null;
@@ -351,12 +366,12 @@ public class HookDispatcher {
             // Check file size before loading
             File file = new File(currentPath);
             long fileSize = file.length();
-            
+
             if (fileSize > MAX_IMAGE_SIZE_BYTES) {
                 Logger.e(TAG, "Image file too large: " + fileSize + " bytes (max: " + MAX_IMAGE_SIZE_BYTES + ")");
                 return null;
             }
-            
+
             if (fileSize == 0) {
                 Logger.e(TAG, "Image file is empty: " + currentPath);
                 return null;
@@ -364,7 +379,7 @@ public class HookDispatcher {
 
             // Read raw file bytes
             byte[] data = new byte[(int) fileSize];
-            
+
             java.io.FileInputStream fis = new java.io.FileInputStream(file);
             int bytesRead = 0;
             int totalRead = 0;
@@ -372,12 +387,12 @@ public class HookDispatcher {
                 totalRead += bytesRead;
             }
             fis.close();
-            
+
             if (totalRead != data.length) {
                 Logger.e(TAG, "Failed to read complete file: read " + totalRead + " of " + data.length);
                 return null;
             }
-            
+
             // Validate that data is JPEG (magic bytes: FF D8 FF)
             if (!isValidJpeg(data)) {
                 Logger.w(TAG, "File is not JPEG format, converting...");
@@ -387,13 +402,13 @@ public class HookDispatcher {
                     return null;
                 }
             }
-            
+
             // Cache the loaded data
             cachedImageData = new SoftReference<>(data);
             cachedImageTimestamp = now;
             cachedImagePath = currentPath;
             lastInjectionTime.set(now);
-            
+
             Logger.i(TAG, "Loaded and cached injected image: " + data.length + " bytes from " + currentPath);
             return data;
         } catch (OutOfMemoryError oom) {
@@ -408,28 +423,74 @@ public class HookDispatcher {
             isLoadingImage.set(false);
         }
     }
-    
+
     /**
      * Clear the cached image data
      */
     public static void clearImageCache() {
         cachedImageData = new SoftReference<>(null);
+        cachedBitmap = new SoftReference<>(null);
         cachedImageTimestamp = 0;
         cachedImagePath = null;
         Logger.d(TAG, "Image cache cleared");
     }
-    
+
+    public com.camerainterceptor.processor.ViewfinderManager getViewfinderManager() {
+        return viewfinderManager;
+    }
+
+    /**
+     * Gets the currently selected image as a Bitmap.
+     * Uses caching to ensure fast access for the viewfinder loop.
+     */
+    public Bitmap getPreSelectedBitmap() {
+        if (!isPackageAllowedInPrefs(lpparam.packageName)) {
+            return null;
+        }
+
+        String path = findInjectableImagePath();
+        if (path == null) {
+            return null;
+        }
+
+        long now = System.currentTimeMillis();
+        Bitmap cached = cachedBitmap.get();
+
+        if (path.equals(cachedImagePath) && cached != null && (now - cachedImageTimestamp) < CACHE_VALIDITY_MS) {
+            return cached;
+        }
+
+        // Cache miss or invalid
+        try {
+            BitmapFactory.Options opts = new BitmapFactory.Options();
+            opts.inMutable = true; // Required for native manipulation in some cases
+            Bitmap bitmap = BitmapFactory.decodeFile(path, opts);
+
+            if (bitmap != null) {
+                cachedBitmap = new SoftReference<>(bitmap);
+                cachedImagePath = path;
+                cachedImageTimestamp = now;
+                Logger.i(TAG, "Cached new bitmap for viewfinder: " + path);
+            }
+            return bitmap;
+        } catch (Throwable t) {
+            Logger.e(TAG, "Failed to decode bitmap for viewfinder: " + t.getMessage());
+            return null;
+        }
+    }
+
     /**
      * Check if byte array is valid JPEG data
      */
     private boolean isValidJpeg(byte[] data) {
-        if (data == null || data.length < 3) return false;
+        if (data == null || data.length < 3)
+            return false;
         // JPEG magic bytes: FF D8 FF
-        return (data[0] & 0xFF) == 0xFF && 
-               (data[1] & 0xFF) == 0xD8 && 
-               (data[2] & 0xFF) == 0xFF;
+        return (data[0] & 0xFF) == 0xFF &&
+                (data[1] & 0xFF) == 0xD8 &&
+                (data[2] & 0xFF) == 0xFF;
     }
-    
+
     /**
      * Convert any image data to JPEG format
      */
@@ -440,12 +501,12 @@ public class HookDispatcher {
                 Logger.e(TAG, "Failed to decode image for conversion");
                 return null;
             }
-            
+
             ByteArrayOutputStream stream = new ByteArrayOutputStream();
             bitmap.compress(Bitmap.CompressFormat.JPEG, 95, stream);
             byte[] jpegData = stream.toByteArray();
             bitmap.recycle();
-            
+
             Logger.i(TAG, "Converted image to JPEG: " + jpegData.length + " bytes");
             return jpegData;
         } catch (Exception e) {

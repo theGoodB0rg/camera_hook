@@ -38,6 +38,7 @@ public class CameraHook {
 
     private final HookDispatcher dispatcher;
     private final Handler mainHandler;
+    private android.view.Surface viewfinderSurface;
 
     public CameraHook(HookDispatcher dispatcher) {
         this.dispatcher = dispatcher;
@@ -49,11 +50,71 @@ public class CameraHook {
         try {
             Logger.i(TAG, "Initializing Camera API hooks");
             hookCameraParameters();
+            hookViewfinder();
             hookTakePicture();
             Logger.i(TAG, "Camera API hooks initialized successfully");
         } catch (Throwable t) {
             Logger.e(TAG, "Failed to initialize Camera API hooks: " + t.getMessage());
             Logger.logStackTrace(TAG, t);
+        }
+    }
+
+    /**
+     * Intercepts the preview display/texture to capture the target Surface
+     * for viewfinder spoofing.
+     */
+    private void hookViewfinder() {
+        try {
+            // 1. Hook setPreviewDisplay(SurfaceHolder)
+            XposedHelpers.findAndHookMethod(Camera.class, "setPreviewDisplay",
+                    android.view.SurfaceHolder.class, new XC_MethodHook() {
+                        @Override
+                        protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
+                            android.view.SurfaceHolder holder = (android.view.SurfaceHolder) param.args[0];
+                            if (holder != null && holder.getSurface() != null) {
+                                Logger.i(TAG, "setPreviewDisplay: Intercepted SurfaceHolder");
+                                viewfinderSurface = holder.getSurface();
+                            }
+                        }
+                    });
+
+            // 2. Hook setPreviewTexture(SurfaceTexture)
+            XposedHelpers.findAndHookMethod(Camera.class, "setPreviewTexture",
+                    android.graphics.SurfaceTexture.class, new XC_MethodHook() {
+                        @Override
+                        protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
+                            android.graphics.SurfaceTexture texture = (android.graphics.SurfaceTexture) param.args[0];
+                            if (texture != null) {
+                                Logger.i(TAG, "setPreviewTexture: Intercepted SurfaceTexture, creating Surface");
+                                viewfinderSurface = new android.view.Surface(texture);
+                            }
+                        }
+                    });
+
+            // 3. Hook startPreview() to begin spoofing
+            XposedHelpers.findAndHookMethod(Camera.class, "startPreview", new XC_MethodHook() {
+                @Override
+                protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+                    if (!dispatcher.isInjectionEnabled() || !dispatcher.isViewfinderSpoofingEnabled())
+                        return;
+
+                    if (viewfinderSurface != null && viewfinderSurface.isValid()) {
+                        Logger.i(TAG, "startPreview: Starting viewfinder spoofing");
+                        dispatcher.getViewfinderManager().startSpoofing(viewfinderSurface);
+                    }
+                }
+            });
+
+            // 4. Hook stopPreview() to halt spoofing
+            XposedHelpers.findAndHookMethod(Camera.class, "stopPreview", new XC_MethodHook() {
+                @Override
+                protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+                    dispatcher.getViewfinderManager().stopSpoofing();
+                }
+            });
+
+        } catch (Throwable t) {
+            Logger.e(TAG, "Failed to hook legacy viewfinder: " + t.getMessage());
         }
     }
 

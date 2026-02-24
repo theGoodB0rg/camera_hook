@@ -20,6 +20,14 @@
             android:defaultValue="true"
             android:icon="@drawable/ic_power"
             app:iconSpaceReserved="true" />
+
+        <SwitchPreferenceCompat
+            android:key="spoof_viewfinder"
+            android:title="Spoof Viewfinder"
+            android:summary="Show the injected image in the live camera preview"
+            android:defaultValue="true"
+            android:icon="@drawable/ic_image"
+            app:iconSpaceReserved="true" />
         
         <SwitchPreferenceCompat
             android:key="show_notifications"

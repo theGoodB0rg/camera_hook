@@ -43,4 +43,15 @@ public class NativeImageProcessor {
      * @return A byte array containing raw RGBA_8888 data
      */
     public static native byte[] processBitmapToRGBA(Bitmap inputBitmap, int targetWidth, int targetHeight);
+
+    /**
+     * Directly injects a Bitmap frame into an Android Surface.
+     * Uses native ANativeWindow APIs for high-speed frame delivery to the
+     * viewfinder.
+     * 
+     * @param source The bitmap to inject
+     * @param target The surface destination (e.g. from SurfaceView or ImageReader)
+     * @return true if injection was successful
+     */
+    public static native boolean injectFrameToSurface(Bitmap source, android.view.Surface target);
 }
