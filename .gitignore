@@ -14,6 +14,16 @@ app/build/
 local.properties
 *.local
 
+# Native (NDK)
+.cxx/
+**/cmake_install.cmake
+**/CMakeCache.txt
+**/CMakeFiles/
+**/Makefile
+**/cmake-build-*/
+**/*.o
+**/*.obj
+
 # IDE
 .idea/
 *.iml
@@ -21,19 +31,24 @@ local.properties
 *.swp
 *.swo
 *~
+*.iml
+.navigation/
 
 # OS
 .DS_Store
 Thumbs.db
+desktop.ini
 
-# Logs
+# Logs & Debug
 *.log
-logs/
+build_log*.txt
+final_build_log*.txt
+error.log
+/captures/
+.temp/
+.cache/
 
-# Dependencies
-node_modules/
-
-# Project specific - keep source, ignore generated
+# Project specific
 bin/
 out/
 *.class
@@ -41,12 +56,5 @@ out/
 *.jar
 !libs/*.jar
 
-# Test files
-*.mp4
-*.avi
-*.mov
-config.local.*
-temp/
-cache/
-
-logs/
+# Screenshots (Explicitly tracked per user request)
+# !screenshots/

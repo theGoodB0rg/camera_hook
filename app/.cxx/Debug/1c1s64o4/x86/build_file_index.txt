@@ -1,3 +1,0 @@
-C:\Users\HP\Desktop\My files\CameraInterceptor\app\src\main\cpp\CMakeLists.txt
-C:\Users\HP\Desktop\My files\CameraInterceptor\app\src\main\cpp\libyuv\CM_linux_packages.cmake
-C:\Users\HP\Desktop\My files\CameraInterceptor\app\src\main\cpp\libyuv\CMakeLists.txt
