@@ -65,9 +65,12 @@ public class Camera2Hook {
      */
     private void hookCaptureSessionCreation() {
         try {
+            Class<?> cameraDeviceClass = XposedHelpers.findClass("android.hardware.camera2.impl.CameraDeviceImpl",
+                    dispatcher.getClassLoader());
+
             // CameraDevice.createCaptureSession(List<Surface> outputs,
             // CameraCaptureSession.StateCallback callback, Handler handler)
-            XposedBridge.hookAllMethods(CameraDevice.class, "createCaptureSession", new XC_MethodHook() {
+            XposedBridge.hookAllMethods(cameraDeviceClass, "createCaptureSession", new XC_MethodHook() {
                 @Override
                 protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
                     if (param.args[0] instanceof List) {
@@ -103,7 +106,7 @@ public class Camera2Hook {
             });
 
             // Also hook createCaptureSessionByOutputConfigurations (API 24+)
-            XposedBridge.hookAllMethods(CameraDevice.class, "createCaptureSessionByOutputConfigurations",
+            XposedBridge.hookAllMethods(cameraDeviceClass, "createCaptureSessionByOutputConfigurations",
                     new XC_MethodHook() {
                         @Override
                         protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
@@ -315,8 +318,11 @@ public class Camera2Hook {
 
     private void hookCaptureSession() {
         try {
+            Class<?> captureSessionClass = XposedHelpers
+                    .findClass("android.hardware.camera2.impl.CameraCaptureSessionImpl", dispatcher.getClassLoader());
+
             // Hook capture methods for logging
-            XposedBridge.hookAllMethods(CameraCaptureSession.class, "capture", new XC_MethodHook() {
+            XposedBridge.hookAllMethods(captureSessionClass, "capture", new XC_MethodHook() {
                 @Override
                 protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
                     if (dispatcher.isInjectionEnabled()) {
@@ -325,7 +331,7 @@ public class Camera2Hook {
                 }
             });
 
-            XposedBridge.hookAllMethods(CameraCaptureSession.class, "captureBurst", new XC_MethodHook() {
+            XposedBridge.hookAllMethods(captureSessionClass, "captureBurst", new XC_MethodHook() {
                 @Override
                 protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
                     if (dispatcher.isInjectionEnabled()) {
@@ -334,7 +340,7 @@ public class Camera2Hook {
                 }
             });
 
-            XposedBridge.hookAllMethods(CameraCaptureSession.class, "close", new XC_MethodHook() {
+            XposedBridge.hookAllMethods(captureSessionClass, "close", new XC_MethodHook() {
                 @Override
                 protected void afterHookedMethod(MethodHookParam param) throws Throwable {
                     Logger.i(TAG, "CameraCaptureSession.close() - stopping spoofing");

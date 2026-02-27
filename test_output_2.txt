@@ -1,0 +1,1170 @@
+Initialized native services in: C:\Users\HP\.gradle\native
+Initialized jansi services in: C:\Users\HP\.gradle\native
+Found daemon DaemonInfo{pid=34744, address=[4f2c34ab-e61c-45d6-a2f4-d1bf70738de7 port:32945, addresses:[/127.0.0.1]], state=Idle, lastBusy=1771976139275, context=DefaultDaemonContext[uid=9c0dddf0-bcb7-41fc-aad3-0ab8d0f9a335,javaHome=C:\Users\HP\.antigravity\extensions\redhat.java-1.52.0-win32-x64\jre\21.0.9-win32-x86_64,javaVersion=21,javaVendor=Eclipse Adoptium,daemonRegistryDir=C:\Users\HP\.gradle\daemon,pid=34744,idleTimeout=10800000,priority=NORMAL,applyInstrumentationAgent=true,nativeServicesMode=ENABLED,daemonOpts=-Xmx2048m,-Dfile.encoding=UTF-8,-Duser.country=US,-Duser.language=en,-Duser.variant]} however its context does not match the desired criteria.
+JVM is incompatible.
+Wanted: DaemonRequestContext{jvmCriteria=C:\jdk-17.0.11+9 (no JDK specified, using current Java home), daemonOpts=[-Xmx2048m, -Dfile.encoding=UTF-8, -Duser.country=US, -Duser.language=en, -Duser.variant], applyInstrumentationAgent=true, nativeServicesMode=ENABLED, priority=NORMAL}
+Actual: DefaultDaemonContext[uid=9c0dddf0-bcb7-41fc-aad3-0ab8d0f9a335,javaHome=C:\Users\HP\.antigravity\extensions\redhat.java-1.52.0-win32-x64\jre\21.0.9-win32-x86_64,javaVersion=21,javaVendor=Eclipse Adoptium,daemonRegistryDir=C:\Users\HP\.gradle\daemon,pid=34744,idleTimeout=10800000,priority=NORMAL,applyInstrumentationAgent=true,nativeServicesMode=ENABLED,daemonOpts=-Xmx2048m,-Dfile.encoding=UTF-8,-Duser.country=US,-Duser.language=en,-Duser.variant]
+
+  Looking for a different daemon...
+The client will now receive all logging from the daemon (pid: 5012). The daemon log file: C:\Users\HP\.gradle\daemon\8.13\daemon-5012.out.log
+Starting 21st build in daemon [uptime: 5 hrs 15 mins 7.001 secs, performance: 100%, GC rate: 0.00/s, heap usage: 0% of 2 GiB]
+Using 4 worker leases.
+Now considering [C:\Users\HP\Desktop\My files\CameraInterceptor] as hierarchies to watch
+Watching the file system is configured to be enabled if available
+File system watching is active
+Starting Build
+Settings evaluated using settings file 'C:\Users\HP\Desktop\My files\CameraInterceptor\settings.gradle'.
+Using local directory build cache for the root build (location = C:\Users\HP\.gradle\caches\build-cache-1, remove unused entries = after 7 days).
+Projects loaded. Root project using build file 'C:\Users\HP\Desktop\My files\CameraInterceptor\build.gradle'.
+Included projects: [root project 'CameraInterceptor', project ':app']
+
+> Configure project :
+Evaluating root project 'CameraInterceptor' using build file 'C:\Users\HP\Desktop\My files\CameraInterceptor\build.gradle'.
+Invalidating in-memory cache of C:\Users\HP\.gradle\caches\journal-1\file-access.bin
+Invalidating in-memory cache of C:\Users\HP\.gradle\caches\8.13\fileHashes\fileHashes.bin
+Invalidating in-memory cache of C:\Users\HP\.gradle\caches\8.13\fileHashes\resourceHashesCache.bin
+
+> Configure project :app
+Evaluating project ':app' using build file 'C:\Users\HP\Desktop\My files\CameraInterceptor\app\build.gradle'.
+Resolved plugin [id: 'com.android.application']
+Using default execution profile
+C/C++: android.ndkVersion from module build.gradle is [25.1.8937393]
+C/C++: android.ndkPath from module build.gradle is not set
+C/C++: ndk.dir in local.properties is not set
+C/C++: Not considering ANDROID_NDK_HOME because support was removed after deprecation period.
+C/C++: sdkFolder is C:\android_sdk
+C/C++: android.ndkVersion from module build.gradle is [25.1.8937393]
+C/C++: android.ndkPath from module build.gradle is not set
+C/C++: ndk.dir in local.properties is not set
+C/C++: Not considering ANDROID_NDK_HOME because support was removed after deprecation period.
+C/C++: sdkFolder is C:\android_sdk
+C/C++: android.ndkVersion from module build.gradle is [25.1.8937393]
+C/C++: android.ndkPath from module build.gradle is not set
+C/C++: ndk.dir in local.properties is not set
+C/C++: Not considering ANDROID_NDK_HOME because support was removed after deprecation period.
+C/C++: sdkFolder is C:\android_sdk
+C/C++: android.ndkVersion from module build.gradle is [25.1.8937393]
+C/C++: android.ndkPath from module build.gradle is not set
+C/C++: ndk.dir in local.properties is not set
+C/C++: Not considering ANDROID_NDK_HOME because support was removed after deprecation period.
+C/C++: sdkFolder is C:\android_sdk
+C/C++: android.ndkVersion from module build.gradle is [25.1.8937393]
+C/C++: android.ndkPath from module build.gradle is not set
+C/C++: ndk.dir in local.properties is not set
+C/C++: Not considering ANDROID_NDK_HOME because support was removed after deprecation period.
+C/C++: sdkFolder is C:\android_sdk
+C/C++: android.ndkVersion from module build.gradle is [25.1.8937393]
+C/C++: android.ndkPath from module build.gradle is not set
+C/C++: ndk.dir in local.properties is not set
+C/C++: Not considering ANDROID_NDK_HOME because support was removed after deprecation period.
+C/C++: sdkFolder is C:\android_sdk
+C/C++: android.ndkVersion from module build.gradle is [25.1.8937393]
+C/C++: android.ndkPath from module build.gradle is not set
+C/C++: ndk.dir in local.properties is not set
+C/C++: Not considering ANDROID_NDK_HOME because support was removed after deprecation period.
+C/C++: sdkFolder is C:\android_sdk
+C/C++: android.ndkVersion from module build.gradle is [25.1.8937393]
+C/C++: android.ndkPath from module build.gradle is not set
+C/C++: ndk.dir in local.properties is not set
+C/C++: Not considering ANDROID_NDK_HOME because support was removed after deprecation period.
+C/C++: sdkFolder is C:\android_sdk
+C/C++: android.ndkVersion from module build.gradle is [25.1.8937393]
+C/C++: android.ndkPath from module build.gradle is not set
+C/C++: ndk.dir in local.properties is not set
+C/C++: Not considering ANDROID_NDK_HOME because support was removed after deprecation period.
+C/C++: sdkFolder is C:\android_sdk
+C/C++: android.ndkVersion from module build.gradle is [25.1.8937393]
+C/C++: android.ndkPath from module build.gradle is not set
+C/C++: ndk.dir in local.properties is not set
+C/C++: Not considering ANDROID_NDK_HOME because support was removed after deprecation period.
+C/C++: sdkFolder is C:\android_sdk
+C/C++: android.ndkVersion from module build.gradle is [25.1.8937393]
+C/C++: android.ndkPath from module build.gradle is not set
+C/C++: ndk.dir in local.properties is not set
+C/C++: Not considering ANDROID_NDK_HOME because support was removed after deprecation period.
+C/C++: sdkFolder is C:\android_sdk
+All projects evaluated.
+Task name matched 'test'
+Selected primary task 'test' from project :
+Tasks to be executed: [task ':app:preBuild', task ':app:preDebugBuild', task ':app:javaPreCompileDebug', task ':app:checkDebugAarMetadata', task ':app:generateDebugResValues', task ':app:mapDebugSourceSetPaths', task ':app:generateDebugResources', task ':app:mergeDebugResources', task ':app:packageDebugResources', task ':app:parseDebugLocalResources', task ':app:createDebugCompatibleScreenManifests', task ':app:extractDeepLinksDebug', task ':app:processDebugMainManifest', task ':app:processDebugManifest', task ':app:processDebugManifestForPackage', task ':app:processDebugResources', task ':app:compileDebugJavaWithJavac', task ':app:bundleDebugClassesToRuntimeJar', task ':app:bundleDebugClassesToCompileJar', task ':app:preDebugUnitTestBuild', task ':app:javaPreCompileDebugUnitTest', task ':app:compileDebugUnitTestJavaWithJavac', task ':app:processDebugJavaRes', task ':app:processDebugUnitTestJavaRes', task ':app:testDebugUnitTest', task ':app:preReleaseBuild', task ':app:javaPreCompileRelease', task ':app:checkReleaseAarMetadata', task ':app:generateReleaseResValues', task ':app:mapReleaseSourceSetPaths', task ':app:generateReleaseResources', task ':app:mergeReleaseResources', task ':app:packageReleaseResources', task ':app:parseReleaseLocalResources', task ':app:createReleaseCompatibleScreenManifests', task ':app:extractDeepLinksRelease', task ':app:processReleaseMainManifest', task ':app:processReleaseManifest', task ':app:processReleaseManifestForPackage', task ':app:processReleaseResources', task ':app:compileReleaseJavaWithJavac', task ':app:bundleReleaseClassesToRuntimeJar', task ':app:bundleReleaseClassesToCompileJar', task ':app:preReleaseUnitTestBuild', task ':app:javaPreCompileReleaseUnitTest', task ':app:compileReleaseUnitTestJavaWithJavac', task ':app:processReleaseJavaRes', task ':app:processReleaseUnitTestJavaRes', task ':app:testReleaseUnitTest', task ':app:test']
+Tasks that were excluded: []
+Resolve mutations for :app:preBuild (Thread[Execution worker,5,main]) started.
+:app:preBuild (Thread[Execution worker,5,main]) started.
+
+> Task :app:preBuild UP-TO-DATE
+Skipping task ':app:preBuild' as it has no actions.
+Resolve mutations for :app:preDebugBuild (Thread[included builds,5,main]) started.
+:app:preDebugBuild (Thread[included builds,5,main]) started.
+
+> Task :app:preDebugBuild UP-TO-DATE
+Skipping task ':app:preDebugBuild' as it has no actions.
+Resolve mutations for :app:javaPreCompileDebug (Thread[included builds,5,main]) started.
+:app:javaPreCompileDebug (Thread[included builds,5,main]) started.
+
+> Task :app:javaPreCompileDebug UP-TO-DATE
+Build cache key for task ':app:javaPreCompileDebug' is ddd20041471754ce946f79af653de661
+Skipping task ':app:javaPreCompileDebug' as it is up-to-date.
+Resolve mutations for :app:checkDebugAarMetadata (Thread[included builds,5,main]) started.
+:app:checkDebugAarMetadata (Thread[included builds,5,main]) started.
+
+> Task :app:checkDebugAarMetadata UP-TO-DATE
+Caching disabled for task ':app:checkDebugAarMetadata' because:
+  Caching has been disabled for the task
+Skipping task ':app:checkDebugAarMetadata' as it is up-to-date.
+Resolve mutations for :app:generateDebugResValues (Thread[included builds,5,main]) started.
+:app:generateDebugResValues (Thread[included builds,5,main]) started.
+
+> Task :app:generateDebugResValues UP-TO-DATE
+Build cache key for task ':app:generateDebugResValues' is e4968ed2b2767741ad558432fd8eef13
+Skipping task ':app:generateDebugResValues' as it is up-to-date.
+Resolve mutations for :app:mapDebugSourceSetPaths (Thread[included builds,5,main]) started.
+:app:mapDebugSourceSetPaths (Thread[included builds,5,main]) started.
+
+> Task :app:mapDebugSourceSetPaths UP-TO-DATE
+Caching disabled for task ':app:mapDebugSourceSetPaths' because:
+  Caching has been disabled for the task
+Skipping task ':app:mapDebugSourceSetPaths' as it is up-to-date.
+Resolve mutations for :app:generateDebugResources (Thread[included builds,5,main]) started.
+:app:generateDebugResources (Thread[included builds,5,main]) started.
+
+> Task :app:generateDebugResources UP-TO-DATE
+Skipping task ':app:generateDebugResources' as it has no actions.
+Resolve mutations for :app:mergeDebugResources (Thread[included builds,5,main]) started.
+:app:mergeDebugResources (Thread[included builds,5,main]) started.
+
+> Task :app:mergeDebugResources UP-TO-DATE
+Build cache key for task ':app:mergeDebugResources' is 197501090cc9f1fd6314b9b944581517
+Skipping task ':app:mergeDebugResources' as it is up-to-date.
+Resolve mutations for :app:packageDebugResources (Thread[included builds,5,main]) started.
+:app:packageDebugResources (Thread[included builds,5,main]) started.
+
+> Task :app:packageDebugResources UP-TO-DATE
+Build cache key for task ':app:packageDebugResources' is 172e427fb799109c8e7fe0033485799b
+Skipping task ':app:packageDebugResources' as it is up-to-date.
+Resolve mutations for :app:parseDebugLocalResources (Thread[included builds,5,main]) started.
+:app:parseDebugLocalResources (Thread[included builds,5,main]) started.
+
+> Task :app:parseDebugLocalResources UP-TO-DATE
+Build cache key for task ':app:parseDebugLocalResources' is 0d2099fd029072c6eb9e375a05508041
+Skipping task ':app:parseDebugLocalResources' as it is up-to-date.
+Resolve mutations for :app:createDebugCompatibleScreenManifests (Thread[included builds,5,main]) started.
+:app:createDebugCompatibleScreenManifests (Thread[included builds,5,main]) started.
+
+> Task :app:createDebugCompatibleScreenManifests UP-TO-DATE
+Caching disabled for task ':app:createDebugCompatibleScreenManifests' because:
+  Caching has been disabled for the task
+Skipping task ':app:createDebugCompatibleScreenManifests' as it is up-to-date.
+Resolve mutations for :app:extractDeepLinksDebug (Thread[included builds,5,main]) started.
+:app:extractDeepLinksDebug (Thread[included builds,5,main]) started.
+
+> Task :app:extractDeepLinksDebug UP-TO-DATE
+Build cache key for task ':app:extractDeepLinksDebug' is e5ca16cc1fd0f0d40f929e96f2abb378
+Skipping task ':app:extractDeepLinksDebug' as it is up-to-date.
+Resolve mutations for :app:processDebugMainManifest (Thread[included builds,5,main]) started.
+:app:processDebugMainManifest (Thread[included builds,5,main]) started.
+
+> Task :app:processDebugMainManifest UP-TO-DATE
+Build cache key for task ':app:processDebugMainManifest' is 013270d9875126f0d02580b14001d5cc
+Skipping task ':app:processDebugMainManifest' as it is up-to-date.
+Resolve mutations for :app:processDebugManifest (Thread[included builds,5,main]) started.
+:app:processDebugManifest (Thread[included builds,5,main]) started.
+
+> Task :app:processDebugManifest UP-TO-DATE
+Build cache key for task ':app:processDebugManifest' is 5988670f21d7b8701ea0d04c4b631e5b
+Skipping task ':app:processDebugManifest' as it is up-to-date.
+Resolve mutations for :app:processDebugManifestForPackage (Thread[included builds,5,main]) started.
+:app:processDebugManifestForPackage (Thread[included builds,5,main]) started.
+
+> Task :app:processDebugManifestForPackage UP-TO-DATE
+Custom actions are attached to task ':app:processDebugManifestForPackage'.
+Build cache key for task ':app:processDebugManifestForPackage' is 32c8005dd17d5d760fc77064a0b06e30
+Skipping task ':app:processDebugManifestForPackage' as it is up-to-date.
+Resolve mutations for :app:processDebugResources (Thread[included builds,5,main]) started.
+:app:processDebugResources (Thread[included builds,5,main]) started.
+
+> Task :app:processDebugResources UP-TO-DATE
+Build cache key for task ':app:processDebugResources' is 36ba4de2ea4264fd3319d650b9814f4c
+Skipping task ':app:processDebugResources' as it is up-to-date.
+Resolve mutations for :app:compileDebugJavaWithJavac (Thread[Execution worker Thread 3,5,main]) started.
+:app:compileDebugJavaWithJavac (Thread[Execution worker Thread 3,5,main]) started.
+
+> Task :app:compileDebugJavaWithJavac UP-TO-DATE
+Custom actions are attached to task ':app:compileDebugJavaWithJavac'.
+Build cache key for task ':app:compileDebugJavaWithJavac' is 4f575c56299d9b4a7703a304434967e1
+Skipping task ':app:compileDebugJavaWithJavac' as it is up-to-date.
+Resolve mutations for :app:bundleDebugClassesToRuntimeJar (Thread[Execution worker Thread 3,5,main]) started.
+:app:bundleDebugClassesToRuntimeJar (Thread[Execution worker Thread 3,5,main]) started.
+
+> Task :app:bundleDebugClassesToRuntimeJar UP-TO-DATE
+Caching disabled for task ':app:bundleDebugClassesToRuntimeJar' because:
+  Caching has been disabled for the task
+Skipping task ':app:bundleDebugClassesToRuntimeJar' as it is up-to-date.
+work action resolve classes.jar (project :app) (Thread[Execution worker Thread 3,5,main]) started.
+Resolve mutations for :app:bundleDebugClassesToCompileJar (Thread[Execution worker Thread 3,5,main]) started.
+:app:bundleDebugClassesToCompileJar (Thread[Execution worker Thread 3,5,main]) started.
+
+> Task :app:bundleDebugClassesToCompileJar UP-TO-DATE
+Caching disabled for task ':app:bundleDebugClassesToCompileJar' because:
+  Caching has been disabled for the task
+Skipping task ':app:bundleDebugClassesToCompileJar' as it is up-to-date.
+work action resolve classes.jar (project :app) (Thread[Execution worker Thread 3,5,main]) started.
+Resolve mutations for :app:preDebugUnitTestBuild (Thread[Execution worker Thread 3,5,main]) started.
+:app:preDebugUnitTestBuild (Thread[Execution worker Thread 3,5,main]) started.
+
+> Task :app:preDebugUnitTestBuild UP-TO-DATE
+Skipping task ':app:preDebugUnitTestBuild' as it has no actions.
+Resolve mutations for :app:javaPreCompileDebugUnitTest (Thread[Execution worker Thread 3,5,main]) started.
+:app:javaPreCompileDebugUnitTest (Thread[Execution worker Thread 3,5,main]) started.
+
+> Task :app:javaPreCompileDebugUnitTest UP-TO-DATE
+Build cache key for task ':app:javaPreCompileDebugUnitTest' is ddd20041471754ce946f79af653de661
+Skipping task ':app:javaPreCompileDebugUnitTest' as it is up-to-date.
+Resolve mutations for :app:compileDebugUnitTestJavaWithJavac (Thread[Execution worker Thread 3,5,main]) started.
+:app:compileDebugUnitTestJavaWithJavac (Thread[Execution worker Thread 3,5,main]) started.
+
+> Task :app:compileDebugUnitTestJavaWithJavac UP-TO-DATE
+Custom actions are attached to task ':app:compileDebugUnitTestJavaWithJavac'.
+Build cache key for task ':app:compileDebugUnitTestJavaWithJavac' is 479030d87d7cca2b9d72020a2264addf
+Skipping task ':app:compileDebugUnitTestJavaWithJavac' as it is up-to-date.
+Resolve mutations for :app:processDebugJavaRes (Thread[Execution worker Thread 3,5,main]) started.
+:app:processDebugJavaRes (Thread[Execution worker Thread 3,5,main]) started.
+
+> Task :app:processDebugJavaRes NO-SOURCE
+file or directory 'C:\Users\HP\Desktop\My files\CameraInterceptor\app\src\main\resources', not found
+file or directory 'C:\Users\HP\Desktop\My files\CameraInterceptor\app\src\debug\resources', not found
+Skipping task ':app:processDebugJavaRes' as it has no source files and no previous output files.
+work action resolve out (project :app) (Thread[Execution worker Thread 3,5,main]) started.
+Resolve mutations for :app:processDebugUnitTestJavaRes (Thread[Execution worker,5,main]) started.
+:app:processDebugUnitTestJavaRes (Thread[Execution worker,5,main]) started.
+
+> Task :app:processDebugUnitTestJavaRes NO-SOURCE
+file or directory 'C:\Users\HP\Desktop\My files\CameraInterceptor\app\src\test\resources', not found
+file or directory 'C:\Users\HP\Desktop\My files\CameraInterceptor\app\src\testDebug\resources', not found
+Skipping task ':app:processDebugUnitTestJavaRes' as it has no source files and no previous output files.
+Resolve mutations for :app:testDebugUnitTest (Thread[Execution worker,5,main]) started.
+:app:testDebugUnitTest (Thread[Execution worker,5,main]) started.
+
+> Task :app:testDebugUnitTest
+Build cache key for MockableJarTransform: C:\android_sdk\platforms\android-34\android.jar is 52d5b37fbf88c6be7daf2baa0864f208
+Calling mockable JAR artifact transform to create file: C:\Users\HP\.gradle\caches\8.13\transforms\abfb938b510b322f86d0022d556fa689-0786db97-fc59-430c-b9d9-1e0fc217edfb\transformed\android.jar with input C:\android_sdk\platforms\android-34\android.jar
+Stored cache entry for MockableJarTransform: C:\android_sdk\platforms\android-34\android.jar with cache key 52d5b37fbf88c6be7daf2baa0864f208
+Build cache key for task ':app:testDebugUnitTest' is 7f4c89564c303a2aa9f074b8d4ece006
+Task ':app:testDebugUnitTest' is not up-to-date because:
+  Task has failed previously.
+Starting process 'Gradle Test Executor 5'. Working directory: C:\Users\HP\Desktop\My files\CameraInterceptor\app Command: C:\jdk-17.0.11+9\bin\java.exe -Djava.awt.headless=true -Dorg.gradle.internal.worker.tmpdir=C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\tmp\testDebugUnitTest\work @C:\Users\HP\.gradle\.tmp\gradle-worker-classpath5704359935200114463txt -Xmx512m -Dfile.encoding=UTF-8 -Duser.country=US -Duser.language=en -Duser.variant -ea worker.org.gradle.process.internal.worker.GradleWorkerMain 'Gradle Test Executor 5'
+Successfully started process 'Gradle Test Executor 5'
+
+Gradle Test Executor 5 started executing tests.
+Gradle Test Executor 5 finished executing tests.
+
+> Task :app:testDebugUnitTest
+Finished generating test XML results (0.011 secs) into: C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\test-results\testDebugUnitTest
+Generating HTML test report...
+Finished generating test html results (0.017 secs) into: C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\reports\tests\testDebugUnitTest
+Stored cache entry for task ':app:testDebugUnitTest' with cache key 7f4c89564c303a2aa9f074b8d4ece006
+Resolve mutations for :app:preReleaseBuild (Thread[Execution worker,5,main]) started.
+:app:preReleaseBuild (Thread[Execution worker,5,main]) started.
+
+> Task :app:preReleaseBuild UP-TO-DATE
+Skipping task ':app:preReleaseBuild' as it has no actions.
+Resolve mutations for :app:javaPreCompileRelease (Thread[Execution worker,5,main]) started.
+:app:javaPreCompileRelease (Thread[Execution worker,5,main]) started.
+
+> Task :app:javaPreCompileRelease UP-TO-DATE
+Build cache key for task ':app:javaPreCompileRelease' is ddd20041471754ce946f79af653de661
+Skipping task ':app:javaPreCompileRelease' as it is up-to-date.
+Resolve mutations for :app:checkReleaseAarMetadata (Thread[Execution worker,5,main]) started.
+:app:checkReleaseAarMetadata (Thread[Execution worker,5,main]) started.
+
+> Task :app:checkReleaseAarMetadata UP-TO-DATE
+Caching disabled for task ':app:checkReleaseAarMetadata' because:
+  Caching has been disabled for the task
+Skipping task ':app:checkReleaseAarMetadata' as it is up-to-date.
+Resolve mutations for :app:generateReleaseResValues (Thread[Execution worker Thread 2,5,main]) started.
+:app:generateReleaseResValues (Thread[Execution worker Thread 2,5,main]) started.
+
+> Task :app:generateReleaseResValues FROM-CACHE
+Build cache key for task ':app:generateReleaseResValues' is e4968ed2b2767741ad558432fd8eef13
+Task ':app:generateReleaseResValues' is not up-to-date because:
+  No history is available.
+Loaded cache entry for task ':app:generateReleaseResValues' with cache key e4968ed2b2767741ad558432fd8eef13
+Resolve mutations for :app:mapReleaseSourceSetPaths (Thread[Execution worker Thread 2,5,main]) started.
+:app:mapReleaseSourceSetPaths (Thread[Execution worker Thread 2,5,main]) started.
+
+> Task :app:mapReleaseSourceSetPaths
+Caching disabled for task ':app:mapReleaseSourceSetPaths' because:
+  Caching has been disabled for the task
+Task ':app:mapReleaseSourceSetPaths' is not up-to-date because:
+  No history is available.
+Resolve mutations for :app:generateReleaseResources (Thread[Execution worker Thread 2,5,main]) started.
+:app:generateReleaseResources (Thread[Execution worker Thread 2,5,main]) started.
+
+> Task :app:generateReleaseResources UP-TO-DATE
+Skipping task ':app:generateReleaseResources' as it has no actions.
+Resolve mutations for :app:mergeReleaseResources (Thread[Execution worker Thread 2,5,main]) started.
+:app:mergeReleaseResources (Thread[Execution worker Thread 2,5,main]) started.
+
+> Task :app:mergeReleaseResources
+Build cache key for task ':app:mergeReleaseResources' is 9513b0d7ce02bbf78f77fb86d6836c26
+Task ':app:mergeReleaseResources' is not up-to-date because:
+  No history is available.
+The input changes require a full rebuild for incremental task ':app:mergeReleaseResources'.
+[MergeResources] Inputs are non-incremental full task action.
+Compiling XML table C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\incremental\release\mergeReleaseResources\merged.dir\values\values.xml to C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\merged_res\release\values_values.arsc.flat
+Compiling XML table C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\incremental\release\mergeReleaseResources\merged.dir\values-hi\values-hi.xml to C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\merged_res\release\values-hi_values-hi.arsc.flat
+Compiling XML table C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\incremental\release\mergeReleaseResources\merged.dir\values-hr\values-hr.xml to C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\merged_res\release\values-hr_values-hr.arsc.flat
+Compiling XML table C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\incremental\release\mergeReleaseResources\merged.dir\values-v16\values-v16.xml to C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\merged_res\release\values-v16_values-v16.arsc.flat
+Compiling XML table C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\incremental\release\mergeReleaseResources\merged.dir\values-w360dp-port-v13\values-w360dp-port-v13.xml to C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\merged_res\release\values-w360dp-port-v13_values-w360dp-port-v13.arsc.flat
+Compiling XML table C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\incremental\release\mergeReleaseResources\merged.dir\values-zh-rHK\values-zh-rHK.xml to C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\merged_res\release\values-zh-rHK_values-zh-rHK.arsc.flat
+Compiling XML table C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\incremental\release\mergeReleaseResources\merged.dir\values-b+sr+Latn\values-b+sr+Latn.xml to C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\merged_res\release\values-b+sr+Latn_values-b+sr+Latn.arsc.flat
+Compiling XML table C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\incremental\release\mergeReleaseResources\merged.dir\values-v21\values-v21.xml to C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\merged_res\release\values-v21_values-v21.arsc.flat
+Compiling XML table C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\incremental\release\mergeReleaseResources\merged.dir\values-pt\values-pt.xml to C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\merged_res\release\values-pt_values-pt.arsc.flat
+Compiling XML table C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\incremental\release\mergeReleaseResources\merged.dir\values-hu\values-hu.xml to C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\merged_res\release\values-hu_values-hu.arsc.flat
+Compiling XML table C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\incremental\release\mergeReleaseResources\merged.dir\values-v18\values-v18.xml to C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\merged_res\release\values-v18_values-v18.arsc.flat
+Compiling XML table C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\incremental\release\mergeReleaseResources\merged.dir\values-in\values-in.xml to C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\merged_res\release\values-in_values-in.arsc.flat
+Compiling XML table C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\incremental\release\mergeReleaseResources\merged.dir\values-is\values-is.xml to C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\merged_res\release\values-is_values-is.arsc.flat
+Compiling XML table C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\incremental\release\mergeReleaseResources\merged.dir\values-v22\values-v22.xml to C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\merged_res\release\values-v22_values-v22.arsc.flat
+
+Resolve mutations for :app:packageReleaseResources (Thread[Execution worker Thread 3,5,main]) started.
+:app:packageReleaseResources (Thread[Execution worker Thread 3,5,main]) started.
+
+> Task :app:packageReleaseResources
+Build cache key for task ':app:packageReleaseResources' is 4cf47e11fb4342951d62c4e52b16d1d3
+Task ':app:packageReleaseResources' is not up-to-date because:
+  No history is available.
+The input changes require a full rebuild for incremental task ':app:packageReleaseResources'.
+[MergeResources] Inputs are non-incremental full task action.
+Stored cache entry for task ':app:packageReleaseResources' with cache key 4cf47e11fb4342951d62c4e52b16d1d3
+Resolve mutations for :app:parseReleaseLocalResources (Thread[Execution worker Thread 3,5,main]) started.
+:app:parseReleaseLocalResources (Thread[Execution worker Thread 3,5,main]) started.
+
+> Task :app:parseReleaseLocalResources FROM-CACHE
+Build cache key for task ':app:parseReleaseLocalResources' is 0d2099fd029072c6eb9e375a05508041
+Task ':app:parseReleaseLocalResources' is not up-to-date because:
+  No history is available.
+Loaded cache entry for task ':app:parseReleaseLocalResources' with cache key 0d2099fd029072c6eb9e375a05508041
+Resolve mutations for :app:createReleaseCompatibleScreenManifests (Thread[Execution worker Thread 3,5,main]) started.
+:app:createReleaseCompatibleScreenManifests (Thread[Execution worker Thread 3,5,main]) started.
+
+> Task :app:createReleaseCompatibleScreenManifests
+Caching disabled for task ':app:createReleaseCompatibleScreenManifests' because:
+  Caching has been disabled for the task
+Task ':app:createReleaseCompatibleScreenManifests' is not up-to-date because:
+  No history is available.
+Resolve mutations for :app:extractDeepLinksRelease (Thread[Execution worker Thread 3,5,main]) started.
+:app:extractDeepLinksRelease (Thread[Execution worker Thread 3,5,main]) started.
+
+> Task :app:extractDeepLinksRelease FROM-CACHE
+Build cache key for task ':app:extractDeepLinksRelease' is e5ca16cc1fd0f0d40f929e96f2abb378
+Task ':app:extractDeepLinksRelease' is not up-to-date because:
+  No history is available.
+Loaded cache entry for task ':app:extractDeepLinksRelease' with cache key e5ca16cc1fd0f0d40f929e96f2abb378
+Resolve mutations for :app:processReleaseMainManifest (Thread[Execution worker Thread 3,5,main]) started.
+:app:processReleaseMainManifest (Thread[Execution worker Thread 3,5,main]) started.
+
+> Task :app:processReleaseMainManifest
+Build cache key for task ':app:processReleaseMainManifest' is 7e500fbd20ec5f22df7afd382226ddd4
+Task ':app:processReleaseMainManifest' is not up-to-date because:
+  No history is available.
+package="com.camerainterceptor" found in source AndroidManifest.xml: C:\Users\HP\Desktop\My files\CameraInterceptor\app\src\main\AndroidManifest.xml.
+Setting the namespace via the package attribute in the source AndroidManifest.xml is no longer supported, and the value is ignored.
+Recommendation: remove package="com.camerainterceptor" from the source AndroidManifest.xml: C:\Users\HP\Desktop\My files\CameraInterceptor\app\src\main\AndroidManifest.xml.
+Loading library manifest C:\Users\HP\.gradle\caches\8.13\transforms\48c11f6bc727f56aba68b1315ac44860\transformed\preference-1.2.1\AndroidManifest.xml
+Loading library manifest C:\Users\HP\.gradle\caches\8.13\transforms\0a0c6b731f840b495936255e8190f2a5\transformed\material-1.11.0\AndroidManifest.xml
+Loading library manifest C:\Users\HP\.gradle\caches\8.13\transforms\d22a97a766d7e14ae7de5ca059618ea4\transformed\constraintlayout-2.1.4\AndroidManifest.xml
+Loading library manifest C:\Users\HP\.gradle\caches\8.13\transforms\567931b78cb573b48d2960ad592b6428\transformed\jetified-appcompat-resources-1.6.1\AndroidManifest.xml
+Loading library manifest C:\Users\HP\.gradle\caches\8.13\transforms\1f7c5f70815dc338453e64017a681de4\transformed\appcompat-1.6.1\AndroidManifest.xml
+Loading library manifest C:\Users\HP\.gradle\caches\8.13\transforms\739249ada90c677e8481c6ce5e596ca8\transformed\exifinterface-1.3.6\AndroidManifest.xml
+Loading library manifest C:\Users\HP\.gradle\caches\8.13\transforms\5d6b199a324e9b7fabe8837256b4405c\transformed\swiperefreshlayout-1.1.0\AndroidManifest.xml
+Loading library manifest C:\Users\HP\.gradle\caches\8.13\transforms\998fe69cfcf1527534a3a6be90a08a2b\transformed\jetified-fragment-ktx-1.3.6\AndroidManifest.xml
+Loading library manifest C:\Users\HP\.gradle\caches\8.13\transforms\da12e34bf48dbc4dc467908f093e7bf1\transformed\jetified-viewpager2-1.0.0\AndroidManifest.xml
+Loading library manifest C:\Users\HP\.gradle\caches\8.13\transforms\9c7f98e7da06c07da66cd1e3478b1ca6\transformed\fragment-1.3.6\AndroidManifest.xml
+Loading library manifest C:\Users\HP\.gradle\caches\8.13\transforms\fb82f439c4b33fde39319b86c2296915\transformed\jetified-activity-ktx-1.8.0\AndroidManifest.xml
+Loading library manifest C:\Users\HP\.gradle\caches\8.13\transforms\9cdffca226a787165f484aa10a83d53a\transformed\jetified-activity-1.8.0\AndroidManifest.xml
+Loading library manifest C:\Users\HP\.gradle\caches\8.13\transforms\f953816a8ee083100ea3500bcd5025a4\transformed\jetified-emoji2-views-helper-1.2.0\AndroidManifest.xml
+Loading library manifest C:\Users\HP\.gradle\caches\8.13\transforms\32ce2aa085fffa480802a41bce779d79\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml
+Loading library manifest C:\Users\HP\.gradle\caches\8.13\transforms\9b37acb424fc15ca7e07d093665a9d95\transformed\slidingpanelayout-1.2.0\AndroidManifest.xml
+Loading library manifest C:\Users\HP\.gradle\caches\8.13\transforms\053c9ac346841c609c90eafc7d6ec7ef\transformed\drawerlayout-1.1.1\AndroidManifest.xml
+Loading library manifest C:\Users\HP\.gradle\caches\8.13\transforms\a1c81eb045a151971c39b49035ffb0d8\transformed\coordinatorlayout-1.1.0\AndroidManifest.xml
+Loading library manifest C:\Users\HP\.gradle\caches\8.13\transforms\a627abf2fa3232d6e8fc4ca0b2be5d6f\transformed\dynamicanimation-1.0.0\AndroidManifest.xml
+Loading library manifest C:\Users\HP\.gradle\caches\8.13\transforms\5be38d30f419e79589c72904ef417623\transformed\vectordrawable-animated-1.1.0\AndroidManifest.xml
+Loading library manifest C:\Users\HP\.gradle\caches\8.13\transforms\2c7e4e679442b788adea2b361d2660d0\transformed\vectordrawable-1.1.0\AndroidManifest.xml
+Loading library manifest C:\Users\HP\.gradle\caches\8.13\transforms\252269e80b01641aa192007af203f97a\transformed\legacy-support-core-utils-1.0.0\AndroidManifest.xml
+Loading library manifest C:\Users\HP\.gradle\caches\8.13\transforms\4a317a887a3859da0c0f63f59905d6de\transformed\loader-1.0.0\AndroidManifest.xml
+Loading library manifest C:\Users\HP\.gradle\caches\8.13\transforms\93b6eafea15458bfaedf37cc9a5f9955\transformed\jetified-savedstate-ktx-1.2.1\AndroidManifest.xml
+Loading library manifest C:\Users\HP\.gradle\caches\8.13\transforms\daef832d1c71aaf2474c880c3b1c8883\transformed\jetified-savedstate-1.2.1\AndroidManifest.xml
+Loading library manifest C:\Users\HP\.gradle\caches\8.13\transforms\3a8fc65c11566072cb31b540ebfc56e1\transformed\jetified-lifecycle-runtime-ktx-2.6.1\AndroidManifest.xml
+Loading library manifest C:\Users\HP\.gradle\caches\8.13\transforms\10ba75228dabce4a1a30a5ac28776b9f\transformed\jetified-lifecycle-viewmodel-ktx-2.6.1\AndroidManifest.xml
+Loading library manifest C:\Users\HP\.gradle\caches\8.13\transforms\a58bac1169ddc6cfa63ac882c58871bd\transformed\jetified-lifecycle-process-2.6.1\AndroidManifest.xml
+Loading library manifest C:\Users\HP\.gradle\caches\8.13\transforms\b047b186c45ff075109e7f8c8aa44ad2\transformed\jetified-lifecycle-livedata-core-ktx-2.6.1\AndroidManifest.xml
+Loading library manifest C:\Users\HP\.gradle\caches\8.13\transforms\b6b53390fb242dea9c8f333855a4dee9\transformed\lifecycle-livedata-core-2.6.1\AndroidManifest.xml
+Loading library manifest C:\Users\HP\.gradle\caches\8.13\transforms\b2bf15a75f27302528f018885dca2fd4\transformed\lifecycle-livedata-2.6.1\AndroidManifest.xml
+Loading library manifest C:\Users\HP\.gradle\caches\8.13\transforms\9f5d98a91d29af22f2446eaec7afa109\transformed\lifecycle-viewmodel-2.6.1\AndroidManifest.xml
+Loading library manifest C:\Users\HP\.gradle\caches\8.13\transforms\4ab6af53db767d71a114db74c3b94fc2\transformed\lifecycle-runtime-2.6.1\AndroidManifest.xml
+Loading library manifest C:\Users\HP\.gradle\caches\8.13\transforms\d0c430e0196b67480210b45bc63487f5\transformed\jetified-lifecycle-viewmodel-savedstate-2.6.1\AndroidManifest.xml
+Loading library manifest C:\Users\HP\.gradle\caches\8.13\transforms\627bd841c0185eecbb42d54e30d59279\transformed\jetified-core-ktx-1.9.0\AndroidManifest.xml
+Loading library manifest C:\Users\HP\.gradle\caches\8.13\transforms\98b8d583ebd0b2eb9a244c03f2718577\transformed\viewpager-1.0.0\AndroidManifest.xml
+Loading library manifest C:\Users\HP\.gradle\caches\8.13\transforms\4728fbd80189a1da7ab2cd318edb079d\transformed\transition-1.4.1\AndroidManifest.xml
+Loading library manifest C:\Users\HP\.gradle\caches\8.13\transforms\301fdc5010b7aa67f039ae93e2d3f994\transformed\recyclerview-1.1.0\AndroidManifest.xml
+Loading library manifest C:\Users\HP\.gradle\caches\8.13\transforms\3622f36eb179be12ed31ce7d3ed2d835\transformed\customview-1.1.0\AndroidManifest.xml
+Loading library manifest C:\Users\HP\.gradle\caches\8.13\transforms\f94baf5fa8bae9a3b6a8a1012ded8bbc\transformed\jetified-window-1.0.0\AndroidManifest.xml
+Loading library manifest C:\Users\HP\.gradle\caches\8.13\transforms\93124e23fa404e78becac7d00e799e96\transformed\core-1.9.0\AndroidManifest.xml
+Loading library manifest C:\Users\HP\.gradle\caches\8.13\transforms\3208ac7a88643719343df5c1d1970be7\transformed\cursoradapter-1.0.0\AndroidManifest.xml
+Loading library manifest C:\Users\HP\.gradle\caches\8.13\transforms\6db9bf8a29c1e186172598941e38096a\transformed\cardview-1.0.0\AndroidManifest.xml
+Loading library manifest C:\Users\HP\.gradle\caches\8.13\transforms\8465f11e816c7362ce132194df3dbe58\transformed\interpolator-1.0.0\AndroidManifest.xml
+Loading library manifest C:\Users\HP\.gradle\caches\8.13\transforms\350ae19b23caf9cba37b000f237ee598\transformed\versionedparcelable-1.1.1\AndroidManifest.xml
+Loading library manifest C:\Users\HP\.gradle\caches\8.13\transforms\5d188109c6df61d648968b9e85c02ca5\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml
+Loading library manifest C:\Users\HP\.gradle\caches\8.13\transforms\f4101a79fb0c4030b1512d1a3c43259b\transformed\jetified-startup-runtime-1.1.1\AndroidManifest.xml
+Loading library manifest C:\Users\HP\.gradle\caches\8.13\transforms\84f841fe3ead8d7307b8175e345b9e8b\transformed\jetified-tracing-1.0.0\AndroidManifest.xml
+Loading library manifest C:\Users\HP\.gradle\caches\8.13\transforms\919da531e4053ba4376d79d745e3e5d1\transformed\core-runtime-2.2.0\AndroidManifest.xml
+Loading library manifest C:\Users\HP\.gradle\caches\8.13\transforms\4ac5bd9a590af2fb1431bc46c9ece048\transformed\documentfile-1.0.0\AndroidManifest.xml
+Loading library manifest C:\Users\HP\.gradle\caches\8.13\transforms\cd99fc810624c8634996e93fabc70019\transformed\localbroadcastmanager-1.0.0\AndroidManifest.xml
+Loading library manifest C:\Users\HP\.gradle\caches\8.13\transforms\064a0e5b3af8c5942310bfa2ac4e1b0b\transformed\print-1.0.0\AndroidManifest.xml
+Loading library manifest C:\Users\HP\.gradle\caches\8.13\transforms\acdabb663d49217b5ebf0f8c009b1cfa\transformed\jetified-annotation-experimental-1.3.0\AndroidManifest.xml
+Merging main manifest C:\Users\HP\Desktop\My files\CameraInterceptor\app\src\main\AndroidManifest.xml
+
+Merging library manifest C:\Users\HP\.gradle\caches\8.13\transforms\48c11f6bc727f56aba68b1315ac44860\transformed\preference-1.2.1\AndroidManifest.xml
+Merging manifest with lower [androidx.preference:preference:1.2.1] AndroidManifest.xml:17:1-24:12
+uses-sdk defined in both files...
+Merging uses-sdk with lower [androidx.preference:preference:1.2.1] AndroidManifest.xml:20:5-22:41
+Merging library manifest C:\Users\HP\.gradle\caches\8.13\transforms\0a0c6b731f840b495936255e8190f2a5\transformed\material-1.11.0\AndroidManifest.xml
+Merging manifest with lower [com.google.android.material:material:1.11.0] AndroidManifest.xml:17:1-24:12
+uses-sdk defined in both files...
+Merging uses-sdk with lower [com.google.android.material:material:1.11.0] AndroidManifest.xml:20:5-44
+application defined in both files...
+Merging application with lower [com.google.android.material:material:1.11.0] AndroidManifest.xml:22:5-20
+Merging library manifest C:\Users\HP\.gradle\caches\8.13\transforms\d22a97a766d7e14ae7de5ca059618ea4\transformed\constraintlayout-2.1.4\AndroidManifest.xml
+Merging manifest with lower [androidx.constraintlayout:constraintlayout:2.1.4] AndroidManifest.xml:2:1-11:12
+uses-sdk defined in both files...
+Merging uses-sdk with lower [androidx.constraintlayout:constraintlayout:2.1.4] AndroidManifest.xml:5:5-7:41
+application defined in both files...
+Merging application with lower [androidx.constraintlayout:constraintlayout:2.1.4] AndroidManifest.xml:9:5-20
+Merging library manifest C:\Users\HP\.gradle\caches\8.13\transforms\567931b78cb573b48d2960ad592b6428\transformed\jetified-appcompat-resources-1.6.1\AndroidManifest.xml
+Merging manifest with lower [androidx.appcompat:appcompat-resources:1.6.1] AndroidManifest.xml:17:1-22:12
+uses-sdk defined in both files...
+Merging uses-sdk with lower [androidx.appcompat:appcompat-resources:1.6.1] AndroidManifest.xml:20:5-44
+Merging library manifest C:\Users\HP\.gradle\caches\8.13\transforms\1f7c5f70815dc338453e64017a681de4\transformed\appcompat-1.6.1\AndroidManifest.xml
+Merging manifest with lower [androidx.appcompat:appcompat:1.6.1] AndroidManifest.xml:17:1-22:12
+uses-sdk defined in both files...
+Merging uses-sdk with lower [androidx.appcompat:appcompat:1.6.1] AndroidManifest.xml:20:5-44
+Merging library manifest C:\Users\HP\.gradle\caches\8.13\transforms\739249ada90c677e8481c6ce5e596ca8\transformed\exifinterface-1.3.6\AndroidManifest.xml
+Merging manifest with lower [androidx.exifinterface:exifinterface:1.3.6] AndroidManifest.xml:17:1-24:12
+uses-sdk defined in both files...
+Merging uses-sdk with lower [androidx.exifinterface:exifinterface:1.3.6] AndroidManifest.xml:20:5-22:41
+Merging library manifest C:\Users\HP\.gradle\caches\8.13\transforms\5d6b199a324e9b7fabe8837256b4405c\transformed\swiperefreshlayout-1.1.0\AndroidManifest.xml
+Merging manifest with lower [androidx.swiperefreshlayout:swiperefreshlayout:1.1.0] AndroidManifest.xml:17:1-24:12
+uses-sdk defined in both files...
+Merging uses-sdk with lower [androidx.swiperefreshlayout:swiperefreshlayout:1.1.0] AndroidManifest.xml:20:5-22:41
+Merging library manifest C:\Users\HP\.gradle\caches\8.13\transforms\998fe69cfcf1527534a3a6be90a08a2b\transformed\jetified-fragment-ktx-1.3.6\AndroidManifest.xml
+Merging manifest with lower [androidx.fragment:fragment-ktx:1.3.6] AndroidManifest.xml:17:1-24:12
+uses-sdk defined in both files...
+Merging uses-sdk with lower [androidx.fragment:fragment-ktx:1.3.6] AndroidManifest.xml:20:5-22:41
+Merging library manifest C:\Users\HP\.gradle\caches\8.13\transforms\da12e34bf48dbc4dc467908f093e7bf1\transformed\jetified-viewpager2-1.0.0\AndroidManifest.xml
+Merging manifest with lower [androidx.viewpager2:viewpager2:1.0.0] AndroidManifest.xml:17:1-24:12
+uses-sdk defined in both files...
+Merging uses-sdk with lower [androidx.viewpager2:viewpager2:1.0.0] AndroidManifest.xml:20:5-22:41
+Merging library manifest C:\Users\HP\.gradle\caches\8.13\transforms\9c7f98e7da06c07da66cd1e3478b1ca6\transformed\fragment-1.3.6\AndroidManifest.xml
+Merging manifest with lower [androidx.fragment:fragment:1.3.6] AndroidManifest.xml:17:1-24:12
+uses-sdk defined in both files...
+Merging uses-sdk with lower [androidx.fragment:fragment:1.3.6] AndroidManifest.xml:20:5-22:41
+Merging library manifest C:\Users\HP\.gradle\caches\8.13\transforms\fb82f439c4b33fde39319b86c2296915\transformed\jetified-activity-ktx-1.8.0\AndroidManifest.xml
+Merging manifest with lower [androidx.activity:activity-ktx:1.8.0] AndroidManifest.xml:2:1-7:12
+uses-sdk defined in both files...
+Merging uses-sdk with lower [androidx.activity:activity-ktx:1.8.0] AndroidManifest.xml:5:5-44
+Merging library manifest C:\Users\HP\.gradle\caches\8.13\transforms\9cdffca226a787165f484aa10a83d53a\transformed\jetified-activity-1.8.0\AndroidManifest.xml
+Merging manifest with lower [androidx.activity:activity:1.8.0] AndroidManifest.xml:17:1-22:12
+uses-sdk defined in both files...
+Merging uses-sdk with lower [androidx.activity:activity:1.8.0] AndroidManifest.xml:20:5-44
+Merging library manifest C:\Users\HP\.gradle\caches\8.13\transforms\f953816a8ee083100ea3500bcd5025a4\transformed\jetified-emoji2-views-helper-1.2.0\AndroidManifest.xml
+Merging manifest with lower [androidx.emoji2:emoji2-views-helper:1.2.0] AndroidManifest.xml:2:1-7:12
+uses-sdk defined in both files...
+Merging uses-sdk with lower [androidx.emoji2:emoji2-views-helper:1.2.0] AndroidManifest.xml:5:5-44
+Merging library manifest C:\Users\HP\.gradle\caches\8.13\transforms\32ce2aa085fffa480802a41bce779d79\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml
+Merging manifest with lower [androidx.emoji2:emoji2:1.2.0] AndroidManifest.xml:17:1-35:12
+uses-sdk defined in both files...
+Merging uses-sdk with lower [androidx.emoji2:emoji2:1.2.0] AndroidManifest.xml:21:5-44
+application defined in both files...
+Merging application with lower [androidx.emoji2:emoji2:1.2.0] AndroidManifest.xml:23:5-33:19
+Adopted [provider: null]
+Merging library manifest C:\Users\HP\.gradle\caches\8.13\transforms\9b37acb424fc15ca7e07d093665a9d95\transformed\slidingpanelayout-1.2.0\AndroidManifest.xml
+Merging manifest with lower [androidx.slidingpanelayout:slidingpanelayout:1.2.0] AndroidManifest.xml:17:1-24:12
+uses-sdk defined in both files...
+Merging uses-sdk with lower [androidx.slidingpanelayout:slidingpanelayout:1.2.0] AndroidManifest.xml:20:5-22:41
+Merging library manifest C:\Users\HP\.gradle\caches\8.13\transforms\053c9ac346841c609c90eafc7d6ec7ef\transformed\drawerlayout-1.1.1\AndroidManifest.xml
+Merging manifest with lower [androidx.drawerlayout:drawerlayout:1.1.1] AndroidManifest.xml:17:1-24:12
+uses-sdk defined in both files...
+Merging uses-sdk with lower [androidx.drawerlayout:drawerlayout:1.1.1] AndroidManifest.xml:20:5-22:41
+Merging library manifest C:\Users\HP\.gradle\caches\8.13\transforms\a1c81eb045a151971c39b49035ffb0d8\transformed\coordinatorlayout-1.1.0\AndroidManifest.xml
+Merging manifest with lower [androidx.coordinatorlayout:coordinatorlayout:1.1.0] AndroidManifest.xml:17:1-24:12
+uses-sdk defined in both files...
+Merging uses-sdk with lower [androidx.coordinatorlayout:coordinatorlayout:1.1.0] AndroidManifest.xml:20:5-22:41
+Merging library manifest C:\Users\HP\.gradle\caches\8.13\transforms\a627abf2fa3232d6e8fc4ca0b2be5d6f\transformed\dynamicanimation-1.0.0\AndroidManifest.xml
+Merging manifest with lower [androidx.dynamicanimation:dynamicanimation:1.0.0] AndroidManifest.xml:17:1-22:12
+uses-sdk defined in both files...
+Merging uses-sdk with lower [androidx.dynamicanimation:dynamicanimation:1.0.0] AndroidManifest.xml:20:5-44
+Merging library manifest C:\Users\HP\.gradle\caches\8.13\transforms\5be38d30f419e79589c72904ef417623\transformed\vectordrawable-animated-1.1.0\AndroidManifest.xml
+Merging manifest with lower [androidx.vectordrawable:vectordrawable-animated:1.1.0] AndroidManifest.xml:17:1-24:12
+uses-sdk defined in both files...
+Merging uses-sdk with lower [androidx.vectordrawable:vectordrawable-animated:1.1.0] AndroidManifest.xml:20:5-22:41
+Merging library manifest C:\Users\HP\.gradle\caches\8.13\transforms\2c7e4e679442b788adea2b361d2660d0\transformed\vectordrawable-1.1.0\AndroidManifest.xml
+Merging manifest with lower [androidx.vectordrawable:vectordrawable:1.1.0] AndroidManifest.xml:17:1-24:12
+uses-sdk defined in both files...
+Merging uses-sdk with lower [androidx.vectordrawable:vectordrawable:1.1.0] AndroidManifest.xml:20:5-22:41
+Merging library manifest C:\Users\HP\.gradle\caches\8.13\transforms\252269e80b01641aa192007af203f97a\transformed\legacy-support-core-utils-1.0.0\AndroidManifest.xml
+Merging manifest with lower [androidx.legacy:legacy-support-core-utils:1.0.0] AndroidManifest.xml:17:1-22:12
+uses-sdk defined in both files...
+Merging uses-sdk with lower [androidx.legacy:legacy-support-core-utils:1.0.0] AndroidManifest.xml:20:5-44
+Merging library manifest C:\Users\HP\.gradle\caches\8.13\transforms\4a317a887a3859da0c0f63f59905d6de\transformed\loader-1.0.0\AndroidManifest.xml
+Merging manifest with lower [androidx.loader:loader:1.0.0] AndroidManifest.xml:17:1-22:12
+uses-sdk defined in both files...
+Merging uses-sdk with lower [androidx.loader:loader:1.0.0] AndroidManifest.xml:20:5-44
+Merging library manifest C:\Users\HP\.gradle\caches\8.13\transforms\93b6eafea15458bfaedf37cc9a5f9955\transformed\jetified-savedstate-ktx-1.2.1\AndroidManifest.xml
+Merging manifest with lower [androidx.savedstate:savedstate-ktx:1.2.1] AndroidManifest.xml:17:1-22:12
+uses-sdk defined in both files...
+Merging uses-sdk with lower [androidx.savedstate:savedstate-ktx:1.2.1] AndroidManifest.xml:20:5-44
+Merging library manifest C:\Users\HP\.gradle\caches\8.13\transforms\daef832d1c71aaf2474c880c3b1c8883\transformed\jetified-savedstate-1.2.1\AndroidManifest.xml
+Merging manifest with lower [androidx.savedstate:savedstate:1.2.1] AndroidManifest.xml:17:1-22:12
+uses-sdk defined in both files...
+Merging uses-sdk with lower [androidx.savedstate:savedstate:1.2.1] AndroidManifest.xml:20:5-44
+Merging library manifest C:\Users\HP\.gradle\caches\8.13\transforms\3a8fc65c11566072cb31b540ebfc56e1\transformed\jetified-lifecycle-runtime-ktx-2.6.1\AndroidManifest.xml
+Merging manifest with lower [androidx.lifecycle:lifecycle-runtime-ktx:2.6.1] AndroidManifest.xml:17:1-22:12
+uses-sdk defined in both files...
+Merging uses-sdk with lower [androidx.lifecycle:lifecycle-runtime-ktx:2.6.1] AndroidManifest.xml:20:5-44
+Merging library manifest C:\Users\HP\.gradle\caches\8.13\transforms\10ba75228dabce4a1a30a5ac28776b9f\transformed\jetified-lifecycle-viewmodel-ktx-2.6.1\AndroidManifest.xml
+Merging manifest with lower [androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.1] AndroidManifest.xml:17:1-22:12
+uses-sdk defined in both files...
+Merging uses-sdk with lower [androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.1] AndroidManifest.xml:20:5-44
+Merging library manifest C:\Users\HP\.gradle\caches\8.13\transforms\a58bac1169ddc6cfa63ac882c58871bd\transformed\jetified-lifecycle-process-2.6.1\AndroidManifest.xml
+Merging manifest with lower [androidx.lifecycle:lifecycle-process:2.6.1] AndroidManifest.xml:17:1-35:12
+uses-sdk defined in both files...
+Merging uses-sdk with lower [androidx.lifecycle:lifecycle-process:2.6.1] AndroidManifest.xml:21:5-44
+application defined in both files...
+Merging application with lower [androidx.lifecycle:lifecycle-process:2.6.1] AndroidManifest.xml:23:5-33:19
+provider#androidx.startup.InitializationProvider defined in both files...
+Merging provider#androidx.startup.InitializationProvider with lower [androidx.lifecycle:lifecycle-process:2.6.1] AndroidManifest.xml:24:9-32:20
+Adopted [meta-data: null]
+Merging library manifest C:\Users\HP\.gradle\caches\8.13\transforms\b047b186c45ff075109e7f8c8aa44ad2\transformed\jetified-lifecycle-livedata-core-ktx-2.6.1\AndroidManifest.xml
+Merging manifest with lower [androidx.lifecycle:lifecycle-livedata-core-ktx:2.6.1] AndroidManifest.xml:17:1-22:12
+uses-sdk defined in both files...
+Merging uses-sdk with lower [androidx.lifecycle:lifecycle-livedata-core-ktx:2.6.1] AndroidManifest.xml:20:5-44
+Merging library manifest C:\Users\HP\.gradle\caches\8.13\transforms\b6b53390fb242dea9c8f333855a4dee9\transformed\lifecycle-livedata-core-2.6.1\AndroidManifest.xml
+Merging manifest with lower [androidx.lifecycle:lifecycle-livedata-core:2.6.1] AndroidManifest.xml:17:1-22:12
+uses-sdk defined in both files...
+Merging uses-sdk with lower [androidx.lifecycle:lifecycle-livedata-core:2.6.1] AndroidManifest.xml:20:5-44
+Merging library manifest C:\Users\HP\.gradle\caches\8.13\transforms\b2bf15a75f27302528f018885dca2fd4\transformed\lifecycle-livedata-2.6.1\AndroidManifest.xml
+Merging manifest with lower [androidx.lifecycle:lifecycle-livedata:2.6.1] AndroidManifest.xml:17:1-22:12
+uses-sdk defined in both files...
+Merging uses-sdk with lower [androidx.lifecycle:lifecycle-livedata:2.6.1] AndroidManifest.xml:20:5-44
+Merging library manifest C:\Users\HP\.gradle\caches\8.13\transforms\9f5d98a91d29af22f2446eaec7afa109\transformed\lifecycle-viewmodel-2.6.1\AndroidManifest.xml
+Merging manifest with lower [androidx.lifecycle:lifecycle-viewmodel:2.6.1] AndroidManifest.xml:17:1-22:12
+uses-sdk defined in both files...
+Merging uses-sdk with lower [androidx.lifecycle:lifecycle-viewmodel:2.6.1] AndroidManifest.xml:20:5-44
+Merging library manifest C:\Users\HP\.gradle\caches\8.13\transforms\4ab6af53db767d71a114db74c3b94fc2\transformed\lifecycle-runtime-2.6.1\AndroidManifest.xml
+Merging manifest with lower [androidx.lifecycle:lifecycle-runtime:2.6.1] AndroidManifest.xml:2:1-7:12
+uses-sdk defined in both files...
+Merging uses-sdk with lower [androidx.lifecycle:lifecycle-runtime:2.6.1] AndroidManifest.xml:5:5-44
+Merging library manifest C:\Users\HP\.gradle\caches\8.13\transforms\d0c430e0196b67480210b45bc63487f5\transformed\jetified-lifecycle-viewmodel-savedstate-2.6.1\AndroidManifest.xml
+Merging manifest with lower [androidx.lifecycle:lifecycle-viewmodel-savedstate:2.6.1] AndroidManifest.xml:17:1-22:12
+uses-sdk defined in both files...
+Merging uses-sdk with lower [androidx.lifecycle:lifecycle-viewmodel-savedstate:2.6.1] AndroidManifest.xml:20:5-44
+Merging library manifest C:\Users\HP\.gradle\caches\8.13\transforms\627bd841c0185eecbb42d54e30d59279\transformed\jetified-core-ktx-1.9.0\AndroidManifest.xml
+Merging manifest with lower [androidx.core:core-ktx:1.9.0] AndroidManifest.xml:2:1-7:12
+uses-sdk defined in both files...
+Merging uses-sdk with lower [androidx.core:core-ktx:1.9.0] AndroidManifest.xml:5:5-44
+Merging library manifest C:\Users\HP\.gradle\caches\8.13\transforms\98b8d583ebd0b2eb9a244c03f2718577\transformed\viewpager-1.0.0\AndroidManifest.xml
+Merging manifest with lower [androidx.viewpager:viewpager:1.0.0] AndroidManifest.xml:17:1-22:12
+uses-sdk defined in both files...
+Merging uses-sdk with lower [androidx.viewpager:viewpager:1.0.0] AndroidManifest.xml:20:5-44
+Merging library manifest C:\Users\HP\.gradle\caches\8.13\transforms\4728fbd80189a1da7ab2cd318edb079d\transformed\transition-1.4.1\AndroidManifest.xml
+Merging manifest with lower [androidx.transition:transition:1.4.1] AndroidManifest.xml:17:1-24:12
+uses-sdk defined in both files...
+Merging uses-sdk with lower [androidx.transition:transition:1.4.1] AndroidManifest.xml:20:5-22:41
+Merging library manifest C:\Users\HP\.gradle\caches\8.13\transforms\301fdc5010b7aa67f039ae93e2d3f994\transformed\recyclerview-1.1.0\AndroidManifest.xml
+Merging manifest with lower [androidx.recyclerview:recyclerview:1.1.0] AndroidManifest.xml:17:1-24:12
+uses-sdk defined in both files...
+Merging uses-sdk with lower [androidx.recyclerview:recyclerview:1.1.0] AndroidManifest.xml:20:5-22:41
+Merging library manifest C:\Users\HP\.gradle\caches\8.13\transforms\3622f36eb179be12ed31ce7d3ed2d835\transformed\customview-1.1.0\AndroidManifest.xml
+Merging manifest with lower [androidx.customview:customview:1.1.0] AndroidManifest.xml:17:1-24:12
+uses-sdk defined in both files...
+Merging uses-sdk with lower [androidx.customview:customview:1.1.0] AndroidManifest.xml:20:5-22:41
+Merging library manifest C:\Users\HP\.gradle\caches\8.13\transforms\f94baf5fa8bae9a3b6a8a1012ded8bbc\transformed\jetified-window-1.0.0\AndroidManifest.xml
+Merging manifest with lower [androidx.window:window:1.0.0] AndroidManifest.xml:17:1-33:12
+uses-sdk defined in both files...
+Merging uses-sdk with lower [androidx.window:window:1.0.0] AndroidManifest.xml:20:5-22:41
+application defined in both files...
+Merging application with lower [androidx.window:window:1.0.0] AndroidManifest.xml:24:5-31:19
+Adopted [uses-library: null]
+Adopted [uses-library: null]
+Merging library manifest C:\Users\HP\.gradle\caches\8.13\transforms\93124e23fa404e78becac7d00e799e96\transformed\core-1.9.0\AndroidManifest.xml
+Merging manifest with lower [androidx.core:core:1.9.0] AndroidManifest.xml:17:1-30:12
+uses-sdk defined in both files...
+Merging uses-sdk with lower [androidx.core:core:1.9.0] AndroidManifest.xml:20:5-44
+Adopted [permission: null]
+Adopted [uses-permission: null]
+application defined in both files...
+Merging application with lower [androidx.core:core:1.9.0] AndroidManifest.xml:28:5-89
+Merging library manifest C:\Users\HP\.gradle\caches\8.13\transforms\3208ac7a88643719343df5c1d1970be7\transformed\cursoradapter-1.0.0\AndroidManifest.xml
+Merging manifest with lower [androidx.cursoradapter:cursoradapter:1.0.0] AndroidManifest.xml:17:1-22:12
+uses-sdk defined in both files...
+Merging uses-sdk with lower [androidx.cursoradapter:cursoradapter:1.0.0] AndroidManifest.xml:20:5-44
+Merging library manifest C:\Users\HP\.gradle\caches\8.13\transforms\6db9bf8a29c1e186172598941e38096a\transformed\cardview-1.0.0\AndroidManifest.xml
+Merging manifest with lower [androidx.cardview:cardview:1.0.0] AndroidManifest.xml:17:1-22:12
+uses-sdk defined in both files...
+Merging uses-sdk with lower [androidx.cardview:cardview:1.0.0] AndroidManifest.xml:20:5-44
+Merging library manifest C:\Users\HP\.gradle\caches\8.13\transforms\8465f11e816c7362ce132194df3dbe58\transformed\interpolator-1.0.0\AndroidManifest.xml
+Merging manifest with lower [androidx.interpolator:interpolator:1.0.0] AndroidManifest.xml:17:1-22:12
+uses-sdk defined in both files...
+Merging uses-sdk with lower [androidx.interpolator:interpolator:1.0.0] AndroidManifest.xml:20:5-44
+Merging library manifest C:\Users\HP\.gradle\caches\8.13\transforms\350ae19b23caf9cba37b000f237ee598\transformed\versionedparcelable-1.1.1\AndroidManifest.xml
+Merging manifest with lower [androidx.versionedparcelable:versionedparcelable:1.1.1] AndroidManifest.xml:17:1-27:12
+uses-sdk defined in both files...
+Merging uses-sdk with lower [androidx.versionedparcelable:versionedparcelable:1.1.1] AndroidManifest.xml:20:5-22:41
+application defined in both files...
+Merging application with lower [androidx.versionedparcelable:versionedparcelable:1.1.1] AndroidManifest.xml:24:5-25:19
+Merging library manifest C:\Users\HP\.gradle\caches\8.13\transforms\5d188109c6df61d648968b9e85c02ca5\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml
+Merging manifest with lower [androidx.profileinstaller:profileinstaller:1.3.0] AndroidManifest.xml:17:1-55:12
+uses-sdk defined in both files...
+Merging uses-sdk with lower [androidx.profileinstaller:profileinstaller:1.3.0] AndroidManifest.xml:21:5-44
+application defined in both files...
+Merging application with lower [androidx.profileinstaller:profileinstaller:1.3.0] AndroidManifest.xml:23:5-53:19
+provider#androidx.startup.InitializationProvider defined in both files...
+Merging provider#androidx.startup.InitializationProvider with lower [androidx.profileinstaller:profileinstaller:1.3.0] AndroidManifest.xml:24:9-32:20
+Adopted [meta-data: null]
+Adopted [receiver: null]
+Merging library manifest C:\Users\HP\.gradle\caches\8.13\transforms\f4101a79fb0c4030b1512d1a3c43259b\transformed\jetified-startup-runtime-1.1.1\AndroidManifest.xml
+Merging manifest with lower [androidx.startup:startup-runtime:1.1.1] AndroidManifest.xml:17:1-33:12
+uses-sdk defined in both files...
+Merging uses-sdk with lower [androidx.startup:startup-runtime:1.1.1] AndroidManifest.xml:21:5-23:41
+application defined in both files...
+Merging application with lower [androidx.startup:startup-runtime:1.1.1] AndroidManifest.xml:25:5-31:19
+provider#androidx.startup.InitializationProvider defined in both files...
+Merging provider#androidx.startup.InitializationProvider with lower [androidx.startup:startup-runtime:1.1.1] AndroidManifest.xml:26:9-30:34
+Merging library manifest C:\Users\HP\.gradle\caches\8.13\transforms\84f841fe3ead8d7307b8175e345b9e8b\transformed\jetified-tracing-1.0.0\AndroidManifest.xml
+Merging manifest with lower [androidx.tracing:tracing:1.0.0] AndroidManifest.xml:17:1-24:12
+uses-sdk defined in both files...
+Merging uses-sdk with lower [androidx.tracing:tracing:1.0.0] AndroidManifest.xml:20:5-22:41
+Merging library manifest C:\Users\HP\.gradle\caches\8.13\transforms\919da531e4053ba4376d79d745e3e5d1\transformed\core-runtime-2.2.0\AndroidManifest.xml
+Merging manifest with lower [androidx.arch.core:core-runtime:2.2.0] AndroidManifest.xml:17:1-22:12
+uses-sdk defined in both files...
+Merging uses-sdk with lower [androidx.arch.core:core-runtime:2.2.0] AndroidManifest.xml:20:5-44
+Merging library manifest C:\Users\HP\.gradle\caches\8.13\transforms\4ac5bd9a590af2fb1431bc46c9ece048\transformed\documentfile-1.0.0\AndroidManifest.xml
+Merging manifest with lower [androidx.documentfile:documentfile:1.0.0] AndroidManifest.xml:17:1-22:12
+uses-sdk defined in both files...
+Merging uses-sdk with lower [androidx.documentfile:documentfile:1.0.0] AndroidManifest.xml:20:5-44
+Merging library manifest C:\Users\HP\.gradle\caches\8.13\transforms\cd99fc810624c8634996e93fabc70019\transformed\localbroadcastmanager-1.0.0\AndroidManifest.xml
+Merging manifest with lower [androidx.localbroadcastmanager:localbroadcastmanager:1.0.0] AndroidManifest.xml:17:1-22:12
+uses-sdk defined in both files...
+Merging uses-sdk with lower [androidx.localbroadcastmanager:localbroadcastmanager:1.0.0] AndroidManifest.xml:20:5-44
+Merging library manifest C:\Users\HP\.gradle\caches\8.13\transforms\064a0e5b3af8c5942310bfa2ac4e1b0b\transformed\print-1.0.0\AndroidManifest.xml
+Merging manifest with lower [androidx.print:print:1.0.0] AndroidManifest.xml:17:1-22:12
+uses-sdk defined in both files...
+Merging uses-sdk with lower [androidx.print:print:1.0.0] AndroidManifest.xml:20:5-44
+Merging library manifest C:\Users\HP\.gradle\caches\8.13\transforms\acdabb663d49217b5ebf0f8c009b1cfa\transformed\jetified-annotation-experimental-1.3.0\AndroidManifest.xml
+Merging manifest with lower [androidx.annotation:annotation-experimental:1.3.0] AndroidManifest.xml:17:1-22:12
+uses-sdk defined in both files...
+Merging uses-sdk with lower [androidx.annotation:annotation-experimental:1.3.0] AndroidManifest.xml:20:5-44
+Merging result: SUCCESS
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="com.camerainterceptor"
+4    android:versionCode="1"
+5    android:versionName="1.0" >
+6
+7    <uses-sdk
+8        android:minSdkVersion="26"
+9        android:targetSdkVersion="34" />
+10
+11    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+11-->C:\Users\HP\Desktop\My files\CameraInterceptor\app\src\main\AndroidManifest.xml:5:5-80
+11-->C:\Users\HP\Desktop\My files\CameraInterceptor\app\src\main\AndroidManifest.xml:5:22-77
+12    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+12-->C:\Users\HP\Desktop\My files\CameraInterceptor\app\src\main\AndroidManifest.xml:6:5-81
+12-->C:\Users\HP\Desktop\My files\CameraInterceptor\app\src\main\AndroidManifest.xml:6:22-78
+13    <uses-permission android:name="android.permission.CAMERA" />
+13-->C:\Users\HP\Desktop\My files\CameraInterceptor\app\src\main\AndroidManifest.xml:7:5-65
+13-->C:\Users\HP\Desktop\My files\CameraInterceptor\app\src\main\AndroidManifest.xml:7:22-62
+14
+15    <permission
+15-->[androidx.core:core:1.9.0] C:\Users\HP\.gradle\caches\8.13\transforms\93124e23fa404e78becac7d00e799e96\transformed\core-1.9.0\AndroidManifest.xml:22:5-24:47
+16        android:name="com.camerainterceptor.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
+16-->[androidx.core:core:1.9.0] C:\Users\HP\.gradle\caches\8.13\transforms\93124e23fa404e78becac7d00e799e96\transformed\core-1.9.0\AndroidManifest.xml:23:9-81
+17        android:protectionLevel="signature" />
+17-->[androidx.core:core:1.9.0] C:\Users\HP\.gradle\caches\8.13\transforms\93124e23fa404e78becac7d00e799e96\transformed\core-1.9.0\AndroidManifest.xml:24:9-44
+18
+19    <uses-permission android:name="com.camerainterceptor.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" />
+19-->[androidx.core:core:1.9.0] C:\Users\HP\.gradle\caches\8.13\transforms\93124e23fa404e78becac7d00e799e96\transformed\core-1.9.0\AndroidManifest.xml:26:5-97
+19-->[androidx.core:core:1.9.0] C:\Users\HP\.gradle\caches\8.13\transforms\93124e23fa404e78becac7d00e799e96\transformed\core-1.9.0\AndroidManifest.xml:26:22-94
+20
+21    <application
+21-->C:\Users\HP\Desktop\My files\CameraInterceptor\app\src\main\AndroidManifest.xml:9:5-59:19
+22        android:allowBackup="true"
+22-->C:\Users\HP\Desktop\My files\CameraInterceptor\app\src\main\AndroidManifest.xml:14:9-35
+23        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+23-->[androidx.core:core:1.9.0] C:\Users\HP\.gradle\caches\8.13\transforms\93124e23fa404e78becac7d00e799e96\transformed\core-1.9.0\AndroidManifest.xml:28:18-86
+24        android:extractNativeLibs="false"
+25        android:icon="@mipmap/ic_launcher"
+25-->C:\Users\HP\Desktop\My files\CameraInterceptor\app\src\main\AndroidManifest.xml:11:9-43
+26        android:label="@string/app_name"
+26-->C:\Users\HP\Desktop\My files\CameraInterceptor\app\src\main\AndroidManifest.xml:10:9-41
+27        android:roundIcon="@mipmap/ic_launcher_round"
+27-->C:\Users\HP\Desktop\My files\CameraInterceptor\app\src\main\AndroidManifest.xml:12:9-54
+28        android:supportsRtl="true"
+28-->C:\Users\HP\Desktop\My files\CameraInterceptor\app\src\main\AndroidManifest.xml:15:9-35
+29        android:theme="@style/Theme.CameraInterceptor" >
+29-->C:\Users\HP\Desktop\My files\CameraInterceptor\app\src\main\AndroidManifest.xml:13:9-55
+30
+31        <!-- Main settings activity -->
+32        <activity
+32-->C:\Users\HP\Desktop\My files\CameraInterceptor\app\src\main\AndroidManifest.xml:18:9-25:20
+33            android:name="com.camerainterceptor.ui.SettingsActivity"
+33-->C:\Users\HP\Desktop\My files\CameraInterceptor\app\src\main\AndroidManifest.xml:19:13-48
+34            android:exported="true" >
+34-->C:\Users\HP\Desktop\My files\CameraInterceptor\app\src\main\AndroidManifest.xml:20:13-36
+35            <intent-filter>
+35-->C:\Users\HP\Desktop\My files\CameraInterceptor\app\src\main\AndroidManifest.xml:21:13-24:29
+36                <action android:name="android.intent.action.MAIN" />
+36-->C:\Users\HP\Desktop\My files\CameraInterceptor\app\src\main\AndroidManifest.xml:22:17-69
+36-->C:\Users\HP\Desktop\My files\CameraInterceptor\app\src\main\AndroidManifest.xml:22:25-66
+37
+38                <category android:name="android.intent.category.LAUNCHER" />
+38-->C:\Users\HP\Desktop\My files\CameraInterceptor\app\src\main\AndroidManifest.xml:23:17-77
+38-->C:\Users\HP\Desktop\My files\CameraInterceptor\app\src\main\AndroidManifest.xml:23:27-74
+39            </intent-filter>
+40        </activity>
+41
+42        <!-- Custom image picker activity -->
+43        <activity
+43-->C:\Users\HP\Desktop\My files\CameraInterceptor\app\src\main\AndroidManifest.xml:28:9-31:61
+44            android:name="com.camerainterceptor.ui.ImagePickerActivity"
+44-->C:\Users\HP\Desktop\My files\CameraInterceptor\app\src\main\AndroidManifest.xml:29:13-51
+45            android:exported="false"
+45-->C:\Users\HP\Desktop\My files\CameraInterceptor\app\src\main\AndroidManifest.xml:30:13-37
+46            android:theme="@style/Theme.AppCompat.Dialog" />
+46-->C:\Users\HP\Desktop\My files\CameraInterceptor\app\src\main\AndroidManifest.xml:31:13-58
+47
+48        <!-- App selection activity -->
+49        <activity
+49-->C:\Users\HP\Desktop\My files\CameraInterceptor\app\src\main\AndroidManifest.xml:34:9-37:43
+50            android:name="com.camerainterceptor.ui.AppSelectionActivity"
+50-->C:\Users\HP\Desktop\My files\CameraInterceptor\app\src\main\AndroidManifest.xml:35:13-52
+51            android:exported="false"
+51-->C:\Users\HP\Desktop\My files\CameraInterceptor\app\src\main\AndroidManifest.xml:36:13-37
+52            android:label="Select Apps" />
+52-->C:\Users\HP\Desktop\My files\CameraInterceptor\app\src\main\AndroidManifest.xml:37:13-40
+53
+54        <!-- Log viewer activity -->
+55        <activity
+55-->C:\Users\HP\Desktop\My files\CameraInterceptor\app\src\main\AndroidManifest.xml:40:9-43:36
+56            android:name="com.camerainterceptor.ui.LogViewerActivity"
+56-->C:\Users\HP\Desktop\My files\CameraInterceptor\app\src\main\AndroidManifest.xml:41:13-49
+57            android:exported="false"
+57-->C:\Users\HP\Desktop\My files\CameraInterceptor\app\src\main\AndroidManifest.xml:42:13-37
+58            android:label="Logs" />
+58-->C:\Users\HP\Desktop\My files\CameraInterceptor\app\src\main\AndroidManifest.xml:43:13-33
+59
+60        <!-- LSPosed module metadata -->
+61        <meta-data
+61-->C:\Users\HP\Desktop\My files\CameraInterceptor\app\src\main\AndroidManifest.xml:46:9-48:36
+62            android:name="xposedmodule"
+62-->C:\Users\HP\Desktop\My files\CameraInterceptor\app\src\main\AndroidManifest.xml:47:13-40
+63            android:value="true" />
+63-->C:\Users\HP\Desktop\My files\CameraInterceptor\app\src\main\AndroidManifest.xml:48:13-33
+64        <meta-data
+64-->C:\Users\HP\Desktop\My files\CameraInterceptor\app\src\main\AndroidManifest.xml:49:9-51:96
+65            android:name="xposeddescription"
+65-->C:\Users\HP\Desktop\My files\CameraInterceptor\app\src\main\AndroidManifest.xml:50:13-45
+66            android:value="Intercepts camera requests and replaces them with gallery images" />
+66-->C:\Users\HP\Desktop\My files\CameraInterceptor\app\src\main\AndroidManifest.xml:51:13-93
+67        <meta-data
+67-->C:\Users\HP\Desktop\My files\CameraInterceptor\app\src\main\AndroidManifest.xml:52:9-54:34
+68            android:name="xposedminversion"
+68-->C:\Users\HP\Desktop\My files\CameraInterceptor\app\src\main\AndroidManifest.xml:53:13-44
+69            android:value="93" />
+69-->C:\Users\HP\Desktop\My files\CameraInterceptor\app\src\main\AndroidManifest.xml:54:13-31
+70        <meta-data
+70-->C:\Users\HP\Desktop\My files\CameraInterceptor\app\src\main\AndroidManifest.xml:55:9-57:54
+71            android:name="xposedscope"
+71-->C:\Users\HP\Desktop\My files\CameraInterceptor\app\src\main\AndroidManifest.xml:56:13-39
+72            android:resource="@array/xposed_scope" />
+72-->C:\Users\HP\Desktop\My files\CameraInterceptor\app\src\main\AndroidManifest.xml:57:13-51
+73
+74        <provider
+74-->[androidx.emoji2:emoji2:1.2.0] C:\Users\HP\.gradle\caches\8.13\transforms\32ce2aa085fffa480802a41bce779d79\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:24:9-32:20
+75            android:name="androidx.startup.InitializationProvider"
+75-->[androidx.emoji2:emoji2:1.2.0] C:\Users\HP\.gradle\caches\8.13\transforms\32ce2aa085fffa480802a41bce779d79\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:25:13-67
+76            android:authorities="com.camerainterceptor.androidx-startup"
+76-->[androidx.emoji2:emoji2:1.2.0] C:\Users\HP\.gradle\caches\8.13\transforms\32ce2aa085fffa480802a41bce779d79\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:26:13-68
+77            android:exported="false" >
+77-->[androidx.emoji2:emoji2:1.2.0] C:\Users\HP\.gradle\caches\8.13\transforms\32ce2aa085fffa480802a41bce779d79\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:27:13-37
+78            <meta-data
+78-->[androidx.emoji2:emoji2:1.2.0] C:\Users\HP\.gradle\caches\8.13\transforms\32ce2aa085fffa480802a41bce779d79\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:29:13-31:52
+79                android:name="androidx.emoji2.text.EmojiCompatInitializer"
+79-->[androidx.emoji2:emoji2:1.2.0] C:\Users\HP\.gradle\caches\8.13\transforms\32ce2aa085fffa480802a41bce779d79\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:30:17-75
+80                android:value="androidx.startup" />
+80-->[androidx.emoji2:emoji2:1.2.0] C:\Users\HP\.gradle\caches\8.13\transforms\32ce2aa085fffa480802a41bce779d79\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:31:17-49
+81            <meta-data
+81-->[androidx.lifecycle:lifecycle-process:2.6.1] C:\Users\HP\.gradle\caches\8.13\transforms\a58bac1169ddc6cfa63ac882c58871bd\transformed\jetified-lifecycle-process-2.6.1\AndroidManifest.xml:29:13-31:52
+82                android:name="androidx.lifecycle.ProcessLifecycleInitializer"
+82-->[androidx.lifecycle:lifecycle-process:2.6.1] C:\Users\HP\.gradle\caches\8.13\transforms\a58bac1169ddc6cfa63ac882c58871bd\transformed\jetified-lifecycle-process-2.6.1\AndroidManifest.xml:30:17-78
+83                android:value="androidx.startup" />
+83-->[androidx.lifecycle:lifecycle-process:2.6.1] C:\Users\HP\.gradle\caches\8.13\transforms\a58bac1169ddc6cfa63ac882c58871bd\transformed\jetified-lifecycle-process-2.6.1\AndroidManifest.xml:31:17-49
+84            <meta-data
+84-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\HP\.gradle\caches\8.13\transforms\5d188109c6df61d648968b9e85c02ca5\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:29:13-31:52
+85                android:name="androidx.profileinstaller.ProfileInstallerInitializer"
+85-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\HP\.gradle\caches\8.13\transforms\5d188109c6df61d648968b9e85c02ca5\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:30:17-85
+86                android:value="androidx.startup" />
+86-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\HP\.gradle\caches\8.13\transforms\5d188109c6df61d648968b9e85c02ca5\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:31:17-49
+87        </provider>
+88
+89        <uses-library
+89-->[androidx.window:window:1.0.0] C:\Users\HP\.gradle\caches\8.13\transforms\f94baf5fa8bae9a3b6a8a1012ded8bbc\transformed\jetified-window-1.0.0\AndroidManifest.xml:25:9-27:40
+90            android:name="androidx.window.extensions"
+90-->[androidx.window:window:1.0.0] C:\Users\HP\.gradle\caches\8.13\transforms\f94baf5fa8bae9a3b6a8a1012ded8bbc\transformed\jetified-window-1.0.0\AndroidManifest.xml:26:13-54
+91            android:required="false" />
+91-->[androidx.window:window:1.0.0] C:\Users\HP\.gradle\caches\8.13\transforms\f94baf5fa8bae9a3b6a8a1012ded8bbc\transformed\jetified-window-1.0.0\AndroidManifest.xml:27:13-37
+92        <uses-library
+92-->[androidx.window:window:1.0.0] C:\Users\HP\.gradle\caches\8.13\transforms\f94baf5fa8bae9a3b6a8a1012ded8bbc\transformed\jetified-window-1.0.0\AndroidManifest.xml:28:9-30:40
+93            android:name="androidx.window.sidecar"
+93-->[androidx.window:window:1.0.0] C:\Users\HP\.gradle\caches\8.13\transforms\f94baf5fa8bae9a3b6a8a1012ded8bbc\transformed\jetified-window-1.0.0\AndroidManifest.xml:29:13-51
+94            android:required="false" />
+94-->[androidx.window:window:1.0.0] C:\Users\HP\.gradle\caches\8.13\transforms\f94baf5fa8bae9a3b6a8a1012ded8bbc\transformed\jetified-window-1.0.0\AndroidManifest.xml:30:13-37
+95
+96        <receiver
+96-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\HP\.gradle\caches\8.13\transforms\5d188109c6df61d648968b9e85c02ca5\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:34:9-52:20
+97            android:name="androidx.profileinstaller.ProfileInstallReceiver"
+97-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\HP\.gradle\caches\8.13\transforms\5d188109c6df61d648968b9e85c02ca5\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:35:13-76
+98            android:directBootAware="false"
+98-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\HP\.gradle\caches\8.13\transforms\5d188109c6df61d648968b9e85c02ca5\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:36:13-44
+99            android:enabled="true"
+99-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\HP\.gradle\caches\8.13\transforms\5d188109c6df61d648968b9e85c02ca5\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:37:13-35
+100            android:exported="true"
+100-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\HP\.gradle\caches\8.13\transforms\5d188109c6df61d648968b9e85c02ca5\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:38:13-36
+101            android:permission="android.permission.DUMP" >
+101-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\HP\.gradle\caches\8.13\transforms\5d188109c6df61d648968b9e85c02ca5\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:39:13-57
+102            <intent-filter>
+102-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\HP\.gradle\caches\8.13\transforms\5d188109c6df61d648968b9e85c02ca5\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:40:13-42:29
+103                <action android:name="androidx.profileinstaller.action.INSTALL_PROFILE" />
+103-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\HP\.gradle\caches\8.13\transforms\5d188109c6df61d648968b9e85c02ca5\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:41:17-91
+103-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\HP\.gradle\caches\8.13\transforms\5d188109c6df61d648968b9e85c02ca5\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:41:25-88
+104            </intent-filter>
+105            <intent-filter>
+105-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\HP\.gradle\caches\8.13\transforms\5d188109c6df61d648968b9e85c02ca5\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:43:13-45:29
+106                <action android:name="androidx.profileinstaller.action.SKIP_FILE" />
+106-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\HP\.gradle\caches\8.13\transforms\5d188109c6df61d648968b9e85c02ca5\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:44:17-85
+106-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\HP\.gradle\caches\8.13\transforms\5d188109c6df61d648968b9e85c02ca5\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:44:25-82
+107            </intent-filter>
+108            <intent-filter>
+108-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\HP\.gradle\caches\8.13\transforms\5d188109c6df61d648968b9e85c02ca5\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:46:13-48:29
+109                <action android:name="androidx.profileinstaller.action.SAVE_PROFILE" />
+109-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\HP\.gradle\caches\8.13\transforms\5d188109c6df61d648968b9e85c02ca5\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:47:17-88
+109-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\HP\.gradle\caches\8.13\transforms\5d188109c6df61d648968b9e85c02ca5\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:47:25-85
+110            </intent-filter>
+111            <intent-filter>
+111-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\HP\.gradle\caches\8.13\transforms\5d188109c6df61d648968b9e85c02ca5\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:49:13-51:29
+112                <action android:name="androidx.profileinstaller.action.BENCHMARK_OPERATION" />
+112-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\HP\.gradle\caches\8.13\transforms\5d188109c6df61d648968b9e85c02ca5\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:50:17-95
+112-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\HP\.gradle\caches\8.13\transforms\5d188109c6df61d648968b9e85c02ca5\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:50:25-92
+113            </intent-filter>
+114        </receiver>
+115    </application>
+116
+117</manifest>
+
+Merged manifest saved to C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\merged_manifest\release\AndroidManifest.xml
+Stored cache entry for task ':app:processReleaseMainManifest' with cache key 7e500fbd20ec5f22df7afd382226ddd4
+Resolve mutations for :app:processReleaseManifest (Thread[Execution worker Thread 3,5,main]) started.
+:app:processReleaseManifest (Thread[Execution worker Thread 3,5,main]) started.
+
+> Task :app:processReleaseManifest
+Build cache key for task ':app:processReleaseManifest' is c37818c4400229c80a26f12b85fbb727
+Task ':app:processReleaseManifest' is not up-to-date because:
+  No history is available.
+Stored cache entry for task ':app:processReleaseManifest' with cache key c37818c4400229c80a26f12b85fbb727
+Resolve mutations for :app:processReleaseManifestForPackage (Thread[Execution worker Thread 3,5,main]) started.
+:app:processReleaseManifestForPackage (Thread[Execution worker Thread 3,5,main]) started.
+Resolve mutations for :app:preReleaseUnitTestBuild (Thread[included builds,5,main]) started.
+:app:preReleaseUnitTestBuild (Thread[included builds,5,main]) started.
+
+> Task :app:preReleaseUnitTestBuild UP-TO-DATE
+Skipping task ':app:preReleaseUnitTestBuild' as it has no actions.
+Resolve mutations for :app:javaPreCompileReleaseUnitTest (Thread[included builds,5,main]) started.
+:app:javaPreCompileReleaseUnitTest (Thread[included builds,5,main]) started.
+
+> Task :app:javaPreCompileReleaseUnitTest FROM-CACHE
+Build cache key for task ':app:javaPreCompileReleaseUnitTest' is ddd20041471754ce946f79af653de661
+Task ':app:javaPreCompileReleaseUnitTest' is not up-to-date because:
+  No history is available.
+Loaded cache entry for task ':app:javaPreCompileReleaseUnitTest' with cache key ddd20041471754ce946f79af653de661
+Resolve mutations for :app:processReleaseJavaRes (Thread[included builds,5,main]) started.
+:app:processReleaseJavaRes (Thread[included builds,5,main]) started.
+
+> Task :app:processReleaseJavaRes NO-SOURCE
+file or directory 'C:\Users\HP\Desktop\My files\CameraInterceptor\app\src\main\resources', not found
+file or directory 'C:\Users\HP\Desktop\My files\CameraInterceptor\app\src\release\resources', not found
+Skipping task ':app:processReleaseJavaRes' as it has no source files and no previous output files.
+work action resolve out (project :app) (Thread[included builds,5,main]) started.
+Resolve mutations for :app:processReleaseUnitTestJavaRes (Thread[included builds,5,main]) started.
+:app:processReleaseUnitTestJavaRes (Thread[included builds,5,main]) started.
+
+> Task :app:processReleaseUnitTestJavaRes NO-SOURCE
+file or directory 'C:\Users\HP\Desktop\My files\CameraInterceptor\app\src\test\resources', not found
+file or directory 'C:\Users\HP\Desktop\My files\CameraInterceptor\app\src\testRelease\resources', not found
+Skipping task ':app:processReleaseUnitTestJavaRes' as it has no source files and no previous output files.
+
+> Task :app:mergeReleaseResources
+Compiling XML table C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\incremental\release\mergeReleaseResources\merged.dir\values-h360dp-land-v13\values-h360dp-land-v13.xml to C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\merged_res\release\values-h360dp-land-v13_values-h360dp-land-v13.arsc.flat
+Compiling XML table C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\incremental\release\mergeReleaseResources\merged.dir\values-h480dp-land-v13\values-h480dp-land-v13.xml to C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\merged_res\release\values-h480dp-land-v13_values-h480dp-land-v13.arsc.flat
+Compiling XML table C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\incremental\release\mergeReleaseResources\merged.dir\values-ru\values-ru.xml to C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\merged_res\release\values-ru_values-ru.arsc.flat
+Compiling XML table C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\incremental\release\mergeReleaseResources\merged.dir\values-bs\values-bs.xml to C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\merged_res\release\values-bs_values-bs.arsc.flat
+Compiling XML table C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\incremental\release\mergeReleaseResources\merged.dir\values-v34\values-v34.xml to C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\merged_res\release\values-v34_values-v34.arsc.flat
+Compiling XML table C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\incremental\release\mergeReleaseResources\merged.dir\values-ca\values-ca.xml to C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\merged_res\release\values-ca_values-ca.arsc.flat
+Compiling XML table C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\incremental\release\mergeReleaseResources\merged.dir\values-km\values-km.xml to C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\merged_res\release\values-km_values-km.arsc.flat
+Compiling XML table C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\incremental\release\mergeReleaseResources\merged.dir\values-sw\values-sw.xml to C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\merged_res\release\values-sw_values-sw.arsc.flat
+Compiling XML table C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\incremental\release\mergeReleaseResources\merged.dir\values-cs\values-cs.xml to C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\merged_res\release\values-cs_values-cs.arsc.flat
+Compiling XML table C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\incremental\release\mergeReleaseResources\merged.dir\values-tl\values-tl.xml to C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\merged_res\release\values-tl_values-tl.arsc.flat
+Compiling XML table C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\incremental\release\mergeReleaseResources\merged.dir\values-iw\values-iw.xml to C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\merged_res\release\values-iw_values-iw.arsc.flat
+Compiling XML table C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\incremental\release\mergeReleaseResources\merged.dir\values-en-rAU\values-en-rAU.xml to C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\merged_res\release\values-en-rAU_values-en-rAU.arsc.flat
+Compiling XML table C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\incremental\release\mergeReleaseResources\merged.dir\values-es-rUS\values-es-rUS.xml to C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\merged_res\release\values-es-rUS_values-es-rUS.arsc.flat
+Compiling XML table C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\incremental\release\mergeReleaseResources\merged.dir\values-lv\values-lv.xml to C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\merged_res\release\values-lv_values-lv.arsc.flat
+Compiling XML table C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\incremental\release\mergeReleaseResources\merged.dir\values-v25\values-v25.xml to C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\merged_res\release\values-v25_values-v25.arsc.flat
+Compiling XML table C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\incremental\release\mergeReleaseResources\merged.dir\values-uk\values-uk.xml to C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\merged_res\release\values-uk_values-uk.arsc.flat
+Compiling XML table C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\incremental\release\mergeReleaseResources\merged.dir\values-pt-rPT\values-pt-rPT.xml to C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\merged_res\release\values-pt-rPT_values-pt-rPT.arsc.flat
+Compiling XML table C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\incremental\release\mergeReleaseResources\merged.dir\values-ro\values-ro.xml to C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\merged_res\release\values-ro_values-ro.arsc.flat
+Compiling XML table C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\incremental\release\mergeReleaseResources\merged.dir\values-mn\values-mn.xml to C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\merged_res\release\values-mn_values-mn.arsc.flat
+Compiling XML table C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\incremental\release\mergeReleaseResources\merged.dir\values-be\values-be.xml to C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\merged_res\release\values-be_values-be.arsc.flat
+Compiling XML table C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\incremental\release\mergeReleaseResources\merged.dir\values-ms\values-ms.xml to C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\merged_res\release\values-ms_values-ms.arsc.flat
+Compiling XML table C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\incremental\release\mergeReleaseResources\merged.dir\values-en-rCA\values-en-rCA.xml to C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\merged_res\release\values-en-rCA_values-en-rCA.arsc.flat
+Compiling XML table C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\incremental\release\mergeReleaseResources\merged.dir\values-es\values-es.xml to C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\merged_res\release\values-es_values-es.arsc.flat
+Compiling XML table C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\incremental\release\mergeReleaseResources\merged.dir\values-si\values-si.xml to C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\merged_res\release\values-si_values-si.arsc.flat
+Compiling XML table C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\incremental\release\mergeReleaseResources\merged.dir\values-w400dp-port-v13\values-w400dp-port-v13.xml to C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\merged_res\release\values-w400dp-port-v13_values-w400dp-port-v13.arsc.flat
+Compiling XML table C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\incremental\release\mergeReleaseResources\merged.dir\values-night-v8\values-night-v8.xml to C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\merged_res\release\values-night-v8_values-night-v8.arsc.flat
+Compiling XML table C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\incremental\release\mergeReleaseResources\merged.dir\values-sq\values-sq.xml to C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\merged_res\release\values-sq_values-sq.arsc.flat
+Compiling XML table C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\incremental\release\mergeReleaseResources\merged.dir\values-zh-rCN\values-zh-rCN.xml to C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\merged_res\release\values-zh-rCN_values-zh-rCN.arsc.flat
+Compiling XML table C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\incremental\release\mergeReleaseResources\merged.dir\values-kn\values-kn.xml to C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\merged_res\release\values-kn_values-kn.arsc.flat
+Compiling XML table C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\incremental\release\mergeReleaseResources\merged.dir\values-large-v4\values-large-v4.xml to C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\merged_res\release\values-large-v4_values-large-v4.arsc.flat
+Compiling XML table C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\incremental\release\mergeReleaseResources\merged.dir\values-ta\values-ta.xml to C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\merged_res\release\values-ta_values-ta.arsc.flat
+Compiling XML table C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\incremental\release\mergeReleaseResources\merged.dir\values-small-v4\values-small-v4.xml to C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\merged_res\release\values-small-v4_values-small-v4.arsc.flat
+Compiling XML table C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\incremental\release\mergeReleaseResources\merged.dir\values-h720dp-v13\values-h720dp-v13.xml to C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\merged_res\release\values-h720dp-v13_values-h720dp-v13.arsc.flat
+Compiling XML table C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\incremental\release\mergeReleaseResources\merged.dir\values-gu\values-gu.xml to C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\merged_res\release\values-gu_values-gu.arsc.flat
+Compiling XML table C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\incremental\release\mergeReleaseResources\merged.dir\values-xlarge-v4\values-xlarge-v4.xml to C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\merged_res\release\values-xlarge-v4_values-xlarge-v4.arsc.flat
+Compiling XML table C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\incremental\release\mergeReleaseResources\merged.dir\values-de\values-de.xml to C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\merged_res\release\values-de_values-de.arsc.flat
+Compiling xml file C:\Users\HP\Desktop\My files\CameraInterceptor\app\src\main\res\menu\menu_log_viewer_bottom.xml to C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\merged_res\release\menu_menu_log_viewer_bottom.xml.flat
+Compiling xml file C:\Users\HP\Desktop\My files\CameraInterceptor\app\src\main\res\layout\activity_log_viewer.xml to C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\merged_res\release\layout_activity_log_viewer.xml.flat
+Compiling xml file C:\Users\HP\Desktop\My files\CameraInterceptor\app\src\main\res\drawable\ic_help.xml to C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\merged_res\release\drawable_ic_help.xml.flat
+Compiling xml file C:\Users\HP\Desktop\My files\CameraInterceptor\app\src\main\res\drawable\ic_logs.xml to C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\merged_res\release\drawable_ic_logs.xml.flat
+Compiling xml file C:\Users\HP\Desktop\My files\CameraInterceptor\app\src\main\res\layout\fragment_image_picker.xml to C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\merged_res\release\layout_fragment_image_picker.xml.flat
+Compiling xml file C:\Users\HP\Desktop\My files\CameraInterceptor\app\src\main\res\mipmap-anydpi-v26\ic_launcher.xml to C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\merged_res\release\mipmap-anydpi-v26_ic_launcher.xml.flat
+Compiling xml file C:\Users\HP\Desktop\My files\CameraInterceptor\app\src\main\res\drawable\ic_image.xml to C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\merged_res\release\drawable_ic_image.xml.flat
+Compiling XML table C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\incremental\release\mergeReleaseResources\merged.dir\values-en-rIN\values-en-rIN.xml to C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\merged_res\release\values-en-rIN_values-en-rIN.arsc.flat
+Compiling xml file C:\Users\HP\Desktop\My files\CameraInterceptor\app\src\main\res\drawable\ic_clear.xml to C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\merged_res\release\drawable_ic_clear.xml.flat
+Compiling XML table C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\incremental\release\mergeReleaseResources\merged.dir\values-ur\values-ur.xml to C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\merged_res\release\values-ur_values-ur.arsc.flat
+Compiling xml file C:\Users\HP\Desktop\My files\CameraInterceptor\app\src\main\res\drawable\bg_bottom_sheet_handle.xml to C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\merged_res\release\drawable_bg_bottom_sheet_handle.xml.flat
+Compiling xml file C:\Users\HP\Desktop\My files\CameraInterceptor\app\src\main\res\menu\menu_log_viewer.xml to C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\merged_res\release\menu_menu_log_viewer.xml.flat
+Compiling XML table C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\incremental\release\mergeReleaseResources\merged.dir\values-uz\values-uz.xml to C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\merged_res\release\values-uz_values-uz.arsc.flat
+Compiling XML table C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\incremental\release\mergeReleaseResources\merged.dir\values-el\values-el.xml to C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\merged_res\release\values-el_values-el.arsc.flat
+Compiling XML table C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\incremental\release\mergeReleaseResources\merged.dir\values-et\values-et.xml to C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\merged_res\release\values-et_values-et.arsc.flat
+Compiling XML table C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\incremental\release\mergeReleaseResources\merged.dir\values-nb\values-nb.xml to C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\merged_res\release\values-nb_values-nb.arsc.flat
+Compiling XML table C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\incremental\release\mergeReleaseResources\merged.dir\values-watch-v21\values-watch-v21.xml to C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\merged_res\release\values-watch-v21_values-watch-v21.arsc.flat
+Compiling XML table C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\incremental\release\mergeReleaseResources\merged.dir\values-ne\values-ne.xml to C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\merged_res\release\values-ne_values-ne.arsc.flat
+Compiling XML table C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\incremental\release\mergeReleaseResources\merged.dir\values-hy\values-hy.xml to C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\merged_res\release\values-hy_values-hy.arsc.flat
+Compiling XML table C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\incremental\release\mergeReleaseResources\merged.dir\values-fi\values-fi.xml to C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\merged_res\release\values-fi_values-fi.arsc.flat
+Compiling XML table C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\incremental\release\mergeReleaseResources\merged.dir\values-v17\values-v17.xml to C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\merged_res\release\values-v17_values-v17.arsc.flat
+Compiling XML table C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\incremental\release\mergeReleaseResources\merged.dir\values-af\values-af.xml to C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\merged_res\release\values-af_values-af.arsc.flat
+Compiling XML table C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\incremental\release\mergeReleaseResources\merged.dir\values-watch-v20\values-watch-v20.xml to C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\merged_res\release\values-watch-v20_values-watch-v20.arsc.flat
+Compiling XML table C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\incremental\release\mergeReleaseResources\merged.dir\values-it\values-it.xml to C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\merged_res\release\values-it_values-it.arsc.flat
+Compiling XML table C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\incremental\release\mergeReleaseResources\merged.dir\values-h320dp-port-v13\values-h320dp-port-v13.xml to C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\merged_res\release\values-h320dp-port-v13_values-h320dp-port-v13.arsc.flat
+Compiling XML table C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\incremental\release\mergeReleaseResources\merged.dir\values-ldltr-v21\values-ldltr-v21.xml to C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\merged_res\release\values-ldltr-v21_values-ldltr-v21.arsc.flat
+Compiling XML table C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\incremental\release\mergeReleaseResources\merged.dir\values-ar\values-ar.xml to C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\merged_res\release\values-ar_values-ar.arsc.flat
+Compiling XML table C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\incremental\release\mergeReleaseResources\merged.dir\values-w320dp-land-v13\values-w320dp-land-v13.xml to C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\merged_res\release\values-w320dp-land-v13_values-w320dp-land-v13.arsc.flat
+Compiling XML table C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\incremental\release\mergeReleaseResources\merged.dir\values-am\values-am.xml to C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\merged_res\release\values-am_values-am.arsc.flat
+Compiling XML table C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\incremental\release\mergeReleaseResources\merged.dir\values-v23\values-v23.xml to C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\merged_res\release\values-v23_values-v23.arsc.flat
+Compiling XML table C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\incremental\release\mergeReleaseResources\merged.dir\values-as\values-as.xml to C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\merged_res\release\values-as_values-as.arsc.flat
+Compiling XML table C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\incremental\release\mergeReleaseResources\merged.dir\values-az\values-az.xml to C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\merged_res\release\values-az_values-az.arsc.flat
+Compiling XML table C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\incremental\release\mergeReleaseResources\merged.dir\values-ja\values-ja.xml to C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\merged_res\release\values-ja_values-ja.arsc.flat
+Compiling XML table C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\incremental\release\mergeReleaseResources\merged.dir\values-zu\values-zu.xml to C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\merged_res\release\values-zu_values-zu.arsc.flat
+Compiling XML table C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\incremental\release\mergeReleaseResources\merged.dir\values-v24\values-v24.xml to C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\merged_res\release\values-v24_values-v24.arsc.flat
+Compiling XML table C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\incremental\release\mergeReleaseResources\merged.dir\values-v28\values-v28.xml to C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\merged_res\release\values-v28_values-v28.arsc.flat
+Compiling XML table C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\incremental\release\mergeReleaseResources\merged.dir\values-v26\values-v26.xml to C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\merged_res\release\values-v26_values-v26.arsc.flat
+Compiling XML table C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\incremental\release\mergeReleaseResources\merged.dir\values-bg\values-bg.xml to C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\merged_res\release\values-bg_values-bg.arsc.flat
+Compiling XML table C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\incremental\release\mergeReleaseResources\merged.dir\values-sw600dp-v13\values-sw600dp-v13.xml to C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\merged_res\release\values-sw600dp-v13_values-sw600dp-v13.arsc.flat
+Compiling XML table C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\incremental\release\mergeReleaseResources\merged.dir\values-bn\values-bn.xml to C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\merged_res\release\values-bn_values-bn.arsc.flat
+Compiling XML table C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\incremental\release\mergeReleaseResources\merged.dir\values-ka\values-ka.xml to C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\merged_res\release\values-ka_values-ka.arsc.flat
+Compiling XML table C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\incremental\release\mergeReleaseResources\merged.dir\values-sl\values-sl.xml to C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\merged_res\release\values-sl_values-sl.arsc.flat
+Compiling XML table C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\incremental\release\mergeReleaseResources\merged.dir\values-hdpi-v4\values-hdpi-v4.xml to C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\merged_res\release\values-hdpi-v4_values-hdpi-v4.arsc.flat
+Compiling XML table C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\incremental\release\mergeReleaseResources\merged.dir\values-v31\values-v31.xml to C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\merged_res\release\values-v31_values-v31.arsc.flat
+Compiling XML table C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\incremental\release\mergeReleaseResources\merged.dir\values-or\values-or.xml to C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\merged_res\release\values-or_values-or.arsc.flat
+Compiling XML table C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\incremental\release\mergeReleaseResources\merged.dir\values-pa\values-pa.xml to C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\merged_res\release\values-pa_values-pa.arsc.flat
+Compiling XML table C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\incremental\release\mergeReleaseResources\merged.dir\values-sk\values-sk.xml to C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\merged_res\release\values-sk_values-sk.arsc.flat
+Compiling xml file C:\Users\HP\Desktop\My files\CameraInterceptor\app\src\main\res\drawable\ic_debug.xml to C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\merged_res\release\drawable_ic_debug.xml.flat
+Compiling xml file C:\Users\HP\Desktop\My files\CameraInterceptor\app\src\main\res\layout\preference_category.xml to C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\merged_res\release\layout_preference_category.xml.flat
+Compiling XML table C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\incremental\release\mergeReleaseResources\merged.dir\values-sr\values-sr.xml to C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\merged_res\release\values-sr_values-sr.arsc.flat
+Compiling xml file C:\Users\HP\Desktop\My files\CameraInterceptor\app\src\main\res\drawable\ic_apps.xml to C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\merged_res\release\drawable_ic_apps.xml.flat
+Compiling xml file C:\Users\HP\Desktop\My files\CameraInterceptor\app\src\main\res\layout\preference_item.xml to C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\merged_res\release\layout_preference_item.xml.flat
+Compiling XML table C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\incremental\release\mergeReleaseResources\merged.dir\values-sv\values-sv.xml to C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\merged_res\release\values-sv_values-sv.arsc.flat
+Compiling xml file C:\Users\HP\Desktop\My files\CameraInterceptor\app\src\main\res\drawable\ic_share.xml to C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\merged_res\release\drawable_ic_share.xml.flat
+Compiling xml file C:\Users\HP\Desktop\My files\CameraInterceptor\app\src\main\res\drawable\ic_search.xml to C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\merged_res\release\drawable_ic_search.xml.flat
+Compiling XML table C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\incremental\release\mergeReleaseResources\merged.dir\values-kk\values-kk.xml to C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\merged_res\release\values-kk_values-kk.arsc.flat
+Compiling XML table C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\incremental\release\mergeReleaseResources\merged.dir\values-ky\values-ky.xml to C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\merged_res\release\values-ky_values-ky.arsc.flat
+Compiling xml file C:\Users\HP\Desktop\My files\CameraInterceptor\app\src\main\res\layout\activity_settings.xml to C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\merged_res\release\layout_activity_settings.xml.flat
+Compiling xml file C:\Users\HP\Desktop\My files\CameraInterceptor\app\src\main\res\drawable\ic_back.xml to C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\merged_res\release\drawable_ic_back.xml.flat
+Compiling XML table C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\incremental\release\mergeReleaseResources\merged.dir\values-ko\values-ko.xml to C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\merged_res\release\values-ko_values-ko.arsc.flat
+Compiling xml file C:\Users\HP\Desktop\My files\CameraInterceptor\app\src\main\res\drawable\ic_camera_placeholder.xml to C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\merged_res\release\drawable_ic_camera_placeholder.xml.flat
+Compiling XML table C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\incremental\release\mergeReleaseResources\merged.dir\values-pt-rBR\values-pt-rBR.xml to C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\merged_res\release\values-pt-rBR_values-pt-rBR.arsc.flat
+Compiling xml file C:\Users\HP\Desktop\My files\CameraInterceptor\app\src\main\res\layout\item_log_entry.xml to C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\merged_res\release\layout_item_log_entry.xml.flat
+Compiling XML table C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\incremental\release\mergeReleaseResources\merged.dir\values-th\values-th.xml to C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\merged_res\release\values-th_values-th.arsc.flat
+Compiling XML table C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\incremental\release\mergeReleaseResources\merged.dir\values-tr\values-tr.xml to C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\merged_res\release\values-tr_values-tr.arsc.flat
+Compiling XML table C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\incremental\release\mergeReleaseResources\merged.dir\values-lt\values-lt.xml to C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\merged_res\release\values-lt_values-lt.arsc.flat
+Compiling XML table C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\incremental\release\mergeReleaseResources\merged.dir\values-te\values-te.xml to C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\merged_res\release\values-te_values-te.arsc.flat
+Compiling XML table C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\incremental\release\mergeReleaseResources\merged.dir\values-da\values-da.xml to C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\merged_res\release\values-da_values-da.arsc.flat
+Compiling XML table C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\incremental\release\mergeReleaseResources\merged.dir\values-lo\values-lo.xml to C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\merged_res\release\values-lo_values-lo.arsc.flat
+Compiling XML table C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\incremental\release\mergeReleaseResources\merged.dir\values-h550dp-port-v13\values-h550dp-port-v13.xml to C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\merged_res\release\values-h550dp-port-v13_values-h550dp-port-v13.arsc.flat
+Compiling XML table C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\incremental\release\mergeReleaseResources\merged.dir\values-mk\values-mk.xml to C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\merged_res\release\values-mk_values-mk.arsc.flat
+Compiling XML table C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\incremental\release\mergeReleaseResources\merged.dir\values-mr\values-mr.xml to C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\merged_res\release\values-mr_values-mr.arsc.flat
+Compiling XML table C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\incremental\release\mergeReleaseResources\merged.dir\values-ldrtl-v17\values-ldrtl-v17.xml to C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\merged_res\release\values-ldrtl-v17_values-ldrtl-v17.arsc.flat
+Compiling XML table C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\incremental\release\mergeReleaseResources\merged.dir\values-ml\values-ml.xml to C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\merged_res\release\values-ml_values-ml.arsc.flat
+Compiling XML table C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\incremental\release\mergeReleaseResources\merged.dir\values-fr-rCA\values-fr-rCA.xml to C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\merged_res\release\values-fr-rCA_values-fr-rCA.arsc.flat
+Compiling XML table C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\incremental\release\mergeReleaseResources\merged.dir\values-my\values-my.xml to C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\merged_res\release\values-my_values-my.arsc.flat
+Compiling XML table C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\incremental\release\mergeReleaseResources\merged.dir\values-vi\values-vi.xml to C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\merged_res\release\values-vi_values-vi.arsc.flat
+Compiling XML table C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\incremental\release\mergeReleaseResources\merged.dir\values-w600dp-land-v13\values-w600dp-land-v13.xml to C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\merged_res\release\values-w600dp-land-v13_values-w600dp-land-v13.arsc.flat
+Compiling XML table C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\incremental\release\mergeReleaseResources\merged.dir\values-nl\values-nl.xml to C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\merged_res\release\values-nl_values-nl.arsc.flat
+Compiling XML table C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\incremental\release\mergeReleaseResources\merged.dir\values-fr\values-fr.xml to C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\merged_res\release\values-fr_values-fr.arsc.flat
+Compiling XML table C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\incremental\release\mergeReleaseResources\merged.dir\values-land\values-land.xml to C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\merged_res\release\values-land_values-land.arsc.flat
+Compiling XML table C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\incremental\release\mergeReleaseResources\merged.dir\values-b+es+419\values-b+es+419.xml to C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\merged_res\release\values-b+es+419_values-b+es+419.arsc.flat
+Compiling XML table C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\incremental\release\mergeReleaseResources\merged.dir\values-pl\values-pl.xml to C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\merged_res\release\values-pl_values-pl.arsc.flat
+Compiling xml file C:\Users\HP\Desktop\My files\CameraInterceptor\app\src\main\res\drawable\ic_launcher_foreground.xml to C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\merged_res\release\drawable_ic_launcher_foreground.xml.flat
+Compiling xml file C:\Users\HP\Desktop\My files\CameraInterceptor\app\src\main\res\layout\list_item_app_mode.xml to C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\merged_res\release\layout_list_item_app_mode.xml.flat
+Compiling xml file C:\Users\HP\Desktop\My files\CameraInterceptor\app\src\main\res\layout\activity_app_selection.xml to C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\merged_res\release\layout_activity_app_selection.xml.flat
+Compiling xml file C:\Users\HP\Desktop\My files\CameraInterceptor\app\src\main\res\drawable\ic_notifications.xml to C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\merged_res\release\drawable_ic_notifications.xml.flat
+Compiling XML table C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\incremental\release\mergeReleaseResources\merged.dir\values-zh-rTW\values-zh-rTW.xml to C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\merged_res\release\values-zh-rTW_values-zh-rTW.arsc.flat
+Compiling XML table C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\incremental\release\mergeReleaseResources\merged.dir\values-eu\values-eu.xml to C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\merged_res\release\values-eu_values-eu.arsc.flat
+Compiling XML table C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\incremental\release\mergeReleaseResources\merged.dir\values-port\values-port.xml to C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\merged_res\release\values-port_values-port.arsc.flat
+Compiling XML table C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\incremental\release\mergeReleaseResources\merged.dir\values-fa\values-fa.xml to C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\merged_res\release\values-fa_values-fa.arsc.flat
+Compiling XML table C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\incremental\release\mergeReleaseResources\merged.dir\values-en-rXC\values-en-rXC.xml to C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\merged_res\release\values-en-rXC_values-en-rXC.arsc.flat
+Compiling XML table C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\incremental\release\mergeReleaseResources\merged.dir\values-en-rGB\values-en-rGB.xml to C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\merged_res\release\values-en-rGB_values-en-rGB.arsc.flat
+Compiling XML table C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\incremental\release\mergeReleaseResources\merged.dir\values-gl\values-gl.xml to C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\merged_res\release\values-gl_values-gl.arsc.flat
+Compiling XML table C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\incremental\release\mergeReleaseResources\merged.dir\values-sw360dp-v13\values-sw360dp-v13.xml to C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\merged_res\release\values-sw360dp-v13_values-sw360dp-v13.arsc.flat
+Compiling xml file C:\Users\HP\Desktop\My files\CameraInterceptor\app\src\main\res\drawable\ic_info.xml to C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\merged_res\release\drawable_ic_info.xml.flat
+Compiling xml file C:\Users\HP\Desktop\My files\CameraInterceptor\app\src\main\res\drawable\ic_power.xml to C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\merged_res\release\drawable_ic_power.xml.flat
+Compiling xml file C:\Users\HP\Desktop\My files\CameraInterceptor\app\src\main\res\drawable\ic_scroll_bottom.xml to C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\merged_res\release\drawable_ic_scroll_bottom.xml.flat
+Compiling xml file C:\Users\HP\Desktop\My files\CameraInterceptor\app\src\main\res\drawable\ic_save.xml to C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\merged_res\release\drawable_ic_save.xml.flat
+Compiling xml file C:\Users\HP\Desktop\My files\CameraInterceptor\app\src\main\res\drawable\ic_copy.xml to C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\merged_res\release\drawable_ic_copy.xml.flat
+Compiling xml file C:\Users\HP\Desktop\My files\CameraInterceptor\app\src\main\res\layout\activity_app_selection_new.xml to C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\merged_res\release\layout_activity_app_selection_new.xml.flat
+Compiling xml file C:\Users\HP\Desktop\My files\CameraInterceptor\app\src\main\res\layout\activity_picker.xml to C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\merged_res\release\layout_activity_picker.xml.flat
+Compiling xml file C:\Users\HP\Desktop\My files\CameraInterceptor\app\src\main\res\drawable\ic_picker.xml to C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\merged_res\release\drawable_ic_picker.xml.flat
+Compiling xml file C:\Users\HP\Desktop\My files\CameraInterceptor\app\src\main\res\drawable\ic_export.xml to C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\merged_res\release\drawable_ic_export.xml.flat
+Compiling xml file C:\Users\HP\Desktop\My files\CameraInterceptor\app\src\main\res\mipmap-anydpi-v26\ic_launcher_round.xml to C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\merged_res\release\mipmap-anydpi-v26_ic_launcher_round.xml.flat
+Compiling xml file C:\Users\HP\Desktop\My files\CameraInterceptor\app\src\main\res\drawable\bg_badge.xml to C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\merged_res\release\drawable_bg_badge.xml.flat
+Compiling xml file C:\Users\HP\Desktop\My files\CameraInterceptor\app\src\main\res\xml\preferences.xml to C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\merged_res\release\xml_preferences.xml.flat
+Compiling xml file C:\Users\HP\Desktop\My files\CameraInterceptor\app\src\main\res\layout\item_app.xml to C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\merged_res\release\layout_item_app.xml.flat
+Compiling xml file C:\Users\HP\Desktop\My files\CameraInterceptor\app\src\main\res\menu\menu_app_selection.xml to C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\merged_res\release\menu_menu_app_selection.xml.flat
+
+> Task :app:processReleaseManifestForPackage
+Custom actions are attached to task ':app:processReleaseManifestForPackage'.
+Build cache key for task ':app:processReleaseManifestForPackage' is 46999e1709daa9c7bfc344da65eb5544
+Task ':app:processReleaseManifestForPackage' is not up-to-date because:
+  No history is available.
+Stored cache entry for task ':app:processReleaseManifestForPackage' with cache key 46999e1709daa9c7bfc344da65eb5544
+
+> Task :app:mergeReleaseResources
+Stored cache entry for task ':app:mergeReleaseResources' with cache key 9513b0d7ce02bbf78f77fb86d6836c26
+Resolve mutations for :app:processReleaseResources (Thread[Execution worker Thread 3,5,main]) started.
+:app:processReleaseResources (Thread[Execution worker Thread 3,5,main]) started.
+
+> Task :app:processReleaseResources
+Build cache key for task ':app:processReleaseResources' is cf42bd0d123826f23b8b3c86811ff3c8
+Task ':app:processReleaseResources' is not up-to-date because:
+  No history is available.
+The input changes require a full rebuild for incremental task ':app:processReleaseResources'.
+AAPT2 aapt2-8.1.4-10154469-windows Daemon #0: starting
+Aapt output file C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\intermediates\processed_res\release\out\resources-release.ap_
+Stored cache entry for task ':app:processReleaseResources' with cache key cf42bd0d123826f23b8b3c86811ff3c8
+Resolve mutations for :app:compileReleaseJavaWithJavac (Thread[Execution worker Thread 3,5,main]) started.
+:app:compileReleaseJavaWithJavac (Thread[Execution worker Thread 3,5,main]) started.
+
+> Task :app:compileReleaseJavaWithJavac
+Custom actions are attached to task ':app:compileReleaseJavaWithJavac'.
+Build cache key for task ':app:compileReleaseJavaWithJavac' is 10c3a43c7c6ea2d1da862b484b54d6f1
+Task ':app:compileReleaseJavaWithJavac' is not up-to-date because:
+  No history is available.
+The input changes require a full rebuild for incremental task ':app:compileReleaseJavaWithJavac'.
+Compilation mode: in-process compilation
+Full recompilation is required because no incremental change information is available. This is usually caused by clean builds or changing compiler arguments.
+Compiling with toolchain 'C:\jdk-17.0.11+9'.
+file or directory 'C:\Users\HP\Desktop\My files\CameraInterceptor\app\src\release\java', not found
+Compiling with JDK Java compiler API.
+Note: Some input files use or override a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+Class dependency analysis for incremental compilation took 0.051 secs.
+Created classpath snapshot for incremental compilation in 0.053 secs.
+Stored cache entry for task ':app:compileReleaseJavaWithJavac' with cache key 10c3a43c7c6ea2d1da862b484b54d6f1
+Resolve mutations for :app:bundleReleaseClassesToRuntimeJar (Thread[Execution worker Thread 3,5,main]) started.
+:app:bundleReleaseClassesToRuntimeJar (Thread[Execution worker Thread 3,5,main]) started.
+Resolve mutations for :app:bundleReleaseClassesToCompileJar (Thread[included builds,5,main]) started.
+:app:bundleReleaseClassesToCompileJar (Thread[included builds,5,main]) started.
+
+> Task :app:bundleReleaseClassesToCompileJar
+Caching disabled for task ':app:bundleReleaseClassesToCompileJar' because:
+  Caching has been disabled for the task
+Task ':app:bundleReleaseClassesToCompileJar' is not up-to-date because:
+  No history is available.
+work action resolve classes.jar (project :app) (Thread[included builds,5,main]) started.
+Resolve mutations for :app:compileReleaseUnitTestJavaWithJavac (Thread[included builds,5,main]) started.
+:app:compileReleaseUnitTestJavaWithJavac (Thread[included builds,5,main]) started.
+
+> Task :app:bundleReleaseClassesToRuntimeJar
+Caching disabled for task ':app:bundleReleaseClassesToRuntimeJar' because:
+  Caching has been disabled for the task
+Task ':app:bundleReleaseClassesToRuntimeJar' is not up-to-date because:
+  No history is available.
+work action resolve classes.jar (project :app) (Thread[Execution worker Thread 3,5,main]) started.
+
+> Task :app:compileReleaseUnitTestJavaWithJavac
+Custom actions are attached to task ':app:compileReleaseUnitTestJavaWithJavac'.
+Build cache key for task ':app:compileReleaseUnitTestJavaWithJavac' is 693e1b188e539fe58eb9e46ba67fffe9
+Task ':app:compileReleaseUnitTestJavaWithJavac' is not up-to-date because:
+  No history is available.
+The input changes require a full rebuild for incremental task ':app:compileReleaseUnitTestJavaWithJavac'.
+Compilation mode: in-process compilation
+Full recompilation is required because no incremental change information is available. This is usually caused by clean builds or changing compiler arguments.
+Compiling with toolchain 'C:\jdk-17.0.11+9'.
+file or directory 'C:\Users\HP\Desktop\My files\CameraInterceptor\app\src\testRelease\java', not found
+Compiling with JDK Java compiler API.
+Class dependency analysis for incremental compilation took 0.002 secs.
+Created classpath snapshot for incremental compilation in 0.031 secs.
+Stored cache entry for task ':app:compileReleaseUnitTestJavaWithJavac' with cache key 693e1b188e539fe58eb9e46ba67fffe9
+Resolve mutations for :app:testReleaseUnitTest (Thread[included builds,5,main]) started.
+:app:testReleaseUnitTest (Thread[included builds,5,main]) started.
+Gradle Test Executor 6 started executing tests.
+
+> Task :app:testReleaseUnitTest
+Build cache key for task ':app:testReleaseUnitTest' is cc2a7c7be487d001f32d37cce159469b
+Task ':app:testReleaseUnitTest' is not up-to-date because:
+  No history is available.
+Starting process 'Gradle Test Executor 6'. Working directory: C:\Users\HP\Desktop\My files\CameraInterceptor\app Command: C:\jdk-17.0.11+9\bin\java.exe -Djava.awt.headless=true -Dorg.gradle.internal.worker.tmpdir=C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\tmp\testReleaseUnitTest\work @C:\Users\HP\.gradle\.tmp\gradle-worker-classpath9995141727337858688txt -Xmx512m -Dfile.encoding=UTF-8 -Duser.country=US -Duser.language=en -Duser.variant -ea worker.org.gradle.process.internal.worker.GradleWorkerMain 'Gradle Test Executor 6'
+Successfully started process 'Gradle Test Executor 6'
+
+Gradle Test Executor 6 finished executing tests.
+
+> Task :app:testReleaseUnitTest
+Finished generating test XML results (0.003 secs) into: C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\test-results\testReleaseUnitTest
+Generating HTML test report...
+Finished generating test html results (0.023 secs) into: C:\Users\HP\Desktop\My files\CameraInterceptor\app\build\reports\tests\testReleaseUnitTest
+Stored cache entry for task ':app:testReleaseUnitTest' with cache key cc2a7c7be487d001f32d37cce159469b
+Resolve mutations for :app:test (Thread[included builds,5,main]) started.
+:app:test (Thread[included builds,5,main]) started.
+
+> Task :app:test
+Skipping task ':app:test' as it has no actions.
+AAPT2 aapt2-8.1.4-10154469-windows Daemon #0: shutdown
+
+[Incubating] Problems report is available at: file:///C:/Users/HP/Desktop/My%20files/CameraInterceptor/build/reports/problems/problems-report.html
+
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 9.0.
+
+You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+
+For more on this, please refer to https://docs.gradle.org/8.13/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
+
+BUILD SUCCESSFUL in 22s
+38 actionable tasks: 14 executed, 4 from cache, 20 up-to-date
+Watched directory hierarchies: [C:\Users\HP\Desktop\My files\CameraInterceptor]

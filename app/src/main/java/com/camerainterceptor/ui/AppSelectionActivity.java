@@ -51,8 +51,9 @@ public class AppSelectionActivity extends AppCompatActivity {
     private AppListAdapter adapter;
     private List<AppListAdapter.AppInfo> allApps = new ArrayList<>();
     private List<AppListAdapter.AppInfo> filteredApps = new ArrayList<>();
-    private Set<String> allowedApps = new HashSet<>();
-    private Set<String> profilingApps = new HashSet<>();
+    private Set<String> allowedApps = new HashSet<>(); // SAFE mode
+    private Set<String> deepApps = new HashSet<>(); // DEEP mode
+    private Set<String> profilingApps = new HashSet<>(); // PROFILE mode
 
     // Filter state
     private String currentSearchQuery = "";
@@ -62,7 +63,8 @@ public class AppSelectionActivity extends AppCompatActivity {
     private final ExecutorService executor = Executors.newSingleThreadExecutor();
 
     public static final String SHARED_PREFS_NAME = "CameraInterceptorPrefs";
-    public static final String PREF_ALLOWED_APPS = "allowed_apps";
+    public static final String PREF_ALLOWED_APPS = "allowed_apps"; // SAFE mode
+    public static final String PREF_DEEP_APPS = "deep_apps"; // DEEP mode
     public static final String PREF_PROFILING_APPS = "profiling_apps";
 
     private enum FilterType {
@@ -104,9 +106,9 @@ public class AppSelectionActivity extends AppCompatActivity {
     private void setupToolbar() {
         MaterialToolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        
+
         toolbar.setNavigationOnClickListener(v -> onBackPressed());
-        
+
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         }
@@ -142,8 +144,9 @@ public class AppSelectionActivity extends AppCompatActivity {
 
     private void setupFilterChips() {
         chipGroupFilter.setOnCheckedStateChangeListener((group, checkedIds) -> {
-            if (checkedIds.isEmpty()) return;
-            
+            if (checkedIds.isEmpty())
+                return;
+
             int checkedId = checkedIds.get(0);
             if (checkedId == R.id.chip_all) {
                 currentFilter = FilterType.ALL;
@@ -165,10 +168,10 @@ public class AppSelectionActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_app_selection, menu);
-        
+
         MenuItem searchItem = menu.findItem(R.id.action_search);
         SearchView searchView = (SearchView) searchItem.getActionView();
-        
+
         if (searchView != null) {
             searchView.setQueryHint(getString(R.string.search_apps_hint));
             searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -185,19 +188,20 @@ public class AppSelectionActivity extends AppCompatActivity {
                 }
             });
         }
-        
+
         return true;
     }
 
     private void loadPreferences() {
         SharedPreferences prefs = getSharedPreferences(SHARED_PREFS_NAME, Context.MODE_PRIVATE);
         allowedApps = new HashSet<>(prefs.getStringSet(PREF_ALLOWED_APPS, new HashSet<>()));
+        deepApps = new HashSet<>(prefs.getStringSet(PREF_DEEP_APPS, new HashSet<>()));
         profilingApps = new HashSet<>(prefs.getStringSet(PREF_PROFILING_APPS, new HashSet<>()));
     }
 
     private void loadApps() {
         showLoading(true);
-        
+
         executor.execute(() -> {
             try {
                 PackageManager pm = getPackageManager();
@@ -210,11 +214,13 @@ public class AppSelectionActivity extends AppCompatActivity {
                     info.packageName = packageInfo.packageName;
                     info.icon = packageInfo.loadIcon(pm);
                     info.isSystemApp = (packageInfo.flags & ApplicationInfo.FLAG_SYSTEM) != 0;
-                    
+
                     if (profilingApps.contains(info.packageName)) {
                         info.mode = AppListAdapter.Mode.PROFILE;
+                    } else if (deepApps.contains(info.packageName)) {
+                        info.mode = AppListAdapter.Mode.DEEP;
                     } else if (allowedApps.contains(info.packageName)) {
-                        info.mode = AppListAdapter.Mode.INJECT;
+                        info.mode = AppListAdapter.Mode.SAFE;
                     } else {
                         info.mode = AppListAdapter.Mode.OFF;
                     }
@@ -259,13 +265,15 @@ public class AppSelectionActivity extends AppCompatActivity {
                     break;
             }
 
-            if (!passesFilter) continue;
+            if (!passesFilter)
+                continue;
 
             // Apply search query
             if (!currentSearchQuery.isEmpty()) {
                 boolean matchesSearch = app.name.toLowerCase().contains(currentSearchQuery)
                         || app.packageName.toLowerCase().contains(currentSearchQuery);
-                if (!matchesSearch) continue;
+                if (!matchesSearch)
+                    continue;
             }
 
             filteredApps.add(app);
@@ -290,13 +298,17 @@ public class AppSelectionActivity extends AppCompatActivity {
     }
 
     private void savePreferences() {
-        Set<String> injectApps = new HashSet<>();
+        Set<String> safeApps = new HashSet<>();
+        Set<String> deepApps = new HashSet<>();
         Set<String> profileApps = new HashSet<>();
-        
+
         for (AppListAdapter.AppInfo info : allApps) {
             switch (info.mode) {
-                case INJECT:
-                    injectApps.add(info.packageName);
+                case SAFE:
+                    safeApps.add(info.packageName);
+                    break;
+                case DEEP:
+                    deepApps.add(info.packageName);
                     break;
                 case PROFILE:
                     profileApps.add(info.packageName);
@@ -308,7 +320,8 @@ public class AppSelectionActivity extends AppCompatActivity {
 
         SharedPreferences prefs = getSharedPreferences(SHARED_PREFS_NAME, Context.MODE_PRIVATE);
         prefs.edit()
-                .putStringSet(PREF_ALLOWED_APPS, injectApps)
+                .putStringSet(PREF_ALLOWED_APPS, safeApps)
+                .putStringSet(PREF_DEEP_APPS, deepApps)
                 .putStringSet(PREF_PROFILING_APPS, profileApps)
                 .apply();
 

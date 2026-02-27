@@ -32,8 +32,9 @@ public class HookDispatcher {
     private static final String PACKAGE_NAME = "com.camerainterceptor";
     private static final String PREFS_NAME = "CameraInterceptorPrefs";
     private static final String PREF_IMAGE_PATH = "injected_image_path";
-    private static final String PREF_ALLOWED_APPS = "allowed_apps";
-    private static final String PREF_INJECTION_MODE = "injection_mode"; // 0: SAFE, 1: DEEP
+    private static final String PREF_ALLOWED_APPS = "allowed_apps"; // SAFE mode
+    private static final String PREF_DEEP_APPS = "deep_apps"; // DEEP mode
+    private static final String PREF_INJECTION_MODE = "injection_mode"; // Legacy global setting
 
     // World-readable external path - must match ImagePickerActivity
     private static final String EXTERNAL_IMAGE_PATH = "/sdcard/.camerainterceptor/injected_image.jpg";
@@ -82,19 +83,27 @@ public class HookDispatcher {
             return;
         prefs.reload();
 
-        // ListPreference stores values as Strings
-        String modeStr = prefs.getString(PREF_INJECTION_MODE, "0");
-        int modeInt = 0;
-        try {
-            modeInt = Integer.parseInt(modeStr);
-        } catch (NumberFormatException ignored) {
+        boolean isDeep = false;
+        Set<String> deepApps = prefs.getStringSet(PREF_DEEP_APPS, null);
+        if (deepApps != null && deepApps.contains(lpparam.packageName)) {
+            isDeep = true;
+        } else {
+            // Fallback to legacy global setting if not explicitly set in deep_apps
+            // but ONLY if the app is in allowed_apps
+            Set<String> allowedApps = prefs.getStringSet(PREF_ALLOWED_APPS, null);
+            if (allowedApps != null && allowedApps.contains(lpparam.packageName)) {
+                String modeStr = prefs.getString(PREF_INJECTION_MODE, "0");
+                if ("1".equals(modeStr)) {
+                    isDeep = true;
+                }
+            }
         }
 
         com.camerainterceptor.state.HookState.setInjectionMode(
-                modeInt == 1 ? com.camerainterceptor.state.HookState.InjectionMode.DEEP_SURFACE
+                isDeep ? com.camerainterceptor.state.HookState.InjectionMode.DEEP_SURFACE
                         : com.camerainterceptor.state.HookState.InjectionMode.SAFE);
-        Logger.i(TAG, "Loaded Injection Mode: " + com.camerainterceptor.state.HookState.getInjectionMode() + " (from "
-                + modeStr + ")");
+        Logger.i(TAG, "Resolved Injection Mode for " + lpparam.packageName + ": " +
+                com.camerainterceptor.state.HookState.getInjectionMode());
     }
 
     public boolean isDeepSurfaceModeEnabled() {
@@ -216,11 +225,16 @@ public class HookDispatcher {
             return true;
 
         Set<String> allowed = prefs.getStringSet(PREF_ALLOWED_APPS, null);
-        if (allowed == null || allowed.isEmpty()) {
-            // Empty list means no filter applied; allow all
+        Set<String> deep = prefs.getStringSet(PREF_DEEP_APPS, null);
+
+        boolean isAllowed = (allowed != null && allowed.contains(packageName)) ||
+                (deep != null && deep.contains(packageName));
+
+        if (allowed == null && deep == null) {
+            // Empty lists / not configured means no filter applied; allow all
             return true;
         }
-        return allowed.contains(packageName);
+        return isAllowed;
     }
 
     /**

@@ -44,7 +44,7 @@ public class AppListAdapter extends ListAdapter<AppListAdapter.AppInfo, AppListA
 
         @Override
         public boolean areContentsTheSame(@NonNull AppInfo oldItem, @NonNull AppInfo newItem) {
-            return oldItem.name.equals(newItem.name) 
+            return oldItem.name.equals(newItem.name)
                     && oldItem.mode == newItem.mode
                     && oldItem.isSystemApp == newItem.isSystemApp;
         }
@@ -87,13 +87,13 @@ public class AppListAdapter extends ListAdapter<AppListAdapter.AppInfo, AppListA
             iconView.setImageDrawable(appInfo.icon);
             nameView.setText(appInfo.name);
             packageView.setText(appInfo.packageName);
-            
+
             // Show system badge if system app
             systemBadge.setVisibility(appInfo.isSystemApp ? View.VISIBLE : View.GONE);
-            
+
             // Update mode chip
             updateModeChip(appInfo.mode);
-            
+
             // Mode chip click - cycle through modes
             modeChip.setOnClickListener(v -> {
                 Mode newMode = appInfo.mode.next();
@@ -103,7 +103,7 @@ public class AppListAdapter extends ListAdapter<AppListAdapter.AppInfo, AppListA
                     listener.onModeChanged(appInfo, newMode);
                 }
             });
-            
+
             // Item click also cycles mode
             itemView.setOnClickListener(v -> {
                 modeChip.performClick();
@@ -112,15 +112,19 @@ public class AppListAdapter extends ListAdapter<AppListAdapter.AppInfo, AppListA
 
         private void updateModeChip(Mode mode) {
             modeChip.setText(mode.label);
-            
+
             // Update chip appearance based on mode
             int chipColorRes;
             int textColorRes;
-            
+
             switch (mode) {
-                case INJECT:
+                case SAFE:
                     chipColorRes = com.google.android.material.R.attr.colorPrimaryContainer;
                     textColorRes = com.google.android.material.R.attr.colorOnPrimaryContainer;
+                    break;
+                case DEEP:
+                    chipColorRes = com.google.android.material.R.attr.colorErrorContainer;
+                    textColorRes = com.google.android.material.R.attr.colorOnErrorContainer;
                     break;
                 case PROFILE:
                     chipColorRes = com.google.android.material.R.attr.colorTertiaryContainer;
@@ -131,15 +135,15 @@ public class AppListAdapter extends ListAdapter<AppListAdapter.AppInfo, AppListA
                     textColorRes = com.google.android.material.R.attr.colorOnSurfaceVariant;
                     break;
             }
-            
+
             // Apply colors using theme attributes
             int chipColor = getThemeColor(chipColorRes);
             int textColor = getThemeColor(textColorRes);
-            
+
             modeChip.setChipBackgroundColor(android.content.res.ColorStateList.valueOf(chipColor));
             modeChip.setTextColor(textColor);
         }
-        
+
         private int getThemeColor(int attrRes) {
             android.util.TypedValue typedValue = new android.util.TypedValue();
             itemView.getContext().getTheme().resolveAttribute(attrRes, typedValue, true);
@@ -157,7 +161,8 @@ public class AppListAdapter extends ListAdapter<AppListAdapter.AppInfo, AppListA
         public Mode mode = Mode.OFF;
         public boolean isSystemApp = false;
 
-        public AppInfo() {}
+        public AppInfo() {
+        }
 
         public AppInfo(String name, String packageName, Drawable icon, boolean isSystemApp) {
             this.name = name;
@@ -168,8 +173,10 @@ public class AppListAdapter extends ListAdapter<AppListAdapter.AppInfo, AppListA
 
         @Override
         public boolean equals(Object o) {
-            if (this == o) return true;
-            if (o == null || getClass() != o.getClass()) return false;
+            if (this == o)
+                return true;
+            if (o == null || getClass() != o.getClass())
+                return false;
             AppInfo appInfo = (AppInfo) o;
             return isSystemApp == appInfo.isSystemApp &&
                     mode == appInfo.mode &&
@@ -197,7 +204,8 @@ public class AppListAdapter extends ListAdapter<AppListAdapter.AppInfo, AppListA
      */
     public enum Mode {
         OFF("Off"),
-        INJECT("Inject"),
+        SAFE("Safe"),
+        DEEP("Deep"),
         PROFILE("Profile");
 
         public final String label;
@@ -209,8 +217,10 @@ public class AppListAdapter extends ListAdapter<AppListAdapter.AppInfo, AppListA
         public Mode next() {
             switch (this) {
                 case OFF:
-                    return INJECT;
-                case INJECT:
+                    return SAFE;
+                case SAFE:
+                    return DEEP;
+                case DEEP:
                     return PROFILE;
                 default:
                     return OFF;
