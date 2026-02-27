@@ -43,6 +43,7 @@ desktop.ini
 *.log
 build_log*.txt
 final_build_log*.txt
+test_output*.txt
 error.log
 /captures/
 .temp/
